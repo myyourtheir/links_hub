@@ -1,15 +1,17 @@
-import { Link } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
-import { Text, View } from 'react-native'
+import { View, Text, StatusBar } from 'react-native'
+import React from 'react'
+import { Link, Redirect } from 'expo-router'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-const BasePage = () => {
+const Main = () => {
 	return (
-		<View className='h-full w-full justify-center items-center'>
-			<Link href="home" >
-				go to	home page
+		<SafeAreaView className='items-center justify-center h-full md:max-w-[400px] md:flex md:flex-row md:justify-center'>
+			<Link href={'/HomeScreen'}>
+				Home
 			</Link>
-		</View >
+			<StatusBar />
+		</SafeAreaView>
 	)
 }
 
-export default BasePage
+export default Main

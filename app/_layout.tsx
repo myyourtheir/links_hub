@@ -1,17 +1,9 @@
-import { Link, Stack } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
-import { View, Text, Pressable } from 'react-native'
+import { View, Text } from 'react-native'
+import React from 'react'
+import { Slot } from 'expo-router'
 
-const App = () => {
-	return (
-		<>
-			<Stack>
-				<Stack.Screen name='index' options={{ headerShown: false }} />
-				<Stack.Screen name='home/index' options={{ headerShown: false }} />
-			</Stack>
-			<StatusBar style='auto' />
-		</>
-	)
+const GlobalLayout = () => {
+	return <Slot />
 }
 
-export default App
+export default GlobalLayout
