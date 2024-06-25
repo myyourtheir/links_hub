@@ -13,14 +13,14 @@ export const extractOrientationDependingProps = ({ orientationMode }: { orientat
 			columnWrapperStyle: {
 				justifyContent: 'space-between',
 			},
-			renderItem: FlatListGridItem
+			// renderItem: FlatListGridItem
 
 		}
 	} else {
 		return {
 			key: 'rowFlatList',
 			numColumns: 1,
-			renderItem: FlatListRowItem
+			// renderItem: FlatListRowItem
 		}
 	}
 }
