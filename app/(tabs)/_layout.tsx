@@ -31,7 +31,7 @@ const TabsLayout = () => {
 				screenOptions={{
 					tabBarShowLabel: false,
 					tabBarStyle: {
-						height: '8%'
+						height: '7%'
 					}
 				}}>
 				<Tabs.Screen
@@ -45,7 +45,7 @@ const TabsLayout = () => {
 					}}
 				/>
 				<Tabs.Screen
-					name='AddingScreen/index'
+					name='AddingScreen'
 					options={{
 						title: "Adding",
 						headerShown: false,
@@ -55,7 +55,7 @@ const TabsLayout = () => {
 					}}
 				/>
 				<Tabs.Screen
-					name='SettingsScreen/index'
+					name='SettingsScreen'
 					options={{
 						title: "Settings",
 						headerShown: false,

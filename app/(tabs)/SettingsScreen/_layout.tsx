@@ -3,7 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Slot } from 'expo-router'
 
-const HomeLayout = () => {
+const SettingsLayout = () => {
 	return (
 		<SafeAreaView className='bg-primary'>
 			<Slot />
@@ -11,4 +11,4 @@ const HomeLayout = () => {
 	)
 }
 
-export default HomeLayout
+export default SettingsLayout

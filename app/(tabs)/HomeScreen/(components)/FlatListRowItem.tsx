@@ -1,7 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { FlatListItemProps } from './types'
-import images from '@/constants/images'
 import FlatListImage from './FlatListImage'
 
 const FlatListRowItem = ({ item }: FlatListItemProps) => {

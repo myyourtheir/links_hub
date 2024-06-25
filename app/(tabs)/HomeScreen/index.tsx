@@ -65,28 +65,35 @@ const HomeScreen = () => {
 	const [orientationMode, setOrientationMode] = useState<'grid' | 'row'>('grid')
 
 	return (
-		<FlatList
-			contentContainerStyle={{}}
-			data={links}
-			keyExtractor={(item) => item.id.toString()}
-			showsVerticalScrollIndicator={false}
-			renderItem={({ item }) => (
-				orientationMode === 'grid' ?
-					<FlatListGridItem item={item} />
-					: <FlatListRowItem item={item} />
-			)}
-			ListHeaderComponent={() => (
-				<TopLayoutComponent orientationMode={orientationMode} setOrientationMode={setOrientationMode} />
-			)}
-			ListEmptyComponent={() => (
-				<View>
-					<Text>
-						No data
-					</Text>
-				</View>
-			)}
-			{...extractOrientationDependingProps({ orientationMode })}
-		/>
+		<View>
+			<TopLayoutComponent
+				orientationMode={orientationMode}
+				setOrientationMode={setOrientationMode}
+			/>
+			<FlatList
+				stickyHeaderIndices={[0]}
+				stickyHeaderHiddenOnScroll={true}
+				contentContainerStyle={{
+					paddingHorizontal: 8
+				}}
+				data={links}
+				keyExtractor={(item) => item.id.toString()}
+				showsVerticalScrollIndicator={false}
+				renderItem={({ item }) => (
+					orientationMode === 'grid' ?
+						<FlatListGridItem item={item} />
+						: <FlatListRowItem item={item} />
+				)}
+				ListEmptyComponent={() => (
+					<View>
+						<Text>
+							No data
+						</Text>
+					</View>
+				)}
+				{...extractOrientationDependingProps({ orientationMode })}
+			/>
+		</View>
 	)
 }
 

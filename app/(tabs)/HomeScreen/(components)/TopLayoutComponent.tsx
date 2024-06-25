@@ -1,17 +1,20 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Grid2X2, Rows2, Search } from 'lucide-react-native'
 import CustomButton from '@/components/CustomButton'
+import TopContent from '@/components/TopContent'
 
 type TopLayoutComponentProps = {
 	orientationMode: "grid" | "row",
-	setOrientationMode: React.Dispatch<React.SetStateAction<"grid" | "row">>
+	setOrientationMode: React.Dispatch<React.SetStateAction<"grid" | "row">>,
+	className?: string
 }
 
-const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ orientationMode, setOrientationMode }) => {
+const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ orientationMode, setOrientationMode, className }) => {
 	return (
-		<View className='h-[10vh] flex flex-row items-center justify-between '>
+		<TopContent >
+
 			<CustomButton handlePress={() => { return }}>
 				<Text className='text-blue-500'>Current path</Text>
 			</CustomButton>
@@ -33,8 +36,7 @@ const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ orientationMode, setO
 				</View>
 
 			</View>
-
-		</View>
+		</TopContent>
 	)
 }
 

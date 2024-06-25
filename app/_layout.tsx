@@ -1,9 +1,17 @@
-import { View, Text } from 'react-native'
+import { View, Text, StatusBar } from 'react-native'
 import React from 'react'
 import { Slot } from 'expo-router'
 
 const GlobalLayout = () => {
-	return <Slot />
+	return (
+		<>
+			<StatusBar
+				barStyle={'dark-content'}
+				translucent={true}
+			/>
+			<Slot />
+		</>
+	)
 }
 
 export default GlobalLayout
