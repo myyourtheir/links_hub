@@ -1,46 +1,72 @@
-import { View, Text, FlatList, RefreshControl } from 'react-native'
+import { View, Text, FlatList, RefreshControl, FlatListProps } from 'react-native'
 import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+
 import TopLayoutComponent from './(components)/TopLayoutComponent'
 
-const links = [
+import { extractOrientationDependingProps } from './utils/extractOrientationDependingProps'
+import FlatListGridItem from './(components)/FlatListGridItem'
+import { FlatListItemProps } from './(components)/types'
+
+const links: Array<FlatListItemProps['item']> = [
 	{
 		id: 1,
+		title: 'Папка 1'
 	},
 	{
 		id: 2,
+		title: 'Папка 2'
 	},
 	{
 		id: 3,
+		title: 'Папка 3'
+	},
+	{
+		id: 4,
+		title: 'Папка 4'
+	},
+	{
+		id: 5,
+		title: 'Папка 5'
+	},
+	{
+		id: 6,
+		title: 'Папка 6'
+	},
+	{
+		id: 7,
+		title: 'Папка 5'
+	},
+	{
+		id: 8,
+		title: 'Папка 6'
 	}
 ]
 
 
 const HomeScreen = () => {
 	const [orientationMode, setOrientationMode] = useState<'grid' | 'row'>('grid')
-	const [refreshing, setRefreshing] = useState(false)
+
 	return (
-		<View className="bg-primary">
-			<FlatList
-				data={links}
-				keyExtractor={(item) => item.id}
-				renderItem={({ item }) => (
+		<FlatList
+			contentContainerStyle={{}}
+			data={links}
+			keyExtractor={(item) => item.id.toString()}
+			showsVerticalScrollIndicator={false}
+			renderItem={({ item }) => (
+				<FlatListGridItem item={item} />
+			)}
+			ListHeaderComponent={() => (
+				<TopLayoutComponent orientationMode={orientationMode} setOrientationMode={setOrientationMode} />
+			)}
+			ListEmptyComponent={() => (
+				<View>
 					<Text>
-						{item.id}
+						No data
 					</Text>
-				)}
-				ListHeaderComponent={() => (
-					<TopLayoutComponent orientationMode={orientationMode} setOrientationMode={setOrientationMode} />
-				)}
-				ListEmptyComponent={() => (
-					<View>
-						<Text>
-							No data
-						</Text>
-					</View>
-				)}
-			/>
-		</View>
+				</View>
+			)}
+			{...extractOrientationDependingProps({ orientationMode })}
+		/>
 	)
 }
 
