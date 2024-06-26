@@ -1,8 +1,9 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Button, Pressable } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dropdown } from 'react-native-element-dropdown'
+// import { Dropdown } from 'react-native-element-dropdown'
 import TopContent from '@/components/TopContent'
+
 
 const itemTypes = [
 	{
@@ -17,10 +18,10 @@ const itemTypes = [
 
 const AddingScreen = () => {
 	return (
-		<View >
+		<View className='h-[93vh]'>
 			<TopContent>
 				<TextInput
-					className=' text-xl font-medium px-2 py-1 '
+					className=' text-xl font-medium px-2 py-1 text-slate-600'
 					placeholder='Название'
 				/>
 			</TopContent>
@@ -28,7 +29,7 @@ const AddingScreen = () => {
 				<Dropdown
 					style={{
 						borderWidth: 1,
-						borderRadius: 6
+						borderRadius: 6,
 					}}
 					data={itemTypes}
 					labelField={'label'}
@@ -43,6 +44,7 @@ const AddingScreen = () => {
 						paddingVertical: 4
 					}}
 				/>
+
 			</View>
 		</View>
 	)

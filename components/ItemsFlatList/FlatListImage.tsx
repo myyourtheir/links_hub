@@ -1,6 +1,6 @@
 import { View, Text, Image, ImageStyle, StyleProp } from 'react-native'
 import React, { FC } from 'react'
-import { FlatListItemProps } from './types'
+import { FlatListItemProps } from '../../app/(tabs)/HomeScreen/(components)/types'
 import images from '@/constants/images'
 
 type FlatListImageProps = {

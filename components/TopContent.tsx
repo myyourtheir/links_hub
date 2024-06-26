@@ -9,7 +9,7 @@ type TopContentProps = {
 const TopContent: FC<TopContentProps> = ({ children, className }) => {
 	return (
 		<View
-			className={`h-[7vh] px-4  flex flex-row items-center justify-between bg-primary border-b-[0.5px] shadow-md ${className}`}
+			className={`h-[7vh] px-4  flex flex-row items-center justify-between bg-top border-b-[0.5px] ${className}`}
 		>
 			{children}
 		</View>

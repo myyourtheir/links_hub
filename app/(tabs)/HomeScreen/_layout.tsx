@@ -5,8 +5,10 @@ import { Slot } from 'expo-router'
 
 const HomeLayout = () => {
 	return (
-		<SafeAreaView className='bg-primary'>
-			<Slot />
+		<SafeAreaView className='bg-top'>
+			<View className='bg-primary'>
+				<Slot />
+			</View>
 		</SafeAreaView>
 	)
 }

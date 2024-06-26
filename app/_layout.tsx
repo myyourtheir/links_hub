@@ -7,7 +7,6 @@ const GlobalLayout = () => {
 		<>
 			<StatusBar
 				barStyle={'dark-content'}
-				translucent={true}
 			/>
 			<Slot />
 		</>

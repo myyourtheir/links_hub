@@ -4,10 +4,11 @@ import React, { useState } from 'react'
 import TopLayoutComponent from './(components)/TopLayoutComponent'
 
 import { extractOrientationDependingProps } from './utils/extractOrientationDependingProps'
-import FlatListGridItem from './(components)/FlatListGridItem'
+import FlatListGridItem from '../../../components/ItemsFlatList/FlatListGridItem'
 import { FlatListItemProps } from './(components)/types'
 import images from '@/constants/images'
-import FlatListRowItem from './(components)/FlatListRowItem'
+import FlatListRowItem from '../../../components/ItemsFlatList/FlatListRowItem'
+import ItemsFlatList from '@/components/ItemsFlatList/ItemsFlatList'
 
 const links: Array<FlatListItemProps['item']> = [
 	{
@@ -65,34 +66,12 @@ const HomeScreen = () => {
 	const [orientationMode, setOrientationMode] = useState<'grid' | 'row'>('grid')
 
 	return (
-		<View>
+		<View className='h-[93vh]'>
 			<TopLayoutComponent
 				orientationMode={orientationMode}
 				setOrientationMode={setOrientationMode}
 			/>
-			<FlatList
-				stickyHeaderIndices={[0]}
-				stickyHeaderHiddenOnScroll={true}
-				contentContainerStyle={{
-					paddingHorizontal: 8
-				}}
-				data={links}
-				keyExtractor={(item) => item.id.toString()}
-				showsVerticalScrollIndicator={false}
-				renderItem={({ item }) => (
-					orientationMode === 'grid' ?
-						<FlatListGridItem item={item} />
-						: <FlatListRowItem item={item} />
-				)}
-				ListEmptyComponent={() => (
-					<View>
-						<Text>
-							No data
-						</Text>
-					</View>
-				)}
-				{...extractOrientationDependingProps({ orientationMode })}
-			/>
+			<ItemsFlatList data={links} orientationMode={orientationMode} />
 		</View>
 	)
 }
