@@ -9,6 +9,9 @@ import { FlatListItemProps } from './(components)/types'
 import images from '@/constants/images'
 import FlatListRowItem from '../../../components/ItemsFlatList/FlatListRowItem'
 import ItemsFlatList from '@/components/ItemsFlatList/ItemsFlatList'
+import { ItemRealmContext } from '@/lib/Realm'
+import { Item } from '@/lib/Realm/Item'
+
 
 const links: Array<FlatListItemProps['item']> = [
 	{
@@ -61,10 +64,12 @@ const links: Array<FlatListItemProps['item']> = [
 	}
 ]
 
+const { useRealm } = ItemRealmContext
+const { useQuery } = ItemRealmContext
 
 const HomeScreen = () => {
+	// const links = useQuery(Item)
 	const [orientationMode, setOrientationMode] = useState<'grid' | 'row'>('grid')
-
 	return (
 		<View className='h-[93vh]'>
 			<TopLayoutComponent
