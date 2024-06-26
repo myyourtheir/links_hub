@@ -3,6 +3,9 @@ import React from 'react'
 import { Dropdown } from 'react-native-element-dropdown'
 // import { Dropdown } from 'react-native-element-dropdown'
 import TopContent from '@/components/TopContent'
+import StyledTextInput from '@/components/StyledTextInput'
+import BottomRoundButton from '@/components/ItemsFlatList/BottomRoundButton'
+import { Plus } from 'lucide-react-native'
 
 
 const itemTypes = [
@@ -25,27 +28,49 @@ const AddingScreen = () => {
 					placeholder='Название'
 				/>
 			</TopContent>
-			<View className='w-full mt-4 px-4'>
-				<Dropdown
-					style={{
-						borderWidth: 1,
-						borderRadius: 6,
-					}}
-					data={itemTypes}
-					labelField={'label'}
-					valueField={'value'}
-					onChange={(e) => { return }}
-					value={'folder'}
-					containerStyle={{
-						borderRadius: 6,
-					}}
-					selectedTextStyle={{
-						paddingHorizontal: 8,
-						paddingVertical: 4
-					}}
-				/>
-
+			<View className='gap-y-3'>
+				<View className='w-full pt-4 px-4  gap-3 justify-center'>
+					<Text className=' text-base'>
+						Тип:
+					</Text>
+					<Dropdown
+						style={{
+							borderWidth: 1,
+							borderRadius: 6,
+							width: '50%'
+						}}
+						data={itemTypes}
+						labelField={'label'}
+						valueField={'value'}
+						onChange={(e) => { return }}
+						value={'folder'}
+						containerStyle={{
+							borderRadius: 6,
+						}}
+						selectedTextStyle={{
+							paddingHorizontal: 8,
+							paddingVertical: 4,
+							fontSize: 16,
+							lineHeight: 24
+						}}
+					/>
+				</View>
+				<View className='w-full pt-4 px-4 gap-3 justify-center'>
+					<Text className='text-base'>
+						Ссылка:
+					</Text>
+					<StyledTextInput />
+				</View>
+				<View className='w-full pt-4 px-4 gap-3 justify-center'>
+					<Text className='text-base'>
+						Путь:
+					</Text>
+					<StyledTextInput />
+				</View>
 			</View>
+			<BottomRoundButton>
+				<Plus color={'white'} size={30} />
+			</BottomRoundButton>
 		</View>
 	)
 }
