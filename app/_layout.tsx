@@ -1,12 +1,12 @@
 import { View, Text, StatusBar } from 'react-native'
 import React from 'react'
 import { Slot } from 'expo-router'
-import { ItemRealmContext } from '@/lib/Realm'
+import { RealmContext } from '@/lib/Realm'
 
 const GlobalLayout = () => {
-	const { RealmProvider } = ItemRealmContext
+	const { RealmProvider } = RealmContext
 	return (
-		<RealmProvider>
+		<RealmProvider >
 			<StatusBar
 				barStyle={'dark-content'}
 			/>

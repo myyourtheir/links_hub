@@ -20,7 +20,7 @@
 				"foregroundImage": "./assets/images/link.png",
 				"backgroundColor": "#ffffff"
 			},
-			"package": "com.anonymous.links_hub"
+			"package": "com.myyourtheir.links_hub"
 		},
 		"web": {
 			"bundler": "metro",

@@ -1,16 +1,12 @@
-import { View, Text, FlatList, RefreshControl, FlatListProps } from 'react-native'
+import { View } from 'react-native'
 import React, { useState } from 'react'
 
 import TopLayoutComponent from './(components)/TopLayoutComponent'
-
-import { extractOrientationDependingProps } from './utils/extractOrientationDependingProps'
-import FlatListGridItem from '../../../components/ItemsFlatList/FlatListGridItem'
 import { FlatListItemProps } from './(components)/types'
 import images from '@/constants/images'
-import FlatListRowItem from '../../../components/ItemsFlatList/FlatListRowItem'
 import ItemsFlatList from '@/components/ItemsFlatList/ItemsFlatList'
-import { ItemRealmContext } from '@/lib/Realm'
-import { Item } from '@/lib/Realm/Item'
+// import { ItemRealmContext } from '@/lib/Realm'
+// import { Item } from '@/lib/Realm/Item'
 
 
 const links: Array<FlatListItemProps['item']> = [
@@ -64,8 +60,8 @@ const links: Array<FlatListItemProps['item']> = [
 	}
 ]
 
-const { useRealm } = ItemRealmContext
-const { useQuery } = ItemRealmContext
+// const { useRealm } = ItemRealmContext
+// const { useQuery } = ItemRealmContext
 
 const HomeScreen = () => {
 	// const links = useQuery(Item)
