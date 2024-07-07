@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Grid2X2, Rows2, Search } from 'lucide-react-native'
 import CustomButton from '@/components/CustomButton'
 import TopContent from '@/components/TopContent'
+import useGetCurrentPath from '@/utils/useGetCurrentPath'
 
 type TopLayoutComponentProps = {
 	orientationMode: "grid" | "row",
@@ -12,12 +13,14 @@ type TopLayoutComponentProps = {
 }
 
 const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ orientationMode, setOrientationMode, className }) => {
+	const [currentPath] = useGetCurrentPath()
 	return (
 		<TopContent >
-
-			<CustomButton handlePress={() => { return }}>
-				<Text className='text-blue-500'>Current path</Text>
-			</CustomButton>
+			<View className='flex-row items-end h-1/2'>
+				<CustomButton handlePress={() => { return }}>
+					<Text className='text-blue-500'>{currentPath}</Text>
+				</CustomButton>
+			</View>
 			<View className=' flex-row w-fit gap-x-8 items-end justify-center'>
 
 				<CustomButton handlePress={() => { return }}>

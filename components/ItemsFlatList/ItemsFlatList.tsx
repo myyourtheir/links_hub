@@ -1,8 +1,10 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React, { FC } from 'react'
 import FlatListGridItem from '@/components/ItemsFlatList/FlatListGridItem'
 import FlatListRowItem from '@/components/ItemsFlatList/FlatListRowItem'
-import { extractOrientationDependingProps } from '@/app/(tabs)/HomeScreen/utils/extractOrientationDependingProps'
+import { extractOrientationDependingProps } from '@/utils/extractOrientationDependingProps'
+import { router } from 'expo-router'
+
 
 type ItemsFlatListProps = {
 	data: ArrayLike<any> | null | undefined
@@ -25,16 +27,33 @@ const ItemsFlatList: FC<ItemsFlatListProps> = ({ data, orientationMode }) => {
 					:
 					<FlatListGridItem item={item} />
 			)}
-			ListEmptyComponent={() => (
-				<View>
-					<Text>
-						No data
-					</Text>
-				</View>
-			)}
+			ListEmptyComponent={EmptyComponent}
 			{...extractOrientationDependingProps({ orientationMode })}
 		/>
 	)
 }
 
 export default ItemsFlatList
+
+
+
+function EmptyComponent() {
+	return (
+		<View
+			className='w-full items-center pt-3 gap-8 justify-center '
+		>
+			<Text className='text-md'>
+				Здесь пока ничего нет
+			</Text>
+			<TouchableOpacity
+				onPress={() => router.push('/AddingScreen')}
+				className='border rounded-md px-3 py-2'
+			>
+				<Text className='text-lg'>
+					Добавьте элемент
+				</Text>
+			</TouchableOpacity>
+		</View>
+	)
+}
+

@@ -5,11 +5,13 @@ import TopLayoutComponent from './(components)/TopLayoutComponent'
 import { FlatListItemProps } from './(components)/types'
 import images from '@/constants/images'
 import ItemsFlatList from '@/components/ItemsFlatList/ItemsFlatList'
-// import { ItemRealmContext } from '@/lib/Realm'
-// import { Item } from '@/lib/Realm/Item'
+import { RealmContext } from '@/lib/Realm'
+import { Item } from '@/lib/Realm/models/Item'
+import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
 
 
-const links: Array<FlatListItemProps['item']> = [
+
+const items: Array<FlatListItemProps['item']> = [
 	{
 		id: 1,
 		title: 'Папка 1',
@@ -60,11 +62,15 @@ const links: Array<FlatListItemProps['item']> = [
 	}
 ]
 
-// const { useRealm } = ItemRealmContext
-// const { useQuery } = ItemRealmContext
+const { useQuery } = RealmContext
 
 const HomeScreen = () => {
-	// const links = useQuery(Item)
+	const { currentFolder } = useGlobalContext()
+	const items = useQuery(Item, items => {
+		return items
+			.filtered(`parent=${currentFolder}`)
+			.sorted('updatedTime', false)
+	}, [])
 	const [orientationMode, setOrientationMode] = useState<'grid' | 'row'>('grid')
 	return (
 		<View className='h-[93vh]'>
@@ -72,7 +78,7 @@ const HomeScreen = () => {
 				orientationMode={orientationMode}
 				setOrientationMode={setOrientationMode}
 			/>
-			<ItemsFlatList data={links} orientationMode={orientationMode} />
+			<ItemsFlatList data={items} orientationMode={orientationMode} />
 		</View>
 	)
 }

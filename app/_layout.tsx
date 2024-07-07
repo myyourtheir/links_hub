@@ -1,16 +1,23 @@
 import { View, Text, StatusBar } from 'react-native'
-import React from 'react'
+import React, { createContext } from 'react'
 import { Slot } from 'expo-router'
 import { RealmContext } from '@/lib/Realm'
+import GlobalContextProvider from '@/lib/store/GlobalContextProvider'
+
+
+
+
 
 const GlobalLayout = () => {
 	const { RealmProvider } = RealmContext
 	return (
 		<RealmProvider >
-			<StatusBar
-				barStyle={'dark-content'}
-			/>
-			<Slot />
+			<GlobalContextProvider>
+				<StatusBar
+					barStyle={'dark-content'}
+				/>
+				<Slot />
+			</GlobalContextProvider>
 		</RealmProvider>
 	)
 }

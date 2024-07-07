@@ -1,8 +1,8 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, TextInputProps } from 'react-native'
 import React from 'react'
 type StyledTextInputProps = {
 	className?: string
-} & Partial<TextInput>
+} & Partial<TextInputProps>
 
 const StyledTextInput = ({ className, ...props }: StyledTextInputProps) => {
 	return (

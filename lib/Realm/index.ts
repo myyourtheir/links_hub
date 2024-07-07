@@ -1,5 +1,5 @@
 import { createRealmContext } from '@realm/react'
-import { Item } from './Item'
+import { Item } from './models/Item'
 
 const config: Realm.Configuration = {
 	schema: [Item],
@@ -7,6 +7,4 @@ const config: Realm.Configuration = {
 	deleteRealmIfMigrationNeeded: true
 }
 
-export const RealmContext = createRealmContext({
-	schema: [Item]
-})
+export const RealmContext = createRealmContext(config)

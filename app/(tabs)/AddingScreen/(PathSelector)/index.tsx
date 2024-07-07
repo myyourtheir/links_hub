@@ -1,16 +1,17 @@
 import { View, Text, Touchable, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const PathSelector = () => {
 	return (
-		<View>
+		<SafeAreaView>
 			<Text>PathSelector</Text>
 			<TouchableOpacity
 				onPress={() => router.push('/HomeScreen')}>
 
 			</TouchableOpacity>
-		</View>
+		</SafeAreaView>
 	)
 }
 
