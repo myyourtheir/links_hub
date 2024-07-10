@@ -51,35 +51,60 @@ const items: Array<Partial<Item>> = [
 	},
 	{
 		_id: new BSON.ObjectID,
-		title: 'Папка 5',
+		title: 'Папка 7',
 		image: images.folder,
 		type: 'folder'
 	},
 	{
 		_id: new BSON.ObjectID,
-		title: 'Папка 6',
+		title: 'Папка 8',
 		image: images.folder,
 		type: 'folder'
-	}
+	},
+	{
+		_id: new BSON.ObjectID,
+		title: 'Папка 9',
+		image: images.folder,
+		type: 'folder'
+	},
+	{
+		_id: new BSON.ObjectID,
+		title: 'Папка 10',
+		image: images.folder,
+		type: 'folder'
+	},
+	{
+		_id: new BSON.ObjectID,
+		title: 'Папка 11',
+		image: images.folder,
+		type: 'folder'
+	},
+
 ]
 
 const { useQuery } = RealmContext
 
 const HomeScreen = () => {
 	const { currentFolder } = useGlobalContext()
-	const items = useQuery(Item, items => {
-		return items
-			.filtered(`parent=${currentFolder}`)
-			.sorted('updatedTime', false)
-	}, [])
+	// const items = useQuery(Item, items => {
+	// 	return items
+	// 		.filtered(`parent=${currentFolder}`)
+	// 		.sorted('updatedTime', false)
+	// }, [])
 	const [orientationMode, setOrientationMode] = useState<'grid' | 'row'>('grid')
+	if (items.length % 2 !== 0) {
+		items.push({
+			_id: new BSON.ObjectID,
+			type: 'empty'
+		})
+	}
 	return (
-		<View className='h-[93vh]'>
+		<View className='h-full'>
 			<TopLayoutComponent
 				orientationMode={orientationMode}
 				setOrientationMode={setOrientationMode}
 			/>
-			<ItemsFlatList data={items} orientationMode={orientationMode} />
+			<ItemsFlatList data={items as Item[]} orientationMode={orientationMode} />
 		</View>
 	)
 }

@@ -30,9 +30,6 @@ const TabsLayout = () => {
 			<Tabs
 				screenOptions={{
 					tabBarShowLabel: false,
-					tabBarStyle: {
-						height: '7%'
-					}
 				}}>
 				<Tabs.Screen
 					name='HomeScreen'

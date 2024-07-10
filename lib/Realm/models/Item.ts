@@ -8,7 +8,7 @@ export class Item extends Realm.Object<Item> {
 	image?: string
 	price?: number
 	currency?: string
-	type!: 'link' | 'folder'
+	type!: 'link' | 'folder' | 'empty'
 	parent?: Item['_id']
 	children?: Item['_id']
 	createdTime!: Date
