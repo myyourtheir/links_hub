@@ -1,14 +1,15 @@
 import { View, Text, Image, ImageStyle, StyleProp } from 'react-native'
 import React, { FC } from 'react'
-import { FlatListItemProps } from '../../app/(tabs)/HomeScreen/(components)/types'
 import images from '@/constants/images'
+import { Item } from '@/lib/Realm/models/Item'
 
 type FlatListImageProps = {
-	item: FlatListItemProps['item'],
-	style: StyleProp<ImageStyle>
+	item: Item,
+	style?: StyleProp<ImageStyle>,
+	className?: string
 }
 
-const FlatListImage: FC<FlatListImageProps> = ({ item, style }) => {
+const FlatListImage: FC<FlatListImageProps> = ({ item, style, className }) => {
 
 	const getSource = () => {
 		if (!item.image) {
@@ -20,7 +21,7 @@ const FlatListImage: FC<FlatListImageProps> = ({ item, style }) => {
 	}
 
 	return (
-		<Image source={getSource()} resizeMode='contain' style={style} />
+		<Image className={`${className}`} source={getSource()} resizeMode='contain' style={style} />
 	)
 }
 

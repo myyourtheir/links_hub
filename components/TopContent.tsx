@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React, { FC, ReactNode } from 'react'
 
 type TopContentProps = {
-	children: ReactNode
+	children?: ReactNode
 	className?: string
 }
 

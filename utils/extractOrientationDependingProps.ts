@@ -1,9 +1,8 @@
+import { Item } from '@/lib/Realm/models/Item'
 import { FlatListProps, ListRenderItemInfo } from 'react-native'
-import { FlatListItemProps } from '../(components)/types'
-import FlatListGridItem from '../../../../components/ItemsFlatList/FlatListGridItem'
-import FlatListRowItem from '../../../../components/ItemsFlatList/FlatListRowItem'
 
-export const extractOrientationDependingProps = ({ orientationMode }: { orientationMode: 'grid' | 'row' | undefined }): Partial<FlatListProps<FlatListItemProps['item']>> & { key: string } => {
+
+export const extractOrientationDependingProps = ({ orientationMode }: { orientationMode: 'grid' | 'row' | undefined }): Partial<FlatListProps<Item>> & { key: string } => {
 
 	switch (orientationMode) {
 
@@ -12,7 +11,7 @@ export const extractOrientationDependingProps = ({ orientationMode }: { orientat
 				key: 'gridFlatList',
 				numColumns: 2,
 				columnWrapperStyle: {
-					justifyContent: 'space-between',
+					justifyContent: 'space-around',
 				},
 			}
 

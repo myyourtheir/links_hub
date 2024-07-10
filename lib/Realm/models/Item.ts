@@ -1,9 +1,8 @@
-import { ItemType } from '@/types/itemType'
 import { Realm } from '@realm/react'
-import { ObjectSchema, BSON, index } from 'realm'
+import { ObjectSchema, BSON } from 'realm'
 
 export class Item extends Realm.Object<Item> {
-	_id: BSON.ObjectID = new BSON.ObjectID();
+	_id!: BSON.ObjectID
 	title!: string
 	url?: string
 	image?: string
@@ -12,8 +11,8 @@ export class Item extends Realm.Object<Item> {
 	type!: 'link' | 'folder'
 	parent?: Item['_id']
 	children?: Item['_id']
-	createdTime: Date = new Date()
-	updatedTime: Date = new Date()
+	createdTime!: Date
+	updatedTime!: Date
 
 	static schema: ObjectSchema = {
 		name: 'Item',
@@ -25,11 +24,12 @@ export class Item extends Realm.Object<Item> {
 			price: { type: 'float', optional: true },
 			currency: { type: 'string', optional: true },
 			type: { type: 'string' },
-			parent: 'Item',
-			children: 'Item[]',
-			createdTime: { type: 'int', default: () => new Date() },
-			updatedTime: { type: 'int', default: () => new Date() },
+			parent: 'Item?',
+			children: { type: 'list', objectType: 'Item', optional: false },
+			createdTime: { type: 'date', default: () => new Date() },
+			updatedTime: { type: 'date', default: () => new Date() },
 		},
 		primaryKey: '_id'
 	}
 }
+

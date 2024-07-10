@@ -2,60 +2,61 @@ import { View } from 'react-native'
 import React, { useState } from 'react'
 
 import TopLayoutComponent from './(components)/TopLayoutComponent'
-import { FlatListItemProps } from './(components)/types'
+
 import images from '@/constants/images'
 import ItemsFlatList from '@/components/ItemsFlatList/ItemsFlatList'
 import { RealmContext } from '@/lib/Realm'
 import { Item } from '@/lib/Realm/models/Item'
 import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
+import { BSON } from 'realm'
 
 
 
-const items: Array<FlatListItemProps['item']> = [
+const items: Array<Partial<Item>> = [
 	{
-		id: 1,
+		_id: new BSON.ObjectID,
 		title: 'Папка 1',
 		// image: images.folder,
 		type: 'link'
 	},
 	{
-		id: 2,
+		_id: new BSON.ObjectID,
 		title: 'Папка 2',
 		image: images.folder,
 		type: 'folder'
 	},
 	{
-		id: 3,
+		_id: new BSON.ObjectID,
 		title: 'Папка 3',
 		image: images.folder,
 		type: 'folder'
 	},
 	{
-		id: 4,
+		_id: new BSON.ObjectID,
 		title: 'Папка 4',
 		image: images.folder,
 		type: 'folder'
 	},
 	{
-		id: 5,
+		_id: new BSON.ObjectID,
 		title: 'Папка 5',
 		image: images.folder,
 		type: 'folder'
 	},
 	{
-		id: 6,
+		_id: new BSON.ObjectID,
 		title: 'Папка 6',
 		image: images.folder,
 		type: 'folder'
 	},
 	{
-		id: 7,
+		_id: new BSON.ObjectID,
 		title: 'Папка 5',
 		image: images.folder,
 		type: 'folder'
 	},
 	{
-		id: 8,
+		_id: new BSON.ObjectID,
 		title: 'Папка 6',
 		image: images.folder,
 		type: 'folder'

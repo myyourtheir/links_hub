@@ -1,9 +1,9 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text } from 'react-native'
 import React from 'react'
-import { FlatListItemProps } from '../../app/(tabs)/HomeScreen/(components)/types'
 import FlatListImage from './FlatListImage'
+import { Item } from '@/lib/Realm/models/Item'
 
-const FlatListRowItem = ({ item }: FlatListItemProps) => {
+const FlatListRowItem = ({ item }: { item: Item }) => {
 	return (
 		<View className='w-full flex flex-row gap-x-2 items-center mb-3'>
 			<FlatListImage

@@ -11,7 +11,7 @@ import GlobalContextProvider from '@/lib/store/GlobalContextProvider'
 const GlobalLayout = () => {
 	const { RealmProvider } = RealmContext
 	return (
-		<RealmProvider >
+		<RealmProvider>
 			<GlobalContextProvider>
 				<StatusBar
 					barStyle={'dark-content'}

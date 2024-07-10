@@ -8,10 +8,16 @@ import BottomRoundButton from '@/components/ItemsFlatList/BottomRoundButton'
 import { Plus } from 'lucide-react-native'
 import {
 	useForm,
-	Controller
+	Controller,
+	SubmitHandler
 } from 'react-hook-form'
 import PathSelectorTrigger from '@/components/PathSelectorTrigger'
 import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
+import { z } from 'zod'
+import { RealmContext } from '@/lib/Realm'
+import { router } from 'expo-router'
+const { useRealm } = RealmContext
+
 
 const itemTypes = [
 	{
@@ -24,14 +30,24 @@ const itemTypes = [
 	},
 ]
 
-const defaultValues = {
+const schema = z.object({
+	title: z.string(),
+	type: z.string(),
+	url: z.string(),
+})
+type FormSchema = z.infer<typeof schema>
+
+const defaultValues: FormSchema = {
 	title: '',
 	type: 'folder',
 	url: ''
 }
-
 const AddingScreen = () => {
 	const { currentAddingData } = useGlobalContext()
+	const realm = useRealm()
+	const { register, setValue, control, reset, formState: { errors }, getValues, handleSubmit } = useForm({
+		defaultValues: defaultValues
+	})
 
 	useEffect(() => {
 		const values = currentAddingData !== null
@@ -42,12 +58,22 @@ const AddingScreen = () => {
 			setValue(value[0] as any, value[1])
 		})
 	}, [currentAddingData])
-	const { register, setValue, control, reset, formState: { errors }, getValues } = useForm({
-		defaultValues: defaultValues
-	})
-	const hanldeSubmit = () => {
-		reset()
+
+
+	const onSubmit: SubmitHandler<FormSchema> = (data) => {
+		console.log(data)
+		try {
+			schema.parse(data)
+		} catch {
+			console.log('error while parsing data')
+		}
+
+		realm.write(() => {
+			realm.create('Item', { ...data, parent: null })
+		})
+		router.push('/HomeScreen')
 	}
+
 	return (
 		<View className='h-[93vh]'>
 			<TopContent>
@@ -124,7 +150,7 @@ const AddingScreen = () => {
 				/>
 
 			</View>
-			<BottomRoundButton onPress={hanldeSubmit}>
+			<BottomRoundButton onPress={handleSubmit(onSubmit)}>
 				<Plus color={'white'} size={30} />
 			</BottomRoundButton>
 		</View>
