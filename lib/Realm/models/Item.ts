@@ -1,5 +1,7 @@
 import { Realm } from '@realm/react'
 import { ObjectSchema, BSON } from 'realm'
+import 'react-native-get-random-values'
+
 
 export class Item extends Realm.Object<Item> {
 	_id!: BSON.ObjectID

@@ -1,11 +1,11 @@
 import { View, Text, StatusBar } from 'react-native'
 import React from 'react'
-import { Redirect } from 'expo-router'
-import 'react-native-get-random-values'
+import { Redirect, router } from 'expo-router'
+
 
 const Main = () => {
 
-	return <Redirect href={'/HomeScreen'} />
+	return <Redirect href={{ pathname: '/HomeScreen/[parentId]', params: { parentId: 'null' } }} />
 }
 
 export default Main

@@ -15,13 +15,13 @@ type TopLayoutComponentProps = {
 
 const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ orientationMode, setOrientationMode, className }) => {
 	const { currentFolder: currentParent } = useGlobalContext()
-	// const [currentPath] = useGetCurrentPath({ currentParent })
+	const [currentPath] = useGetCurrentPath({ currentParent })
 	return (
 		<TopContent >
 			<View className='flex-row items-end h-1/2'>
-				{/* <CustomButton handlePress={() => { return }}>
+				<CustomButton handlePress={() => { return }}>
 					<Text className='text-blue-500'>{currentPath}</Text>
-				</CustomButton> */}
+				</CustomButton>
 			</View>
 			<View className=' flex-row w-fit gap-x-8 items-end justify-center'>
 

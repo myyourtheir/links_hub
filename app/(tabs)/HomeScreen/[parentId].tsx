@@ -10,6 +10,7 @@ import { Item } from '@/lib/Realm/models/Item'
 import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
 import { BSON } from 'realm'
 import ItemsFlatListEmptyComponent from '@/components/ItemsFlatList/ItemsFlatListEmptyComponent'
+import { Link, router, useLocalSearchParams } from 'expo-router'
 
 
 
@@ -86,12 +87,14 @@ const items: Array<Partial<Item>> = [
 const { useQuery } = RealmContext
 
 const HomeScreen = () => {
-	const { currentFolder, setCurrentFolder } = useGlobalContext()
+	const { parentId } = useLocalSearchParams()
+	console.log(parentId)
+	// const { currentFolder, setCurrentFolder } = useGlobalContext()
 	let items = useQuery(Item, items => {
 		return items
-			.filtered(`parentId=${currentFolder !== null ? 'oid(' + currentFolder + ')' : null}`)
+			.filtered(`parentId=${parentId !== 'null' ? 'oid(' + parentId + ')' : null}`)
 			.sorted('updatedTime', false)
-	}, [currentFolder])
+	}, [])
 	const [orientationMode, setOrientationMode] = useState<'grid' | 'row'>('grid')
 	if (items.length % 2 !== 0) {
 		items = [...items.snapshot(), {
@@ -100,7 +103,8 @@ const HomeScreen = () => {
 		}] as any
 	}
 	const handleItemClick = (item: Item) => {
-		setCurrentFolder(item._id)
+		// setCurrentFolder(item._id)
+		router.push({ pathname: '/HomeScreen/[parentId]', params: { parentId: item._id.toString() } })
 	}
 
 	return (
