@@ -1,3 +1,4 @@
+import { FormSchema } from '@/app/(tabs)/AddingScreen'
 import { Item } from '@/lib/Realm/models/Item'
 import React, { createContext, ReactNode, useContext, useState } from 'react'
 import { BSON } from 'realm'
@@ -5,10 +6,10 @@ import { BSON } from 'realm'
 
 
 export type GlobalContextProps = {
-	currentAddingData: Partial<Item> | null,
-	currentFolder: Item | null,
-	setCurrentAddingData: React.Dispatch<React.SetStateAction<Partial<Item> | null>>,
-	setCurrentFolder: React.Dispatch<React.SetStateAction<Item | null>>
+	currentAddingData: FormSchema | null,
+	currentFolder: BSON.ObjectID | null,
+	setCurrentAddingData: React.Dispatch<React.SetStateAction<FormSchema | null>>,
+	setCurrentFolder: React.Dispatch<React.SetStateAction<BSON.ObjectID | null>>
 }
 
 const GlobalContext = createContext<GlobalContextProps | null>(null)

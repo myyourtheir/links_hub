@@ -9,6 +9,7 @@ import { RealmContext } from '@/lib/Realm'
 import { Item } from '@/lib/Realm/models/Item'
 import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
 import { BSON } from 'realm'
+import ItemsFlatListEmptyComponent from '@/components/ItemsFlatList/ItemsFlatListEmptyComponent'
 
 
 
@@ -85,26 +86,35 @@ const items: Array<Partial<Item>> = [
 const { useQuery } = RealmContext
 
 const HomeScreen = () => {
-	const { currentFolder } = useGlobalContext()
-	// const items = useQuery(Item, items => {
-	// 	return items
-	// 		.filtered(`parent=${currentFolder}`)
-	// 		.sorted('updatedTime', false)
-	// }, [])
+	const { currentFolder, setCurrentFolder } = useGlobalContext()
+	let items = useQuery(Item, items => {
+		return items
+			.filtered(`parentId=${currentFolder !== null ? 'oid(' + currentFolder + ')' : null}`)
+			.sorted('updatedTime', false)
+	}, [currentFolder])
 	const [orientationMode, setOrientationMode] = useState<'grid' | 'row'>('grid')
 	if (items.length % 2 !== 0) {
-		items.push({
+		items = [...items.snapshot(), {
 			_id: new BSON.ObjectID,
-			type: 'empty'
-		})
+			type: 'empty',
+		}] as any
 	}
+	const handleItemClick = (item: Item) => {
+		setCurrentFolder(item._id)
+	}
+
 	return (
 		<View className='h-full'>
 			<TopLayoutComponent
 				orientationMode={orientationMode}
 				setOrientationMode={setOrientationMode}
 			/>
-			<ItemsFlatList data={items as Item[]} orientationMode={orientationMode} />
+			<ItemsFlatList
+				data={items as ArrayLike<Item>}
+				orientationMode={orientationMode}
+				EmptyComponent={<ItemsFlatListEmptyComponent />}
+				onItemClick={handleItemClick}
+			/>
 		</View>
 	)
 }

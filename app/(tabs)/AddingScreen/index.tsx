@@ -13,9 +13,11 @@ import {
 } from 'react-hook-form'
 import PathSelectorTrigger from '@/components/PathSelectorTrigger'
 import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
-import { z } from 'zod'
+import { string, z } from 'zod'
 import { RealmContext } from '@/lib/Realm'
 import { router } from 'expo-router'
+import { Item } from '@/lib/Realm/models/Item'
+import { BSON } from 'realm'
 const { useRealm } = RealmContext
 
 
@@ -34,13 +36,15 @@ const schema = z.object({
 	title: z.string(),
 	type: z.string(),
 	url: z.string(),
+	parentId: z.instanceof(BSON.ObjectID).nullable()
 })
-type FormSchema = z.infer<typeof schema>
+export type FormSchema = z.infer<typeof schema>
 
 const defaultValues: FormSchema = {
 	title: '',
 	type: 'folder',
-	url: ''
+	url: '',
+	parentId: null
 }
 const AddingScreen = () => {
 	const { currentAddingData } = useGlobalContext()
@@ -146,7 +150,10 @@ const AddingScreen = () => {
 
 				<PathSelectorTrigger
 					ContainerClassName='w-full pt-4 px-4 gap-3 justify-center'
+					value={getValues().parentId}
+					setValue={setValue}
 					getValues={getValues}
+
 				/>
 
 			</View>

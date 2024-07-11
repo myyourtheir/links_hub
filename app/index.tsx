@@ -1,14 +1,9 @@
 import { View, Text, StatusBar } from 'react-native'
 import React from 'react'
-import { Link, Redirect } from 'expo-router'
-import { RealmContext } from '@/lib/Realm'
-
-const { useRealm } = RealmContext
+import { Redirect } from 'expo-router'
+import 'react-native-get-random-values'
 
 const Main = () => {
-	const realm = useRealm()
-	// Get on-disk location of the Realm
-	console.log(`Realm file is located at: ${realm}`)
 
 	return <Redirect href={'/HomeScreen'} />
 }

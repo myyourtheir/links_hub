@@ -9,8 +9,7 @@ export class Item extends Realm.Object<Item> {
 	price?: number
 	currency?: string
 	type!: 'link' | 'folder' | 'empty'
-	parent?: Item['_id']
-	children?: Item['_id']
+	parent?: Item['_id'] | null
 	createdTime!: Date
 	updatedTime!: Date
 
@@ -24,8 +23,7 @@ export class Item extends Realm.Object<Item> {
 			price: { type: 'float', optional: true },
 			currency: { type: 'string', optional: true },
 			type: { type: 'string' },
-			parent: 'Item?',
-			children: { type: 'list', objectType: 'Item', optional: false },
+			parentId: { type: 'objectId', optional: true },
 			createdTime: { type: 'date', default: () => new Date() },
 			updatedTime: { type: 'date', default: () => new Date() },
 		},
