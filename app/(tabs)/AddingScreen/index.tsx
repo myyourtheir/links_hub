@@ -35,7 +35,7 @@ const itemTypes = [
 const schema = z.object({
 	title: z.string(),
 	type: z.string(),
-	url: z.string(),
+	url: z.string().url(),
 
 })
 export type FormSchema = z.infer<typeof schema>
@@ -67,8 +67,8 @@ const AddingScreen = () => {
 		console.log(data)
 		try {
 			schema.parse(data)
-		} catch {
-			console.log('error while parsing data')
+		} catch (e) {
+			console.log('error while parsing data', e)
 		}
 		const promise = new Promise((res) => {
 			res(realm.write(() => {
@@ -117,7 +117,7 @@ const AddingScreen = () => {
 								data={itemTypes}
 								labelField={'label'}
 								valueField={'value'}
-								onChange={onChange}
+								onChange={(el) => onChange(el.value)}
 								value={value}
 								containerStyle={{
 									borderRadius: 6,
