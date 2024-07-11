@@ -1,6 +1,6 @@
 import { View, Text, Touchable, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { router } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import TopContent from '@/components/TopContent'
 import ItemsFlatList from '@/components/ItemsFlatList/ItemsFlatList'
@@ -14,12 +14,13 @@ import { FormSchema } from '../(tabs)/AddingScreen'
 
 const { useQuery } = RealmContext
 const PathSelector = () => {
-	const { currentFolder, setCurrentFolder, setCurrentAddingData } = useGlobalContext()
+	const { setCurrentFolder } = useGlobalContext()
+	const { parentId } = useLocalSearchParams()
 	let items = useQuery(Item, items => {
 		return items
-			.filtered(`parentId=${currentFolder !== null ? 'oid(' + currentFolder + ')' : null} AND type='folder'`)
+			.filtered(`parentId=${parentId != 'null' ? 'oid(' + parentId + ')' : null} AND type='folder'`)
 			.sorted('updatedTime', false)
-	}, [currentFolder])
+	}, [])
 	if (items.length % 2 !== 0) {
 		items = [...items.snapshot(), {
 			_id: new BSON.ObjectID,
@@ -27,11 +28,11 @@ const PathSelector = () => {
 		}] as any
 	}
 	const onItemClick = (item: Item) => {
-		setCurrentFolder(item._id)
+		router.push({ pathname: '/PathSelector/[parentId]', params: { parentId: item._id.toString() } })
 	}
 
 	const handleSubmit = () => {
-		setCurrentAddingData((prev) => ({ ...prev as FormSchema, parentId: currentFolder }))
+		setCurrentFolder(parentId != 'null' ? new BSON.ObjectId(parentId as string) : null)
 		router.replace('/AddingScreen')
 	}
 

@@ -5,10 +5,11 @@ import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
 import { UseFormGetValues, UseFormSetValue } from 'react-hook-form'
 import { FormSchema } from '@/app/(tabs)/AddingScreen'
 import useGetCurrentPath from '@/utils/useGetCurrentPath'
+import { BSON } from 'realm'
 
 export type PathSelectorTriggerProps = {
 	ContainerClassName?: string,
-	value: FormSchema['parentId'],
+	value: BSON.ObjectId | null,
 	getValues: UseFormGetValues<FormSchema>,
 	setValue: UseFormSetValue<FormSchema>
 
@@ -18,9 +19,9 @@ const PathSelectorTrigger = ({ ContainerClassName, getValues, value, setValue }:
 	const { setCurrentAddingData } = useGlobalContext()
 	const handlePress = () => {
 		setCurrentAddingData(getValues())
-		router.push('/PathSelector')
+		router.push({ pathname: '/PathSelector/[parentId]', params: { parentId: 'null' } })
 	}
-	const [currentPath] = useGetCurrentPath({ currentParent: getValues().parentId })
+	const [currentPath] = useGetCurrentPath({ currentParent: value })
 	return (
 		<View className={ContainerClassName}>
 			<Text className='text-base'>

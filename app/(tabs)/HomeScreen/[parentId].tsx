@@ -88,8 +88,6 @@ const { useQuery } = RealmContext
 
 const HomeScreen = () => {
 	const { parentId } = useLocalSearchParams()
-	console.log(parentId)
-	// const { currentFolder, setCurrentFolder } = useGlobalContext()
 	let items = useQuery(Item, items => {
 		return items
 			.filtered(`parentId=${parentId !== 'null' ? 'oid(' + parentId + ')' : null}`)
@@ -103,7 +101,6 @@ const HomeScreen = () => {
 		}] as any
 	}
 	const handleItemClick = (item: Item) => {
-		// setCurrentFolder(item._id)
 		router.push({ pathname: '/HomeScreen/[parentId]', params: { parentId: item._id.toString() } })
 	}
 
@@ -112,6 +109,7 @@ const HomeScreen = () => {
 			<TopLayoutComponent
 				orientationMode={orientationMode}
 				setOrientationMode={setOrientationMode}
+				parentId={parentId as string}
 			/>
 			<ItemsFlatList
 				data={items as ArrayLike<Item>}

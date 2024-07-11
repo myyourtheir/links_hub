@@ -6,16 +6,18 @@ import CustomButton from '@/components/CustomButton'
 import TopContent from '@/components/TopContent'
 import useGetCurrentPath from '@/utils/useGetCurrentPath'
 import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
+import { BSON } from 'realm'
 
 type TopLayoutComponentProps = {
 	orientationMode: "grid" | "row",
 	setOrientationMode: React.Dispatch<React.SetStateAction<"grid" | "row">>,
-	className?: string
+	className?: string,
+	parentId: string
 }
 
-const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ orientationMode, setOrientationMode, className }) => {
-	const { currentFolder: currentParent } = useGlobalContext()
-	const [currentPath] = useGetCurrentPath({ currentParent })
+const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ orientationMode, setOrientationMode, className, parentId }) => {
+	// const { currentFolder: currentParent } = useGlobalContext()
+	const [currentPath] = useGetCurrentPath({ currentParent: parentId != 'null' ? new BSON.ObjectId(parentId as string) : null })
 	return (
 		<TopContent >
 			<View className='flex-row items-end h-1/2'>

@@ -9,12 +9,16 @@ const useGetCurrentPath = ({ currentParent }: { currentParent: Item['_id'] | nul
 
 	if (currentParent === null) currentPath = ''
 	else {
+		console.log('work')
 		let pathArray = []
 		let currentFolder = useObject(Item, currentParent)
-		while (currentFolder?.parent !== null && currentFolder?._id !== null) {
+		console.log(currentFolder)
+		while (currentFolder?.parentId !== null) {
 			pathArray.unshift(currentFolder?.title)
-			currentFolder = useObject(Item, currentFolder?.parent)
+			currentFolder = useObject(Item, currentFolder?.parentId)
 		}
+		currentFolder = useObject(Item, currentFolder._id)
+		pathArray.unshift(currentFolder?.title)
 		currentPath = pathArray.join('>')
 	}
 

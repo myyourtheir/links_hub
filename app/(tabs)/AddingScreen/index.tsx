@@ -36,7 +36,7 @@ const schema = z.object({
 	title: z.string(),
 	type: z.string(),
 	url: z.string(),
-	parentId: z.instanceof(BSON.ObjectID).nullable()
+
 })
 export type FormSchema = z.infer<typeof schema>
 
@@ -44,10 +44,9 @@ const defaultValues: FormSchema = {
 	title: '',
 	type: 'folder',
 	url: '',
-	parentId: null
 }
 const AddingScreen = () => {
-	const { currentAddingData } = useGlobalContext()
+	const { currentFolder, currentAddingData } = useGlobalContext()
 	const realm = useRealm()
 	const { register, setValue, control, reset, formState: { errors }, getValues, handleSubmit } = useForm({
 		defaultValues: defaultValues
@@ -71,11 +70,14 @@ const AddingScreen = () => {
 		} catch {
 			console.log('error while parsing data')
 		}
-
-		realm.write(() => {
-			realm.create('Item', { ...data, parent: null })
+		const promise = new Promise((res) => {
+			res(realm.write(() => {
+				realm.create('Item', { ...data, parentId: currentFolder })
+			}))
 		})
-		router.push('/HomeScreen')
+		promise.then(_ => {
+			router.replace({ pathname: '/HomeScreen/[parentId]', params: { parentId: currentFolder != null ? currentFolder.toString() : 'null' } })
+		})
 	}
 
 	return (
@@ -150,7 +152,7 @@ const AddingScreen = () => {
 
 				<PathSelectorTrigger
 					ContainerClassName='w-full pt-4 px-4 gap-3 justify-center'
-					value={getValues().parentId}
+					value={currentFolder}
 					setValue={setValue}
 					getValues={getValues}
 
