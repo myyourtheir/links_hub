@@ -5,23 +5,23 @@ const { useObject } = RealmContext
 
 const useGetCurrentPath = ({ currentParent }: { currentParent: Item['_id'] | null }) => {
 
-	let currentPath: string
+	let currentPathText: string
+	let pathArray = []
 
-	if (currentParent === null) currentPath = ''
+	if (currentParent === null) currentPathText = ''
 	else {
-		let pathArray = []
 		let currentFolder = useObject(Item, currentParent)
 		while (currentFolder?.parentId !== null) {
-			pathArray.unshift(currentFolder?.title)
+			pathArray.unshift(currentFolder)
 			currentFolder = useObject(Item, currentFolder?.parentId)
 		}
 		currentFolder = useObject(Item, currentFolder._id)
-		pathArray.unshift(currentFolder?.title)
-		currentPath = pathArray.join('>')
+		pathArray.unshift(currentFolder)
+		currentPathText = pathArray.map(item => item?.title).join(' > ')
 	}
 
 
-	return [currentPath]
+	return { currentPathText, pathArray }
 }
 
 export default useGetCurrentPath

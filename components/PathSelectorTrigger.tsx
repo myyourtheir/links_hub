@@ -21,7 +21,7 @@ const PathSelectorTrigger = ({ ContainerClassName, getValues, value, setValue }:
 		setCurrentAddingData(getValues())
 		router.push({ pathname: '/PathSelector/[parentId]', params: { parentId: 'null' } })
 	}
-	const [currentPath] = useGetCurrentPath({ currentParent: value })
+	const { currentPathText } = useGetCurrentPath({ currentParent: value })
 	return (
 		<View className={ContainerClassName}>
 			<Text className='text-base'>
@@ -32,7 +32,7 @@ const PathSelectorTrigger = ({ ContainerClassName, getValues, value, setValue }:
 				onPress={handlePress}
 			>
 				<Text>
-					{currentPath}
+					{currentPathText}
 				</Text>
 			</TouchableOpacity>
 		</View>

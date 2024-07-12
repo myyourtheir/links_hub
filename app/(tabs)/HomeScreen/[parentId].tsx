@@ -101,7 +101,18 @@ const HomeScreen = () => {
 		}] as any
 	}
 	const handleItemClick = (item: Item) => {
-		router.push({ pathname: '/HomeScreen/[parentId]', params: { parentId: item._id.toString() } })
+		if (item.type === 'folder') {
+			router.push({ pathname: '/HomeScreen/[parentId]', params: { parentId: item._id.toString() } })
+		}
+		if (item.type === 'link') {
+			if (item.url) {
+				router.push(item.url)
+			}
+			else {
+				throw new Error('No link in item')
+			}
+		}
+
 	}
 
 	return (

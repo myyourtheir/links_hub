@@ -35,6 +35,12 @@ const TabsLayout = () => {
 					name='HomeScreen'
 					options={{
 						title: "Home",
+						href: {
+							pathname: '/HomeScreen/[parentId]',
+							params: {
+								parentId: 'null'
+							}
+						},
 						headerShown: false,
 						tabBarIcon: ({ color, focused }) => (
 							<TabBarIcon Icon={House} color={`${focused ? color : 'black'}`} />

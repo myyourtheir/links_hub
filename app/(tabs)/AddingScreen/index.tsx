@@ -35,7 +35,7 @@ const itemTypes = [
 const schema = z.object({
 	title: z.string(),
 	type: z.string(),
-	url: z.string().url(),
+	url: z.string(),
 
 })
 export type FormSchema = z.infer<typeof schema>
@@ -46,7 +46,7 @@ const defaultValues: FormSchema = {
 	url: '',
 }
 const AddingScreen = () => {
-	const { currentFolder, currentAddingData } = useGlobalContext()
+	const { currentFolder, currentAddingData, setCurrentAddingData, setCurrentFolder } = useGlobalContext()
 	const realm = useRealm()
 	const { register, setValue, control, reset, formState: { errors }, getValues, handleSubmit } = useForm({
 		defaultValues: defaultValues
@@ -77,6 +77,8 @@ const AddingScreen = () => {
 		})
 		promise.then(_ => {
 			router.replace({ pathname: '/HomeScreen/[parentId]', params: { parentId: currentFolder != null ? currentFolder.toString() : 'null' } })
+			setCurrentAddingData(defaultValues)
+			setCurrentFolder(null)
 		})
 	}
 
