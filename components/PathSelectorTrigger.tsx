@@ -28,7 +28,7 @@ const PathSelectorTrigger = ({ ContainerClassName, getValues, value, setValue }:
 				Путь:
 			</Text>
 			<TouchableOpacity
-				className={`border rounded-md w-2/3 px-2 py-1 h-8`}
+				className={`border rounded-md w-2/3 px-2 py-1 h-fit`}
 				onPress={handlePress}
 			>
 				<Text>

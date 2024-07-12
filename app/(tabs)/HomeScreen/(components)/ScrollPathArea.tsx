@@ -17,7 +17,7 @@ const ScrollPathArea = ({ parentId }: { parentId: string }) => {
 			onContentSizeChange={() => { scrollViewRef.current?.scrollToEnd({ animated: true }) }}
 		>
 			{pathArray.map(item =>
-				<Link href={{ pathname: '/HomeScreen/[parentId]', params: { parentId: item?._id != null ? item?._id?.toString() : null } }}>
+				<Link key={item?._id.toString()} href={{ pathname: '/HomeScreen/[parentId]', params: { parentId: item?._id != null ? item?._id?.toString() : null } }}>
 					<Text className='text-blue-500  '>{' > ' + item?.title}</Text>
 				</Link>
 			)}

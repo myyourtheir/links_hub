@@ -11,6 +11,7 @@ import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
 import { BSON } from 'realm'
 import ItemsFlatListEmptyComponent from '@/components/ItemsFlatList/ItemsFlatListEmptyComponent'
 import { Link, router, useLocalSearchParams } from 'expo-router'
+import { useOrientationContext } from './(components)/OrientationContext'
 
 
 
@@ -88,12 +89,15 @@ const { useQuery } = RealmContext
 
 const HomeScreen = () => {
 	const { parentId } = useLocalSearchParams()
+
+	const { orientationMode, setOrientationMode } = useOrientationContext()
+
 	let items = useQuery(Item, items => {
 		return items
 			.filtered(`parentId=${parentId !== 'null' ? 'oid(' + parentId + ')' : null}`)
 			.sorted('updatedTime', false)
 	}, [])
-	const [orientationMode, setOrientationMode] = useState<'grid' | 'row'>('grid')
+
 	if (items.length % 2 !== 0) {
 		items = [...items.snapshot(), {
 			_id: new BSON.ObjectID,
