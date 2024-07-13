@@ -4,21 +4,21 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Grid2X2, Rows2, Search } from 'lucide-react-native'
 import CustomButton from '@/components/CustomButton'
 import TopContent from '@/components/TopContent'
-import useGetCurrentPath from '@/utils/useGetCurrentPath'
+import useGetCurrentPath from '@/hooks/useGetCurrentPath'
 import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
 import { BSON } from 'realm'
 import ScrollPathArea from './ScrollPathArea'
+import { useOrientationContext } from './OrientationContext'
 
 type TopLayoutComponentProps = {
-	orientationMode: "grid" | "row",
-	setOrientationMode: React.Dispatch<React.SetStateAction<"grid" | "row">>,
+
 	className?: string,
 	parentId: string
 }
 
-const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ orientationMode, setOrientationMode, className, parentId }) => {
+const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ className, parentId }) => {
 	// const { currentFolder: currentParent } = useGlobalContext()
-
+	const { orientationMode, setOrientationMode } = useOrientationContext()
 	return (
 		<TopContent >
 			<View className='flex-row items-end h-1/2 max-w-[60%] overflow-x-auto whitespace-nowrap'>

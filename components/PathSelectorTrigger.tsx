@@ -4,7 +4,7 @@ import { router } from 'expo-router'
 import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
 import { UseFormGetValues, UseFormSetValue } from 'react-hook-form'
 import { FormSchema } from '@/app/(tabs)/AddingScreen'
-import useGetCurrentPath from '@/utils/useGetCurrentPath'
+import useGetCurrentPath from '@/hooks/useGetCurrentPath'
 import { BSON } from 'realm'
 
 export type PathSelectorTriggerProps = {

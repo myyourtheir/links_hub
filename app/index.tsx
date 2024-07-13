@@ -1,10 +1,10 @@
+import 'react-native-get-random-values'
+import 'expo-dev-client'
 import React from 'react'
 import { Redirect, router } from 'expo-router'
-import 'react-native-get-random-values'
-
-const Main = () => {
+const App = () => {
 
 	return <Redirect href={{ pathname: '/HomeScreen/[parentId]', params: { parentId: 'null' } }} />
 }
 
-export default Main
+export default App

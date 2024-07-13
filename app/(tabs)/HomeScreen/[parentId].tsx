@@ -1,96 +1,18 @@
-import { View } from 'react-native'
-import React, { useState } from 'react'
-
+import { Text, TouchableOpacity, View } from 'react-native'
+import React from 'react'
 import TopLayoutComponent from './(components)/TopLayoutComponent'
-
-import images from '@/constants/images'
 import ItemsFlatList from '@/components/ItemsFlatList/ItemsFlatList'
 import { RealmContext } from '@/lib/Realm'
 import { Item } from '@/lib/Realm/models/Item'
-import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
 import { BSON } from 'realm'
-import ItemsFlatListEmptyComponent from '@/components/ItemsFlatList/ItemsFlatListEmptyComponent'
-import { Link, router, useLocalSearchParams } from 'expo-router'
-import { useOrientationContext } from './(components)/OrientationContext'
+import { router, useLocalSearchParams } from 'expo-router'
+import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
 
-
-
-const items: Array<Partial<Item>> = [
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 1',
-		// image: images.folder,
-		type: 'link'
-	},
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 2',
-		image: images.folder,
-		type: 'folder'
-	},
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 3',
-		image: images.folder,
-		type: 'folder'
-	},
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 4',
-		image: images.folder,
-		type: 'folder'
-	},
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 5',
-		image: images.folder,
-		type: 'folder'
-	},
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 6',
-		image: images.folder,
-		type: 'folder'
-	},
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 7',
-		image: images.folder,
-		type: 'folder'
-	},
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 8',
-		image: images.folder,
-		type: 'folder'
-	},
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 9',
-		image: images.folder,
-		type: 'folder'
-	},
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 10',
-		image: images.folder,
-		type: 'folder'
-	},
-	{
-		_id: new BSON.ObjectID,
-		title: 'Папка 11',
-		image: images.folder,
-		type: 'folder'
-	},
-
-]
 
 const { useQuery } = RealmContext
 
 const HomeScreen = () => {
 	const { parentId } = useLocalSearchParams()
-
-	const { orientationMode, setOrientationMode } = useOrientationContext()
 
 	let items = useQuery(Item, items => {
 		return items
@@ -122,14 +44,11 @@ const HomeScreen = () => {
 	return (
 		<View className='h-full'>
 			<TopLayoutComponent
-				orientationMode={orientationMode}
-				setOrientationMode={setOrientationMode}
 				parentId={parentId as string}
 			/>
 			<ItemsFlatList
 				data={items as ArrayLike<Item>}
-				orientationMode={orientationMode}
-				EmptyComponent={<ItemsFlatListEmptyComponent />}
+				ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}
 				onItemClick={handleItemClick}
 			/>
 		</View>
@@ -137,3 +56,35 @@ const HomeScreen = () => {
 }
 
 export default HomeScreen
+
+
+function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[] }) {
+	const { setCurrentFolder } = useGlobalContext()
+	return (
+		<View
+			className='w-full h-full items-center pt-10 gap-8 justify-center '
+		>
+			<Text className='text-md'>
+				Здесь пока ничего нет...
+			</Text>
+			<TouchableOpacity
+				onPress={() => {
+					setCurrentFolder(parentId != "null" ? new BSON.ObjectId(parentId as string) : null)
+					router.push({
+						pathname: '/AddingScreen',
+						params: {
+							defaultParentId: parentId
+						}
+					})
+
+				}
+				}
+				className='border rounded-md px-3 py-2'
+			>
+				<Text className='text-lg'>
+					Добавьте элемент
+				</Text>
+			</TouchableOpacity>
+		</View>
+	)
+}

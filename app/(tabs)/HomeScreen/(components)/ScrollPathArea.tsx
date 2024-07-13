@@ -1,6 +1,6 @@
 import { View, Text, ScrollView } from 'react-native'
 import React, { useRef } from 'react'
-import useGetCurrentPath from '@/utils/useGetCurrentPath'
+import useGetCurrentPath from '@/hooks/useGetCurrentPath'
 import { BSON } from 'realm'
 import { Link } from 'expo-router'
 

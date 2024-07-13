@@ -3,8 +3,11 @@ import React from 'react'
 import { Slot } from 'expo-router'
 import { RealmContext } from '@/lib/Realm'
 import GlobalContextProvider from '@/lib/store/GlobalContextProvider'
+import OrientationContextProvider from './(tabs)/HomeScreen/(components)/OrientationContext'
 
-
+export const unstable_settings = {
+	initialRouteName: 'index',
+}
 
 
 const GlobalLayout = () => {
@@ -12,10 +15,12 @@ const GlobalLayout = () => {
 	return (
 		<RealmProvider>
 			<GlobalContextProvider>
-				<StatusBar
-					barStyle={'dark-content'}
-				/>
-				<Slot />
+				<OrientationContextProvider>
+					<StatusBar
+						barStyle={'dark-content'}
+					/>
+					<Slot />
+				</OrientationContextProvider>
 			</GlobalContextProvider>
 		</RealmProvider>
 	)

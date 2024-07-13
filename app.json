@@ -1,6 +1,6 @@
 {
 	"expo": {
-		"name": "links_hub",
+		"name": "Links Hub",
 		"slug": "links_hub",
 		"version": "1.0.0",
 		"orientation": "portrait",
@@ -12,6 +12,9 @@
 			"resizeMode": "contain",
 			"backgroundColor": "#ffffff"
 		},
+		"assetBundlePatterns": [
+			"**/*"
+		],
 		"ios": {
 			"supportsTablet": true
 		},

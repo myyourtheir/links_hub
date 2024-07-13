@@ -8,7 +8,7 @@ import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
 import { Item } from '@/lib/Realm/models/Item'
 import { BSON } from 'realm'
 import { RealmContext } from '@/lib/Realm'
-import BottomRoundButton from '@/components/ItemsFlatList/BottomRoundButton'
+import BottomRoundButtonWrapper from '@/components/BottomRoundButtonWrapper'
 import { Check } from 'lucide-react-native'
 import { FormSchema } from '../(tabs)/AddingScreen'
 
@@ -37,16 +37,18 @@ const PathSelector = () => {
 	}
 
 	return (
-		<SafeAreaView>
-			<TopContent className='min-h-[7vh]' />
-			<ItemsFlatList
-				data={items}
-				onItemClick={onItemClick}
-				EmptyComponent={<EmptyComponent />}
-			/>
-			<BottomRoundButton onPress={handleSubmit}>
-				<Check color={'white'} size={30} />
-			</BottomRoundButton>
+		<SafeAreaView className='relative'>
+			<BottomRoundButtonWrapper
+				onPress={handleSubmit}
+				buttonIcon={<Check color={'white'} size={30} />}
+			>
+				<TopContent className='min-h-[7vh]' />
+				<ItemsFlatList
+					data={items}
+					onItemClick={onItemClick}
+					ListEmptyComponent={EmptyComponent}
+				/>
+			</BottomRoundButtonWrapper>
 		</SafeAreaView>
 	)
 }

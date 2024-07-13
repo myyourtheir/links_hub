@@ -4,7 +4,6 @@ import { Dropdown } from 'react-native-element-dropdown'
 // import { Dropdown } from 'react-native-element-dropdown'
 import TopContent from '@/components/TopContent'
 import StyledTextInput from '@/components/StyledTextInput'
-import BottomRoundButton from '@/components/ItemsFlatList/BottomRoundButton'
 import { Plus } from 'lucide-react-native'
 import {
 	useForm,
@@ -18,6 +17,7 @@ import { RealmContext } from '@/lib/Realm'
 import { router } from 'expo-router'
 import { Item } from '@/lib/Realm/models/Item'
 import { BSON } from 'realm'
+import BottomRoundButtonWrapper from '@/components/BottomRoundButtonWrapper'
 const { useRealm } = RealmContext
 
 
@@ -100,70 +100,73 @@ const AddingScreen = () => {
 				/>
 
 			</TopContent>
-			<View className='gap-y-3'>
-				<Controller
-					control={control}
-					name="type"
-					rules={{ required: true }}
-					render={({ field: { onChange, value } }) => (
-						<View className='w-full pt-4 px-4  gap-3 justify-center'>
-							<Text className=' text-base'>
-								Тип:
-							</Text>
-							<Dropdown
-								style={{
-									borderWidth: 1,
-									borderRadius: 6,
-									width: '50%'
-								}}
-								data={itemTypes}
-								labelField={'label'}
-								valueField={'value'}
-								onChange={(el) => onChange(el.value)}
-								value={value}
-								containerStyle={{
-									borderRadius: 6,
-								}}
-								selectedTextStyle={{
-									paddingHorizontal: 8,
-									paddingVertical: 4,
-									fontSize: 16,
-									lineHeight: 24
-								}}
-							/>
-						</View>
-					)}
-				/>
-				<Controller
-					control={control}
-					name="url"
-					rules={{ required: true }}
-					render={({ field: { onChange, value } }) => (
-						<View className='w-full pt-4 px-4 gap-3  justify-center'>
-							<Text className='text-base'>
-								Ссылка:
-							</Text>
-							<StyledTextInput
-								value={value}
-								onChangeText={onChange}
-								className='h-8'
-							/>
-						</View>
-					)}
-				/>
+			<BottomRoundButtonWrapper
+				onPress={handleSubmit(onSubmit)}
+				buttonIcon={<Plus color={'white'} size={30} />}
+			>
+				<View className='gap-y-3'>
+					<Controller
+						control={control}
+						name="type"
+						rules={{ required: true }}
+						render={({ field: { onChange, value } }) => (
+							<View className='w-full pt-4 px-4  gap-3 justify-center'>
+								<Text className=' text-base'>
+									Тип:
+								</Text>
+								<Dropdown
+									style={{
+										borderWidth: 1,
+										borderRadius: 6,
+										width: '50%'
+									}}
+									data={itemTypes}
+									labelField={'label'}
+									valueField={'value'}
+									onChange={(el) => onChange(el.value)}
+									value={value}
+									containerStyle={{
+										borderRadius: 6,
+									}}
+									selectedTextStyle={{
+										paddingHorizontal: 8,
+										paddingVertical: 4,
+										fontSize: 16,
+										lineHeight: 24
+									}}
+								/>
+							</View>
+						)}
+					/>
+					<Controller
+						control={control}
+						name="url"
+						rules={{ required: true }}
+						render={({ field: { onChange, value } }) => (
+							<View className='w-full pt-4 px-4 gap-3  justify-center'>
+								<Text className='text-base'>
+									Ссылка:
+								</Text>
+								<StyledTextInput
+									value={value}
+									onChangeText={onChange}
+									className='h-8'
+								/>
+							</View>
+						)}
+					/>
 
-				<PathSelectorTrigger
-					ContainerClassName='w-full pt-4 px-4 gap-3 justify-center'
-					value={currentFolder}
-					setValue={setValue}
-					getValues={getValues}
+					<PathSelectorTrigger
+						ContainerClassName='w-full pt-4 px-4 gap-3 justify-center'
+						value={currentFolder}
+						setValue={setValue}
+						getValues={getValues}
 
-				/>
+					/>
 
-			</View>
-			<BottomRoundButton onPress={handleSubmit(onSubmit)}>
-				<Plus color={'white'} size={30} />
-			</BottomRoundButton>
+				</View>
+
+			</BottomRoundButtonWrapper>
 		</View>
 	)
 }
