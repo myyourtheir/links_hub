@@ -7,6 +7,7 @@ import { Item } from '@/lib/Realm/models/Item'
 import { BSON } from 'realm'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
+import StyledText from '@/components/StyledText'
 
 
 const { useQuery } = RealmContext
@@ -42,7 +43,7 @@ const HomeScreen = () => {
 	}
 
 	return (
-		<View className='h-full'>
+		<>
 			<TopLayoutComponent
 				parentId={parentId as string}
 			/>
@@ -51,7 +52,7 @@ const HomeScreen = () => {
 				ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}
 				onItemClick={handleItemClick}
 			/>
-		</View>
+		</>
 	)
 }
 
@@ -64,9 +65,9 @@ function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[
 		<View
 			className='w-full h-full items-center pt-10 gap-8 justify-center '
 		>
-			<Text className='text-md'>
+			<StyledText className='text-md'>
 				Здесь пока ничего нет...
-			</Text>
+			</StyledText>
 			<TouchableOpacity
 				onPress={() => {
 					setCurrentFolder(parentId != "null" ? new BSON.ObjectId(parentId as string) : null)
@@ -81,9 +82,9 @@ function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[
 				}
 				className='border rounded-md px-3 py-2'
 			>
-				<Text className='text-lg'>
+				<StyledText className='text-lg'>
 					Добавьте элемент
-				</Text>
+				</StyledText>
 			</TouchableOpacity>
 		</View>
 	)

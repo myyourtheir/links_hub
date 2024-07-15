@@ -3,6 +3,7 @@ import React, { useRef } from 'react'
 import useGetCurrentPath from '@/hooks/useGetCurrentPath'
 import { BSON } from 'realm'
 import { Link } from 'expo-router'
+import StyledText from '@/components/StyledText'
 
 const ScrollPathArea = ({ parentId }: { parentId: string }) => {
 
@@ -18,7 +19,7 @@ const ScrollPathArea = ({ parentId }: { parentId: string }) => {
 		>
 			{pathArray.map(item =>
 				<Link key={item?._id.toString()} href={{ pathname: '/HomeScreen/[parentId]', params: { parentId: item?._id != null ? item?._id?.toString() : null } }}>
-					<Text className='text-blue-500  '>{' > ' + item?.title}</Text>
+					<StyledText className='text-blue-500  '>{' > ' + item?.title}</StyledText>
 				</Link>
 			)}
 		</ScrollView>

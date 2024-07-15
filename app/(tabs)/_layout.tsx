@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React, { Children, ReactElement, ReactNode, cloneElement } from 'react'
 import { Tabs, Redirect } from 'expo-router'
 import { House, LucideIcon, LucideProps, Settings, SquarePlus } from 'lucide-react-native'
+import { useColorScheme } from 'nativewind'
 
 
 const defaultTabBarIconProps = {
@@ -25,11 +26,16 @@ const TabBarIcon = ({ Icon, color }: TabBarIconProps) => {
 
 
 const TabsLayout = () => {
+	const { colorScheme } = useColorScheme()
 	return (
 		<>
 			<Tabs
 				screenOptions={{
 					tabBarShowLabel: false,
+					tabBarStyle: {
+						backgroundColor: colorScheme == 'dark' ? '#171717' : '#FFFFFF',
+						borderBlockColor: colorScheme == 'dark' ? 'black' : '#FFFFFF'
+					}
 				}}>
 				<Tabs.Screen
 					name='HomeScreen'

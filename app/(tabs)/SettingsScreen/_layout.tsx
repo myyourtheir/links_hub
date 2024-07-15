@@ -6,12 +6,9 @@ import { Slot } from 'expo-router'
 
 const SettingsLayout = () => {
 	return (
-		<SafeAreaView className='bg-top'>
-			<View className='bg-primary'>
-
-				<Slot />
-			</View>
-		</SafeAreaView>
+		<View className='bg-primary dark:bg-darkBg  h-full'>
+			<Slot />
+		</View>
 	)
 }
 

@@ -11,6 +11,7 @@ import { RealmContext } from '@/lib/Realm'
 import BottomRoundButtonWrapper from '@/components/BottomRoundButtonWrapper'
 import { Check } from 'lucide-react-native'
 import { FormSchema } from '../(tabs)/AddingScreen'
+import StyledText from '@/components/StyledText'
 
 const { useQuery } = RealmContext
 const PathSelector = () => {
@@ -37,7 +38,7 @@ const PathSelector = () => {
 	}
 
 	return (
-		<SafeAreaView className='relative'>
+		< >
 			<BottomRoundButtonWrapper
 				onPress={handleSubmit}
 				buttonIcon={<Check color={'white'} size={30} />}
@@ -49,16 +50,16 @@ const PathSelector = () => {
 					ListEmptyComponent={EmptyComponent}
 				/>
 			</BottomRoundButtonWrapper>
-		</SafeAreaView>
+		</>
 	)
 }
 
 const EmptyComponent = () => {
 	return (
 		<View className='w-full items-center pt-5'>
-			<Text>
+			<StyledText>
 				{'Дальше ничего нет('}
-			</Text>
+			</StyledText>
 		</View>
 	)
 }

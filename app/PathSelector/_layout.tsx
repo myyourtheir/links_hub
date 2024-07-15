@@ -6,7 +6,6 @@ import { Slot } from 'expo-router'
 const PathSelectorLayout = () => {
 	return (
 		<Slot />
-
 	)
 }
 

@@ -6,6 +6,7 @@ import { UseFormGetValues, UseFormSetValue } from 'react-hook-form'
 import { FormSchema } from '@/app/(tabs)/AddingScreen'
 import useGetCurrentPath from '@/hooks/useGetCurrentPath'
 import { BSON } from 'realm'
+import StyledText from './StyledText'
 
 export type PathSelectorTriggerProps = {
 	ContainerClassName?: string,
@@ -24,16 +25,16 @@ const PathSelectorTrigger = ({ ContainerClassName, getValues, value, setValue }:
 	const { currentPathText } = useGetCurrentPath({ currentParent: value })
 	return (
 		<View className={ContainerClassName}>
-			<Text className='text-base'>
+			<StyledText className='text-base'>
 				{t('addingPath')}
-			</Text>
+			</StyledText>
 			<TouchableOpacity
 				className={`border rounded-md w-2/3 px-2 py-1 h-fit`}
 				onPress={handlePress}
 			>
-				<Text>
+				<StyledText>
 					{currentPathText}
-				</Text>
+				</StyledText>
 			</TouchableOpacity>
 		</View>
 	)

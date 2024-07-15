@@ -18,6 +18,8 @@ import { router } from 'expo-router'
 import { Item } from '@/lib/Realm/models/Item'
 import { BSON } from 'realm'
 import BottomRoundButtonWrapper from '@/components/BottomRoundButtonWrapper'
+import StyledText from '@/components/StyledText'
+import { useColorScheme } from 'nativewind'
 const { useRealm } = RealmContext
 
 
@@ -52,6 +54,8 @@ const AddingScreen = () => {
 	const { register, setValue, control, reset, formState: { errors }, getValues, handleSubmit } = useForm({
 		defaultValues: defaultValues
 	})
+
+	const { colorScheme } = useColorScheme()
 
 	useEffect(() => {
 		const values = currentAddingData !== null
@@ -91,8 +95,9 @@ const AddingScreen = () => {
 					rules={{ required: true }}
 					render={({ field: { onChange, value } }) => (
 						<TextInput
-							className=' text-xl font-medium  py-1 text-slate-600'
+							className={`text-xl font-medium  py-1 text-slate-600 ${colorScheme == 'dark' ? 'text-white' : 'text-black'}`}
 							placeholder={t('addingTitle')}
+							placeholderTextColor={colorScheme == 'dark' ? 'white' : 'black'}
 							value={value}
 							onChangeText={onChange}
 						/>
@@ -111,9 +116,9 @@ const AddingScreen = () => {
 						rules={{ required: true }}
 						render={({ field: { onChange, value } }) => (
 							<View className='w-full pt-4 px-4  gap-3 justify-center'>
-								<Text className=' text-base'>
+								<StyledText className=' text-base'>
 									{t("addingType")}
-								</Text>
+								</StyledText>
 								<Dropdown
 									style={{
 										borderWidth: 1,
@@ -144,9 +149,9 @@ const AddingScreen = () => {
 						rules={{ required: true }}
 						render={({ field: { onChange, value } }) => (
 							<View className='w-full pt-4 px-4 gap-3  justify-center'>
-								<Text className='text-base'>
+								<StyledText className='text-base'>
 									{t("addingLink")}
-								</Text>
+								</StyledText>
 								<StyledTextInput
 									value={value}
 									onChangeText={onChange}

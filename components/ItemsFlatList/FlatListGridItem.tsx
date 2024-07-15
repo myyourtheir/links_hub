@@ -4,6 +4,7 @@ import images from '@/constants/images'
 import FlatListImage from './FlatListImage'
 import { Item } from '@/lib/Realm/models/Item'
 import { useItemsFlatListContext } from './ItemsFlatListContext'
+import StyledText from '../StyledText'
 
 
 
@@ -24,8 +25,8 @@ const FlatListGridItem = ({ item }: { item: Item }) => {
 						height: 160
 					}}
 				/>
-				<Text
-					className=' max-w-[160px] max-h-5 truncate hover:text-clip  text-center text-base mt-0'>{item.title}</Text>
+				<StyledText
+					className=' max-w-[160px] max-h-5 truncate hover:text-clip  text-center text-base mt-0'>{item.title}</StyledText>
 			</View>
 		</TouchableOpacity>
 	)
