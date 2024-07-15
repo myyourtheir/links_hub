@@ -12,6 +12,7 @@ const FlatListGridItem = ({ item }: { item: Item }) => {
 	const { onItemClick } = useItemsFlatListContext()
 	return (
 		<TouchableOpacity
+			activeOpacity={0.7}
 			onPress={() => onItemClick(item)}
 		>
 			<View className='flex flex-col mb-3'>
@@ -23,7 +24,8 @@ const FlatListGridItem = ({ item }: { item: Item }) => {
 						height: 160
 					}}
 				/>
-				<Text className='w-full text-center mt-0'>{item.title}</Text>
+				<Text
+					className=' max-w-[160px] max-h-5 truncate hover:text-clip  text-center text-base mt-0'>{item.title}</Text>
 			</View>
 		</TouchableOpacity>
 	)

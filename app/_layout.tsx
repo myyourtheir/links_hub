@@ -5,13 +5,12 @@ import { RealmContext } from '@/lib/Realm'
 import GlobalContextProvider from '@/lib/store/GlobalContextProvider'
 import OrientationContextProvider from './(tabs)/HomeScreen/(components)/OrientationContext'
 
-export const unstable_settings = {
-	initialRouteName: 'index',
-}
+
 
 
 const GlobalLayout = () => {
 	const { RealmProvider } = RealmContext
+
 	return (
 		<RealmProvider>
 			<GlobalContextProvider>

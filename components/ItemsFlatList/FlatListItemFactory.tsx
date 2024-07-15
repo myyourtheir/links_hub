@@ -9,14 +9,30 @@ import FlatListGridItem from './FlatListGridItem'
 const FlatListItemFactory = ({ item }: { item: Item }) => {
 	const { orientationMode } = useOrientationContext()
 	return (
-		<FlatListItemWrapper>
+		<>
 			{
-				orientationMode === 'row' ?
-					<FlatListRowItem item={item} />
+				item.type !== 'empty'
+					? (
+						<FlatListItemWrapper>
+							{
+								orientationMode === 'row' ?
+									<FlatListRowItem item={item} />
+									:
+									<FlatListGridItem item={item} />
+							}
+						</FlatListItemWrapper>
+					)
 					:
-					<FlatListGridItem item={item} />
+					<>
+						{
+							orientationMode === 'row' ?
+								<FlatListRowItem item={item} />
+								:
+								<FlatListGridItem item={item} />
+						}
+					</>
 			}
-		</FlatListItemWrapper>
+		</>
 	)
 
 }

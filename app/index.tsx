@@ -1,5 +1,4 @@
-import 'react-native-get-random-values'
-import 'expo-dev-client'
+import '../i18n'
 import React from 'react'
 import { Redirect, router } from 'expo-router'
 const App = () => {

@@ -23,6 +23,7 @@ const ItemsFlatList: FC<ItemsFlatListProps> = ({ data, onItemClick, ...props }) 
 			onItemClick
 		}}>
 			<FlatList
+				className='mt-1'
 				contentContainerStyle={{
 					paddingHorizontal: 8
 				}}

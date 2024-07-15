@@ -16,7 +16,7 @@ export type PathSelectorTriggerProps = {
 }
 
 const PathSelectorTrigger = ({ ContainerClassName, getValues, value, setValue }: PathSelectorTriggerProps) => {
-	const { setCurrentAddingData } = useGlobalContext()
+	const { setCurrentAddingData, t } = useGlobalContext()
 	const handlePress = () => {
 		setCurrentAddingData(getValues())
 		router.push({ pathname: '/PathSelector/[parentId]', params: { parentId: 'null' } })
@@ -25,7 +25,7 @@ const PathSelectorTrigger = ({ ContainerClassName, getValues, value, setValue }:
 	return (
 		<View className={ContainerClassName}>
 			<Text className='text-base'>
-				Путь:
+				{t('addingPath')}
 			</Text>
 			<TouchableOpacity
 				className={`border rounded-md w-2/3 px-2 py-1 h-fit`}

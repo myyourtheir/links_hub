@@ -21,16 +21,7 @@ import BottomRoundButtonWrapper from '@/components/BottomRoundButtonWrapper'
 const { useRealm } = RealmContext
 
 
-const itemTypes = [
-	{
-		label: 'Ссылка',
-		value: 'link'
-	},
-	{
-		label: 'Папка',
-		value: 'folder'
-	},
-]
+
 
 const schema = z.object({
 	title: z.string(),
@@ -46,7 +37,17 @@ const defaultValues: FormSchema = {
 	url: '',
 }
 const AddingScreen = () => {
-	const { currentFolder, currentAddingData, setCurrentAddingData, setCurrentFolder } = useGlobalContext()
+	const { currentFolder, currentAddingData, setCurrentAddingData, setCurrentFolder, t } = useGlobalContext()
+	const itemTypes = [
+		{
+			label: t('link'),
+			value: 'link'
+		},
+		{
+			label: t('folder'),
+			value: 'folder'
+		},
+	]
 	const realm = useRealm()
 	const { register, setValue, control, reset, formState: { errors }, getValues, handleSubmit } = useForm({
 		defaultValues: defaultValues
@@ -64,7 +65,6 @@ const AddingScreen = () => {
 
 
 	const onSubmit: SubmitHandler<FormSchema> = (data) => {
-		console.log(data)
 		try {
 			schema.parse(data)
 		} catch (e) {
@@ -91,8 +91,8 @@ const AddingScreen = () => {
 					rules={{ required: true }}
 					render={({ field: { onChange, value } }) => (
 						<TextInput
-							className=' text-xl font-medium px-2 py-1 text-slate-600'
-							placeholder='Название'
+							className=' text-xl font-medium  py-1 text-slate-600'
+							placeholder={t('addingTitle')}
 							value={value}
 							onChangeText={onChange}
 						/>
@@ -112,7 +112,7 @@ const AddingScreen = () => {
 						render={({ field: { onChange, value } }) => (
 							<View className='w-full pt-4 px-4  gap-3 justify-center'>
 								<Text className=' text-base'>
-									Тип:
+									{t("addingType")}
 								</Text>
 								<Dropdown
 									style={{
@@ -145,7 +145,7 @@ const AddingScreen = () => {
 						render={({ field: { onChange, value } }) => (
 							<View className='w-full pt-4 px-4 gap-3  justify-center'>
 								<Text className='text-base'>
-									Ссылка:
+									{t("addingLink")}
 								</Text>
 								<StyledTextInput
 									value={value}

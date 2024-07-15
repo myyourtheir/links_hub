@@ -8,6 +8,7 @@ const FlatListRowItem = ({ item }: { item: Item }) => {
 	const { onItemClick } = useItemsFlatListContext()
 	return (
 		<TouchableOpacity
+			activeOpacity={0.7}
 			onPress={() => onItemClick(item)}
 		>
 			<View className='w-full flex flex-row gap-x-2 items-center mb-3'>
@@ -18,7 +19,7 @@ const FlatListRowItem = ({ item }: { item: Item }) => {
 						height: 40
 					}}
 				/>
-				<Text>{item.title}</Text>
+				<Text className='text-base'>{item.title}</Text>
 			</View>
 		</TouchableOpacity>
 	)
