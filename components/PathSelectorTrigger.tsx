@@ -25,7 +25,7 @@ const PathSelectorTrigger = ({ ContainerClassName, getValues, value, setValue }:
 	const { currentPathText } = useGetCurrentPath({ currentParent: value })
 	return (
 		<View className={ContainerClassName}>
-			<StyledText className='text-base'>
+			<StyledText additionClassName='text-base'>
 				{t('addingPath')}
 			</StyledText>
 			<TouchableOpacity

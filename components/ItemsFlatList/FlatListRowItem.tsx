@@ -20,7 +20,7 @@ const FlatListRowItem = ({ item }: { item: Item }) => {
 						height: 40
 					}}
 				/>
-				<StyledText className='text-base'>{item.title}</StyledText>
+				<StyledText additionClassName='text-base'>{item.title}</StyledText>
 			</View>
 		</TouchableOpacity>
 	)

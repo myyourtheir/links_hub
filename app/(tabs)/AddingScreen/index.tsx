@@ -109,16 +109,16 @@ const AddingScreen = () => {
 				onPress={handleSubmit(onSubmit)}
 				buttonIcon={<Plus color={'white'} size={30} />}
 			>
-				<View className='gap-y-3'>
+				<View className=''>
+					<StyledText additionClassName=' text-base'>
+						{t("addingType")}
+					</StyledText>
 					<Controller
 						control={control}
 						name="type"
 						rules={{ required: true }}
 						render={({ field: { onChange, value } }) => (
 							<View className='w-full pt-4 px-4  gap-3 justify-center'>
-								<StyledText className=' text-base'>
-									{t("addingType")}
-								</StyledText>
 								<Dropdown
 									style={{
 										borderWidth: 1,
@@ -149,13 +149,13 @@ const AddingScreen = () => {
 						rules={{ required: true }}
 						render={({ field: { onChange, value } }) => (
 							<View className='w-full pt-4 px-4 gap-3  justify-center'>
-								<StyledText className='text-base'>
+								<StyledText additionClassName='text-base'>
 									{t("addingLink")}
 								</StyledText>
 								<StyledTextInput
 									value={value}
 									onChangeText={onChange}
-									className='h-8'
+									additionClassName='h-8'
 								/>
 							</View>
 						)}

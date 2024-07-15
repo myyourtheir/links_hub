@@ -26,7 +26,10 @@ const FlatListGridItem = ({ item }: { item: Item }) => {
 					}}
 				/>
 				<StyledText
-					className=' max-w-[160px] max-h-5 truncate hover:text-clip  text-center text-base mt-0'>{item.title}</StyledText>
+					additionClassName={"max-w-[160px] max-h-5 truncate hover:text-clip text-center text-base mt-0"}
+				>
+					{item.title}
+				</StyledText>
 			</View>
 		</TouchableOpacity>
 	)

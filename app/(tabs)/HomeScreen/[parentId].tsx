@@ -65,7 +65,7 @@ function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[
 		<View
 			className='w-full h-full items-center pt-10 gap-8 justify-center '
 		>
-			<StyledText className='text-md'>
+			<StyledText additionClassName='text-md'>
 				Здесь пока ничего нет...
 			</StyledText>
 			<TouchableOpacity
@@ -82,7 +82,7 @@ function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[
 				}
 				className='border rounded-md px-3 py-2'
 			>
-				<StyledText className='text-lg'>
+				<StyledText additionClassName='text-lg'>
 					Добавьте элемент
 				</StyledText>
 			</TouchableOpacity>

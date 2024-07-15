@@ -31,13 +31,13 @@ const SettingsScreen = () => {
 		<>
 
 			<TopContent>
-				<StyledText className='text-xl'>
+				<StyledText additionClassName='text-xl'>
 					{t('settings')}
 				</StyledText>
 			</TopContent>
 			<View className='px-4 mt-3 gap-3'>
 				<View className='gap-3 w-full'>
-					<StyledText className='text-lg w-fit'>
+					<StyledText additionClassName='text-lg w-fit'>
 						{t('language') + ":"}
 					</StyledText>
 					<Dropdown
@@ -63,7 +63,7 @@ const SettingsScreen = () => {
 					/>
 				</View>
 				<View className=' flex-row gap-3 w-full'>
-					<StyledText className='text-lg w-fit'>
+					<StyledText additionClassName='text-lg w-fit'>
 						{t('darkmode') + ":"}
 					</StyledText>
 					<Switch value={colorScheme == 'dark'} onChange={toggleColorScheme} />
