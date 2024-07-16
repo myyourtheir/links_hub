@@ -4,14 +4,14 @@ import { useColorScheme } from 'nativewind'
 
 type TopContentProps = {
 	children?: ReactNode
-	className?: string
+	additionClassName?: string
 }
 
-const TopContent: FC<TopContentProps> = ({ children, className }) => {
+const TopContent: FC<TopContentProps> = ({ children, additionClassName }) => {
 	const { colorScheme } = useColorScheme()
 	return (
 		<View
-			className={`h-[7vh] px-4  flex flex-row items-center justify-between bg-top dark:bg-neutral-900 shadow ${colorScheme == 'light' ? 'shadow-black' : ' border-b-[0.5px] '}  ${className}`}
+			className={`h-[7vh] px-4  flex flex-row items-center justify-between bg-top dark:bg-black shadow ${colorScheme == 'light' ? 'shadow-black' : '  shadow-neutral-300  '}  ${additionClassName}`}
 		>
 			{children}
 		</View>

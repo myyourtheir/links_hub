@@ -19,7 +19,7 @@ const ScrollPathArea = ({ parentId }: { parentId: string }) => {
 		>
 			{pathArray.map(item =>
 				<Link key={item?._id.toString()} href={{ pathname: '/HomeScreen/[parentId]', params: { parentId: item?._id != null ? item?._id?.toString() : null } }}>
-					<StyledText additionClassName='text-blue-500  '>{' > ' + item?.title}</StyledText>
+					<StyledText additionClassName=''>{' > ' + item?.title}</StyledText>
 				</Link>
 			)}
 		</ScrollView>

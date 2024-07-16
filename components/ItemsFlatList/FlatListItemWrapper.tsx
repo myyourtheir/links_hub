@@ -1,6 +1,7 @@
 import { View, Text, Pressable } from 'react-native'
 import React, { ReactNode } from 'react'
 import { EllipsisVertical } from 'lucide-react-native'
+import StyledIcon from '../StyledIcon'
 
 type FlatListItemWrapperProps = {
 	children: ReactNode
@@ -14,7 +15,9 @@ const FlatListItemWrapper = ({ children }: FlatListItemWrapperProps) => {
 				<Pressable
 					onPress={() => console.log('3dots was pressed')}
 				>
-					<EllipsisVertical color={'black'} />
+					<StyledIcon>
+						<EllipsisVertical />
+					</StyledIcon>
 				</Pressable>
 			</View>
 			{children}

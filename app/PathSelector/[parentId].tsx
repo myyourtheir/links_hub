@@ -43,7 +43,7 @@ const PathSelector = () => {
 				onPress={handleSubmit}
 				buttonIcon={<Check color={'white'} size={30} />}
 			>
-				<TopContent className='min-h-[7vh]' />
+				<TopContent additionClassName='min-h-[7vh]' />
 				<ItemsFlatList
 					data={items}
 					onItemClick={onItemClick}

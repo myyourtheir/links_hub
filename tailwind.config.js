@@ -8,8 +8,7 @@ module.exports = {
 				'secondary': '#fefae0',
 				'top': '#f8fafc',
 				'darkBg': '#171717',
-				'darkText': 'white',
-				"destructive": '#a41f1f'
+				'darkText': 'white'
 			}
 		},
 	},

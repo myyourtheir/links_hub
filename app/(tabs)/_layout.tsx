@@ -3,6 +3,7 @@ import React, { Children, ReactElement, ReactNode, cloneElement } from 'react'
 import { Tabs, Redirect } from 'expo-router'
 import { House, LucideIcon, LucideProps, Settings, SquarePlus } from 'lucide-react-native'
 import { useColorScheme } from 'nativewind'
+import StyledIcon from '@/components/StyledIcon'
 
 
 const defaultTabBarIconProps = {
@@ -17,9 +18,9 @@ type TabBarIconProps = {
 const TabBarIcon = ({ Icon, color }: TabBarIconProps) => {
 	const { size, strokeWidth } = defaultTabBarIconProps
 	return (
-		<View >
+		<StyledIcon>
 			<Icon color={color} size={size} strokeWidth={strokeWidth} />
-		</View>
+		</StyledIcon>
 	)
 }
 
@@ -33,7 +34,7 @@ const TabsLayout = () => {
 				screenOptions={{
 					tabBarShowLabel: false,
 					tabBarStyle: {
-						backgroundColor: colorScheme == 'dark' ? '#171717' : '#FFFFFF',
+						backgroundColor: colorScheme == 'dark' ? '#000000' : '#FFFFFF',
 						borderBlockColor: colorScheme == 'dark' ? 'black' : '#FFFFFF'
 					}
 				}}>
@@ -49,7 +50,7 @@ const TabsLayout = () => {
 						},
 						headerShown: false,
 						tabBarIcon: ({ color, focused }) => (
-							<TabBarIcon Icon={House} color={`${focused ? color : 'black'}`} />
+							<TabBarIcon Icon={House} color={`${focused ? color : ''}`} />
 						)
 					}}
 				/>
@@ -59,7 +60,7 @@ const TabsLayout = () => {
 						title: "Adding",
 						headerShown: false,
 						tabBarIcon: ({ color, focused }) => (
-							<TabBarIcon Icon={SquarePlus} color={`${focused ? color : 'black'}`} />
+							<TabBarIcon Icon={SquarePlus} color={`${focused ? color : ''}`} />
 						)
 					}}
 				/>
@@ -69,7 +70,7 @@ const TabsLayout = () => {
 						title: "Settings",
 						headerShown: false,
 						tabBarIcon: ({ color, focused }) => (
-							<TabBarIcon Icon={Settings} color={`${focused ? color : 'black'}`} />
+							<TabBarIcon Icon={Settings} color={`${focused ? color : ''}`} />
 						)
 					}}
 				/>

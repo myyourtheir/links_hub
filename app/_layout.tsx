@@ -1,6 +1,6 @@
 import 'react-native-get-random-values'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Slot } from 'expo-router'
 import { RealmContext } from '@/lib/Realm'
 import GlobalContextProvider from '@/lib/store/GlobalContextProvider'
@@ -16,6 +16,8 @@ import { StatusBar } from 'expo-status-bar'
 const GlobalLayout = () => {
 	const { RealmProvider } = RealmContext
 	const { colorScheme } = useColorScheme()
+
+
 	return (
 
 		<RealmProvider>

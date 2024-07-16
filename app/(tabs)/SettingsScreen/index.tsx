@@ -8,8 +8,16 @@ import TopContent from '@/components/TopContent'
 import { useTranslation } from 'react-i18next'
 import { useColorScheme } from 'nativewind'
 import StyledText from '@/components/StyledText'
+import StyledDropdown from '@/components/StryledDropdown'
+import { FormItem } from '@/components/Form'
+import { setAppData } from '@/lib/AsyncStorage'
 
-const langData = [
+type LangDataType = {
+	title: 'Русский' | 'English',
+	value: 'en' | 'ru'
+}
+
+const langData: LangDataType[] = [
 	{
 		title: 'Русский',
 		value: 'ru'
@@ -20,58 +28,43 @@ const langData = [
 	}
 ]
 
-
 const SettingsScreen = () => {
 	const { t } = useTranslation()
 	const onChange = (lang: typeof langData[0]) => {
 		i18next.changeLanguage(lang.value)
+		setAppData('language', lang.value)
 	}
 	const { colorScheme, toggleColorScheme } = useColorScheme()
 	return (
-		<>
 
-			<TopContent>
-				<StyledText additionClassName='text-xl'>
-					{t('settings')}
+		<View className=''>
+			<FormItem additionClassName=''>
+				<StyledText additionClassName='mb-4'>
+					{t('language') + ":"}
 				</StyledText>
-			</TopContent>
-			<View className='px-4 mt-8 gap-3'>
-				<View className='gap-y-3 w-full'>
-					<StyledText additionClassName='text-lg w-fit'>
-						{t('language') + ":"}
-					</StyledText>
-					<Dropdown
-						style={{
-							borderWidth: 1,
-							borderRadius: 6,
-							width: 140
-						}}
-						data={langData}
-						labelField={'title'}
-						valueField={'value'}
-						onChange={(el) => onChange(el)}
-						value={i18next.language}
-						containerStyle={{
-							borderRadius: 6,
-						}}
-						selectedTextStyle={{
-							paddingHorizontal: 8,
-							paddingVertical: 4,
-							fontSize: 16,
-							lineHeight: 24
-						}}
-					/>
-				</View>
-				<View className=' flex-row gap-x-4 w-full'>
-					<StyledText additionClassName='text-lg w-fit'>
-						{t('darkmode') + ":"}
-					</StyledText>
-					<Switch value={colorScheme == 'dark'} onChange={toggleColorScheme} />
-				</View>
-
-			</View>
-		</>
-
+				<StyledDropdown
+					style={{
+						width: '40%',
+					}}
+					data={langData}
+					labelField={'title'}
+					valueField={'value'}
+					onChange={(el) => onChange(el)}
+					value={i18next.language}
+				/>
+			</FormItem>
+			<FormItem className='flex-row items-center '>
+				<StyledText additionClassName=''>
+					{t('darkmode') + ":"}
+				</StyledText>
+				<Switch
+					value={colorScheme == 'dark'}
+					onValueChange={(value) => {
+						toggleColorScheme()
+						setAppData('theme', value == true ? 'dark' : 'light')
+					}} />
+			</FormItem>
+		</View>
 	)
 }
 
