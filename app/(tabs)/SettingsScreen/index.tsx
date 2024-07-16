@@ -35,8 +35,8 @@ const SettingsScreen = () => {
 					{t('settings')}
 				</StyledText>
 			</TopContent>
-			<View className='px-4 mt-3 gap-3'>
-				<View className='gap-3 w-full'>
+			<View className='px-4 mt-8 gap-3'>
+				<View className='gap-y-3 w-full'>
 					<StyledText additionClassName='text-lg w-fit'>
 						{t('language') + ":"}
 					</StyledText>
@@ -62,7 +62,7 @@ const SettingsScreen = () => {
 						}}
 					/>
 				</View>
-				<View className=' flex-row gap-3 w-full'>
+				<View className=' flex-row gap-x-4 w-full'>
 					<StyledText additionClassName='text-lg w-fit'>
 						{t('darkmode') + ":"}
 					</StyledText>

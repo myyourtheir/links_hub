@@ -1,8 +1,8 @@
 {
-	"addingTitle": "Title:",
-	"addingType": "Type:",
-	"addingLink": "Link:",
-	"addingPath": "Path:",
+	"addingTitle": "Title",
+	"addingType": "Type",
+	"addingLink": "Link",
+	"addingPath": "Path",
 	"folder": "Folder",
 	"link": "Link",
 	"settings": "Settings",

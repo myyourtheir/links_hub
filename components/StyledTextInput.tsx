@@ -8,7 +8,7 @@ const StyledTextInput = ({ additionClassName, ...props }: StyledTextInputProps) 
 	return (
 		<TextInput
 			cursorColor={'black'}
-			className={`border rounded-md w-2/3 px-2 py-1 ${additionClassName}`}
+			className={`border-b-[0.5px] rounded-md w-2/3 px-2  ${additionClassName}`}
 			{...props}
 		/>
 	)

@@ -1,7 +1,7 @@
-import { View, Text, TextInput, TouchableOpacity, Button, Pressable } from 'react-native'
+import { TextInput, View } from 'react-native'
+import { zodResolver } from "@hookform/resolvers/zod"
 import React, { useEffect } from 'react'
 import { Dropdown } from 'react-native-element-dropdown'
-// import { Dropdown } from 'react-native-element-dropdown'
 import TopContent from '@/components/TopContent'
 import StyledTextInput from '@/components/StyledTextInput'
 import { Plus } from 'lucide-react-native'
@@ -12,22 +12,21 @@ import {
 } from 'react-hook-form'
 import PathSelectorTrigger from '@/components/PathSelectorTrigger'
 import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
-import { string, z } from 'zod'
+import { z } from 'zod'
 import { RealmContext } from '@/lib/Realm'
 import { router } from 'expo-router'
-import { Item } from '@/lib/Realm/models/Item'
-import { BSON } from 'realm'
 import BottomRoundButtonWrapper from '@/components/BottomRoundButtonWrapper'
 import StyledText from '@/components/StyledText'
 import { useColorScheme } from 'nativewind'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/Form'
 const { useRealm } = RealmContext
 
 
 
 
 const schema = z.object({
-	title: z.string(),
-	type: z.string(),
+	title: z.string().min(3),
+	type: z.string().min(3),
 	url: z.string(),
 
 })
@@ -51,10 +50,11 @@ const AddingScreen = () => {
 		},
 	]
 	const realm = useRealm()
-	const { register, setValue, control, reset, formState: { errors }, getValues, handleSubmit } = useForm({
+	// { setValue, control, formState: { errors }, getValues, handleSubmit }
+	const form = useForm<z.infer<typeof schema>>({
+		resolver: zodResolver(schema),
 		defaultValues: defaultValues
 	})
-
 	const { colorScheme } = useColorScheme()
 
 	useEffect(() => {
@@ -63,7 +63,7 @@ const AddingScreen = () => {
 			currentAddingData
 			: defaultValues
 		Object.entries(values).forEach(value => {
-			setValue(value[0] as any, value[1])
+			form.setValue(value[0] as any, value[1])
 		})
 	}, [currentAddingData])
 
@@ -87,92 +87,193 @@ const AddingScreen = () => {
 	}
 
 	return (
-		<View className='h-[93vh]'>
-			<TopContent>
-				<Controller
-					control={control}
-					name="title"
-					rules={{ required: true }}
-					render={({ field: { onChange, value } }) => (
-						<TextInput
-							className={`text-xl font-medium  py-1 text-slate-600 ${colorScheme == 'dark' ? 'text-white' : 'text-black'}`}
-							placeholder={t('addingTitle')}
-							placeholderTextColor={colorScheme == 'dark' ? 'white' : 'black'}
-							value={value}
-							onChangeText={onChange}
-						/>
-					)}
-				/>
 
+		<Form {...form}>
+			<TopContent>
+				<FormField
+					control={form.control}
+					name='title'
+					render={({ field: { onChange, ...props } }) => {
+						return (
+							<FormItem>
+								<FormControl>
+									<TextInput placeholder={t('addingTitle')}
+										placeholderTextColor={colorScheme == 'dark' ? 'white' : 'black'}
+										onChangeText={e => onChange(e)}
+										{...props}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)
+					}}
+				/>
 			</TopContent>
 			<BottomRoundButtonWrapper
-				onPress={handleSubmit(onSubmit)}
-				buttonIcon={<Plus color={'white'} size={30} />}
-			>
-				<View className=''>
-					<StyledText additionClassName=' text-base'>
-						{t("addingType")}
-					</StyledText>
-					<Controller
-						control={control}
-						name="type"
-						rules={{ required: true }}
-						render={({ field: { onChange, value } }) => (
-							<View className='w-full pt-4 px-4  gap-3 justify-center'>
-								<Dropdown
-									style={{
-										borderWidth: 1,
-										borderRadius: 6,
-										width: '50%'
-									}}
-									data={itemTypes}
-									labelField={'label'}
-									valueField={'value'}
-									onChange={(el) => onChange(el.value)}
-									value={value}
-									containerStyle={{
-										borderRadius: 6,
-									}}
-									selectedTextStyle={{
-										paddingHorizontal: 8,
-										paddingVertical: 4,
-										fontSize: 16,
-										lineHeight: 24
-									}}
-								/>
-							</View>
-						)}
-					/>
-					<Controller
-						control={control}
-						name="url"
-						rules={{ required: true }}
-						render={({ field: { onChange, value } }) => (
-							<View className='w-full pt-4 px-4 gap-3  justify-center'>
-								<StyledText additionClassName='text-base'>
+				onPress={form.handleSubmit(onSubmit)}
+				buttonIcon={<Plus color={'white'} size={30}
+				/>}>
+				<FormField
+					control={form.control}
+					name='type'
+					render={({ field: { value, onChange } }) => {
+						return (
+							<FormItem >
+								<FormLabel additionClassName=''>
+									{t("addingType")}
+								</FormLabel>
+								<FormControl>
+									<View>
+										<Dropdown
+											style={{
+												borderBottomWidth: 1,
+												borderRadius: 6,
+												width: '50%'
+											}}
+											data={itemTypes}
+											labelField={'label'}
+											valueField={'value'}
+											onChange={(el) => onChange(el.value)}
+											value={value}
+											containerStyle={{
+												borderRadius: 6,
+											}}
+											selectedTextStyle={{
+												paddingHorizontal: 8,
+												paddingVertical: 2,
+												fontSize: 16,
+												lineHeight: 24
+											}}
+										/>
+									</View>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)
+					}}
+				/>
+				<FormField
+					control={form.control}
+					name='url'
+					render={({ field: { onChange, ...props } }) => {
+						return (
+							<FormItem>
+								<FormLabel additionClassName=''>
 									{t("addingLink")}
-								</StyledText>
-								<StyledTextInput
-									value={value}
-									onChangeText={onChange}
-									additionClassName='h-8'
-								/>
-							</View>
-						)}
-					/>
+								</FormLabel>
+								<FormControl>
+									<StyledTextInput
+										onChangeText={e => onChange(e)}
+										{...props}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)
+					}}
+				/>
+				<FormItem>
+					<FormLabel>
+						{t('addingPath')}
+					</FormLabel>
+					<View>
+						<PathSelectorTrigger
+							ContainerClassName=''
+							value={currentFolder}
+							setValue={form.setValue}
+							getValues={form.getValues}
 
-					<PathSelectorTrigger
-						ContainerClassName='w-full pt-4 px-4 gap-3 justify-center'
-						value={currentFolder}
-						setValue={setValue}
-						getValues={getValues}
-
-					/>
-
-				</View>
-
+						/>
+					</View>
+				</FormItem>
 			</BottomRoundButtonWrapper>
-		</View>
+		</Form>
+		// <View className='h-[93vh]'>
+		// 	<TopContent>
+		// 		<Controller
+		// 			control={control}
+		// 			name="title"
+		// 			rules={{ required: true }}
+		// 			render={({ field: { onChange, value } }) => (
+		// 				<TextInput
+		// 					className={`text-xl font-medium  py-1 text-slate-600 ${colorScheme == 'dark' ? 'text-white' : 'text-black'}`}
+		// placeholder={t('addingTitle')}
+		// placeholderTextColor={colorScheme == 'dark' ? 'white' : 'black'}
+		// 					value={value}
+		// 					onChangeText={onChange}
+		// 				/>
+		// 			)}
+		// 		/>
+
+		// 	</TopContent>
+		// 	<BottomRoundButtonWrapper
+		// onPress={handleSubmit(onSubmit)}
+		// buttonIcon={<Plus color={'white'} size={30} />}
+		// 	>
+		// 		<View className='px-4 leading-3'>
+		// 			<StyledText additionClassName=' text-base'>
+		// 				{t("addingType")}
+		// 			</StyledText>
+		// 			<Controller
+		// 				control={control}
+		// 				name="type"
+		// 				rules={{ required: true }}
+		// 				render={({ field: { onChange, value } }) => (
+
+		// <Dropdown
+		// 	style={{
+		// 		borderWidth: 1,
+		// 		borderRadius: 6,
+		// 		width: '50%'
+		// 	}}
+		// 	data={itemTypes}
+		// 	labelField={'label'}
+		// 	valueField={'value'}
+		// 	onChange={(el) => onChange(el.value)}
+		// 	value={value}
+		// 	containerStyle={{
+		// 		borderRadius: 6,
+		// 	}}
+		// 	selectedTextStyle={{
+		// 		paddingHorizontal: 8,
+		// 		paddingVertical: 4,
+		// 		fontSize: 16,
+		// 		lineHeight: 24
+		// 	}}
+		// />
+
+		// 				)}
+		// 			/>
+		// 			<StyledText additionClassName='text-base'>
+		// 				{t("addingLink")}
+		// 			</StyledText>
+		// 			<Controller
+		// 				control={control}
+		// 				name="url"
+		// 				rules={{ required: true }}
+		// 				render={({ field: { onChange, value } }) => (
+		// 					<StyledTextInput
+		// 						value={value}
+		// 						onChangeText={onChange}
+		// 						additionClassName='h-8'
+		// 					/>
+		// 				)}
+		// 			/>
+		// 			<StyledText additionClassName='text-base'>
+		// 				{t('addingPath')}
+		// 			</StyledText>
+		// <PathSelectorTrigger
+		// 	ContainerClassName=''
+		// 	value={currentFolder}
+		// 	setValue={setValue}
+		// 	getValues={getValues}
+
+		// />
+
+		// 		</View>
+
+		// 	</BottomRoundButtonWrapper>
+		// </View>
 	)
 }
 

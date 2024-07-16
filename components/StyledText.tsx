@@ -1,16 +1,18 @@
 import { Text, TextProps } from 'react-native'
-import React, { ReactNode } from 'react'
+import React, { forwardRef, ReactNode } from 'react'
 import { StyledComponent, useColorScheme } from 'nativewind'
 
-const StyledText = ({ children, additionClassName, ...props }: { children: ReactNode, additionClassName?: string } & TextProps) => {
+
+const StyledText = forwardRef<
+	Text, { children?: ReactNode, additionClassName?: string } & TextProps
+>(({ children, additionClassName, ...props }, ref) => {
 	const { colorScheme } = useColorScheme()
 	const textColor = colorScheme == 'dark' ? 'text-white' : 'text-black'
-	console.log(additionClassName)
 	return (
-		<Text className={`${textColor} ${additionClassName}`}>
+		<Text ref={ref} className={`${textColor} ${additionClassName}`} {...props}>
 			{children}
 		</Text>
 	)
-}
+})
 
 export default StyledText

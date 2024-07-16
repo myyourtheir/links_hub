@@ -24,19 +24,15 @@ const PathSelectorTrigger = ({ ContainerClassName, getValues, value, setValue }:
 	}
 	const { currentPathText } = useGetCurrentPath({ currentParent: value })
 	return (
-		<View className={ContainerClassName}>
-			<StyledText additionClassName='text-base'>
-				{t('addingPath')}
+		<TouchableOpacity
+			className={`border-b-[0.5px] rounded-md w-2/3 px-2 py-1 h-fit ${ContainerClassName}`}
+			onPress={handlePress}
+		>
+			<StyledText additionClassName=''>
+				{currentPathText}
 			</StyledText>
-			<TouchableOpacity
-				className={`border rounded-md w-2/3 px-2 py-1 h-fit`}
-				onPress={handlePress}
-			>
-				<StyledText>
-					{currentPathText}
-				</StyledText>
-			</TouchableOpacity>
-		</View>
+		</TouchableOpacity>
+
 	)
 }
 
