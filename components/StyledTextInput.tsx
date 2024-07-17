@@ -13,7 +13,7 @@ const StyledTextInput = forwardRef<
 			<TextInput
 				ref={ref}
 				cursorColor={colorScheme === 'dark' ? 'white' : 'black'}
-				className={`border-b-[0.5px] ${colorScheme === 'dark' ? 'border-white' : 'border-black'} rounded-md w-2/3 px-2  ${additionClassName}`}
+				className={`border-b-[0.5px] ${colorScheme === 'dark' ? 'border-white' : 'border-black'} dark:text-white rounded-md w-2/3 px-2  ${additionClassName}`}
 				{...props}
 			/>
 		)

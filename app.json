@@ -4,11 +4,11 @@
 		"slug": "links_hub",
 		"version": "1.0.0",
 		"orientation": "portrait",
-		"icon": "./assets/images/link.png",
+		"icon": "./assets/images/icon.png",
 		"scheme": "links_hub",
 		"userInterfaceStyle": "automatic",
 		"splash": {
-			"image": "./assets/images/link.png",
+			"image": "./assets/images/splash.png",
 			"resizeMode": "contain",
 			"backgroundColor": "#ffffff"
 		},
@@ -20,7 +20,7 @@
 		},
 		"android": {
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/images/link.png",
+				"foregroundImage": "./assets/images/adaptive-icon.png",
 				"backgroundColor": "#ffffff"
 			},
 			"package": "com.myyourtheir.links_hub"

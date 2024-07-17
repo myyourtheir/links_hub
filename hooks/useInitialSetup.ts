@@ -3,23 +3,46 @@ import { getAppData } from '@/lib/AsyncStorage'
 import i18next from 'i18next'
 import { useColorScheme } from 'nativewind'
 import { ColorSchemeSystem } from 'nativewind/dist/style-sheet/color-scheme'
+import { useCallback, useEffect, useState } from 'react'
+import * as SplashScreen from 'expo-splash-screen'
+
 
 const useInitialSetup = () => {
 	const { setColorScheme } = useColorScheme()
 	const { setOrientationMode } = useOrientationContext()
-	Promise.all([getAppData('language'), getAppData('theme'), getAppData('orientationMode')]).then((data => {
-		if (data[0]) {
-			i18next.changeLanguage(data[0])
+	const [appIsReady, setAppIsReady] = useState(false)
+	useEffect(() => {
+		async function prepare() {
+			await SplashScreen.preventAutoHideAsync()
+			try {
+				await Promise.all([getAppData('language'), getAppData('theme'), getAppData('orientationMode')]).then((data => {
+					if (data[0]) {
+						i18next.changeLanguage(data[0])
+					}
+					if (data[1]) {
+						setColorScheme(data[1] as ColorSchemeSystem)
+					}
+					if (data[2]) {
+						setOrientationMode(data[2] as "grid" | "row")
+					}
+				}))
+			} catch (e) {
+				console.warn(e)
+			} finally {
+				setAppIsReady(true)
+			}
 		}
-		if (data[1]) {
-			setColorScheme(data[1] as ColorSchemeSystem)
+		prepare()
+	}, [])
+
+	const onLayoutRootView = useCallback(async () => {
+		if (appIsReady) {
+			await SplashScreen.hideAsync()
 		}
-		if (data[2]) {
-			setOrientationMode(data[2] as "grid" | "row")
-		}
-	}))
+	}, [appIsReady])
 
 
+	return { appIsReady, onLayoutRootView }
 }
 
 
