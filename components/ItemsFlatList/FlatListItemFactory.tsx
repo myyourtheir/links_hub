@@ -6,12 +6,12 @@ import FlatListRowItem from './FlatListRowItem'
 import { useOrientationContext } from '@/app/(tabs)/HomeScreen/(components)/OrientationContext'
 import FlatListGridItem from './FlatListGridItem'
 
-const FlatListItemFactory = ({ item }: { item: Item }) => {
+const FlatListItemFactory = ({ item, withOptionsMenu }: { item: Item, withOptionsMenu: boolean }) => {
 	const { orientationMode } = useOrientationContext()
 	return (
 		<>
 			{
-				item.type !== 'empty'
+				item.type !== 'empty' && withOptionsMenu
 					? (
 						<FlatListItemWrapper>
 							{

@@ -5,14 +5,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 type CustomButtonProps = {
 	handlePress: () => void,
-	className?: string,
+	additionClassName?: string,
 	isLoading?: boolean,
 	children: ReactNode
 }
 
 const CustomButton: FC<CustomButtonProps> = ({
 	handlePress,
-	className,
+	additionClassName,
 	isLoading = false,
 	children
 }) => {
@@ -20,7 +20,7 @@ const CustomButton: FC<CustomButtonProps> = ({
 		<TouchableOpacity
 			onPress={handlePress}
 			activeOpacity={0.4}
-			className={` ${className} `}
+			className={` ${additionClassName} `}
 			disabled={isLoading}
 		>
 			{children}

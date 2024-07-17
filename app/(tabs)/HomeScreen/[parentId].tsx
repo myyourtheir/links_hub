@@ -14,10 +14,9 @@ const { useQuery } = RealmContext
 
 const HomeScreen = () => {
 	const { parentId } = useLocalSearchParams()
-
 	let items = useQuery(Item, items => {
 		return items
-			.filtered(`parentId=${parentId !== 'null' ? 'oid(' + parentId + ')' : null}`)
+			.filtered(`parentId=${parentId != 'null' ? 'oid(' + parentId + ')' : null}`)
 			.sorted('updatedTime', false)
 	}, [])
 

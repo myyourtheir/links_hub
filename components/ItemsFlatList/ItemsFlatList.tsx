@@ -13,10 +13,11 @@ import { useOrientationContext } from '@/app/(tabs)/HomeScreen/(components)/Orie
 
 type ItemsFlatListProps = {
 	data: ArrayLike<Item> | null | undefined
-	onItemClick: (item: Item) => void
+	onItemClick: (item: Item) => void,
+	withOptionsMenu?: boolean
 } & Partial<FlatListProps<Item>>
 
-const ItemsFlatList: FC<ItemsFlatListProps> = ({ data, onItemClick, ...props }) => {
+const ItemsFlatList: FC<ItemsFlatListProps> = ({ data, onItemClick, withOptionsMenu = true, ...props }) => {
 	const { orientationMode } = useOrientationContext()
 	return (
 		<ItemsFlatListContext.Provider value={{
@@ -30,7 +31,7 @@ const ItemsFlatList: FC<ItemsFlatListProps> = ({ data, onItemClick, ...props }) 
 				data={data}
 				keyExtractor={(item) => item._id.toString()}
 				showsVerticalScrollIndicator={false}
-				renderItem={({ item }) => <FlatListItemFactory item={item} />}
+				renderItem={({ item }) => <FlatListItemFactory item={item} withOptionsMenu />}
 				{...extractOrientationDependingProps({ orientationMode })}
 				{...props}
 			/>

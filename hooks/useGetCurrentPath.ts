@@ -6,8 +6,7 @@ const { useObject } = RealmContext
 const useGetCurrentPath = ({ currentParent }: { currentParent: Item['_id'] | null }) => {
 
 	let currentPathText: string
-	let pathArray = []
-
+	let pathArray: (Item | null)[] = []
 	if (currentParent === null) currentPathText = '>'
 	else {
 		let currentFolder = useObject(Item, currentParent)
@@ -19,6 +18,7 @@ const useGetCurrentPath = ({ currentParent }: { currentParent: Item['_id'] | nul
 		pathArray.unshift(currentFolder)
 		currentPathText = '> ' + pathArray.map(item => item?.title).join(' > ')
 	}
+	if (currentParent !== null) pathArray.unshift(null)
 
 
 	return { currentPathText, pathArray }

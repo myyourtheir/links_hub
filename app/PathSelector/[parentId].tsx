@@ -48,6 +48,7 @@ const PathSelector = () => {
 					data={items}
 					onItemClick={onItemClick}
 					ListEmptyComponent={EmptyComponent}
+					withOptionsMenu={false}
 				/>
 			</BottomRoundButtonWrapper>
 		</>

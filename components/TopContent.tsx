@@ -11,7 +11,7 @@ const TopContent: FC<TopContentProps> = ({ children, additionClassName }) => {
 	const { colorScheme } = useColorScheme()
 	return (
 		<View
-			className={`h-[7vh] px-4  flex flex-row items-center justify-between bg-top dark:bg-black shadow ${colorScheme == 'light' ? 'shadow-black' : '  shadow-neutral-300  '}  ${additionClassName}`}
+			className={`h-[7vh] px-4  flex flex-row items-center justify-between bg-top dark:bg-black  ${colorScheme == 'light' ? 'shadow shadow-black' : ''}  ${additionClassName}`}
 		>
 			{children}
 		</View>

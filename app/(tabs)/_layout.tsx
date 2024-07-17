@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React, { Children, ReactElement, ReactNode, cloneElement, useCallback } from 'react'
-import { Tabs, Redirect } from 'expo-router'
+import { Tabs, Redirect, Slot } from 'expo-router'
 import { House, LucideIcon, LucideProps, Settings, SquarePlus } from 'lucide-react-native'
 import { useColorScheme } from 'nativewind'
 import StyledIcon from '@/components/StyledIcon'
@@ -33,11 +33,13 @@ const TabsLayout = () => {
 		return {
 			strokeWidth: focused ? focusedStrokeWidth : strokeWidth,
 			color: focused ? color : '',
+
 		}
 	}, [])
 	return (
 		<>
-			<Tabs
+			<Slot />
+			{/* <Tabs
 				screenOptions={{
 					tabBarShowLabel: false,
 					tabBarActiveTintColor: colorScheme == 'dark' ? 'white' : 'black',
@@ -53,7 +55,7 @@ const TabsLayout = () => {
 						href: {
 							pathname: '/HomeScreen/[parentId]',
 							params: {
-								parentId: 'null'
+								parentId: ''
 							}
 						},
 						headerShown: false,
@@ -91,7 +93,7 @@ const TabsLayout = () => {
 						)
 					}}
 				/>
-			</Tabs>
+			</Tabs> */}
 		</>
 
 	)
