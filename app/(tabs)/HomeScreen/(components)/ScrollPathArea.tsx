@@ -1,10 +1,10 @@
 import { View, Text, ScrollView } from 'react-native'
 import React, { useRef } from 'react'
-import useGetCurrentPath from '@/hooks/useGetCurrentPath'
+import useGetCurrentPath from '~/hooks/useGetCurrentPath'
 import { BSON } from 'realm'
 import { Link } from 'expo-router'
-import StyledText from '@/components/StyledText'
-import StyledIcon from '@/components/StyledIcon'
+import StyledText from '~/components/StyledText'
+import StyledIcon from '~/components/StyledIcon'
 import { House } from 'lucide-react-native'
 
 const ScrollPathArea = ({ parentId }: { parentId: string }) => {

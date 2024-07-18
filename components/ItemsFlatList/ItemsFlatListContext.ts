@@ -1,4 +1,4 @@
-import { Item } from '@/lib/Realm/models/Item'
+import { Item } from '~/lib/Realm/models/Item'
 import { createContext, useContext } from 'react'
 
 type ItemsFlatListContextProps = {

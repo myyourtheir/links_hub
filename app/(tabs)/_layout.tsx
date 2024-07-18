@@ -2,8 +2,9 @@ import { View, Text } from 'react-native'
 import React, { Children, ReactElement, ReactNode, cloneElement, useCallback } from 'react'
 import { Tabs, Redirect, Slot } from 'expo-router'
 import { House, LucideIcon, LucideProps, Settings, SquarePlus } from 'lucide-react-native'
-import { useColorScheme } from 'nativewind'
-import StyledIcon from '@/components/StyledIcon'
+
+import StyledIcon from '~/components/StyledIcon'
+import { useColorScheme } from '~/lib/useColorScheme'
 
 
 const defaultTabBarIconProps = {

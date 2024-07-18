@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { Item } from '@/lib/Realm/models/Item'
+import { Item } from '~/lib/Realm/models/Item'
 import FlatListItemWrapper from './FlatListItemWrapper'
 import FlatListRowItem from './FlatListRowItem'
-import { useOrientationContext } from '@/app/(tabs)/HomeScreen/(components)/OrientationContext'
+import { useOrientationContext } from '~/app/(tabs)/HomeScreen/(components)/OrientationContext'
 import FlatListGridItem from './FlatListGridItem'
 
 const FlatListItemFactory = ({ item, withOptionsMenu }: { item: Item, withOptionsMenu: boolean }) => {

@@ -1,7 +1,7 @@
 import { View, Text, Image, ImageStyle, StyleProp } from 'react-native'
 import React, { FC } from 'react'
-import images from '@/constants/images'
-import { Item } from '@/lib/Realm/models/Item'
+import images from '~/constants/images'
+import { Item } from '~/lib/Realm/models/Item'
 
 type FlatListImageProps = {
 	item: Item,

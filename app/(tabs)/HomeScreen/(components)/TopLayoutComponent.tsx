@@ -1,13 +1,15 @@
 import { View } from 'react-native'
 import React, { FC, useEffect } from 'react'
-import { ChevronLeft, EllipsisVertical, Grid2X2, Rows2, Search } from 'lucide-react-native'
-import CustomButton from '@/components/CustomButton'
-import TopContent from '@/components/TopContent'
+import { EllipsisVertical, Grid2X2, Rows2, Search } from 'lucide-react-native'
+import TopContent from '~/components/TopContent'
 import ScrollPathArea from './ScrollPathArea'
 import { useOrientationContext } from './OrientationContext'
-import StyledIcon from '@/components/StyledIcon'
-import { setAppData } from '@/lib/AsyncStorage'
+import StyledIcon from '~/components/StyledIcon'
+import { setAppData } from '~/lib/AsyncStorage'
 import { router } from 'expo-router'
+import SettingsPopover from './SettingsPopover'
+import { Button } from '~/components/ui/button'
+import ChevronLeft from '~/lib/icons/ChevronLeft'
 
 type TopLayoutComponentProps = {
 
@@ -24,28 +26,32 @@ const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ className, parentId }
 	return (
 		<TopContent additionClassName='flex-col justify-start items-center h-[8vh]'>
 			<View className='w-full flex-row justify-between'>
-				<CustomButton
-					handlePress={() => {
+				<Button
+					className=''
+					variant={'ghost'}
+					onPress={() => {
 						if (router.canGoBack()) {
 							router.back()
+						} else {
+
 						}
 					}}>
 					<StyledIcon>
 						<ChevronLeft />
 					</StyledIcon>
-				</CustomButton>
+				</Button>
 				<View className=' flex-row w-fit '>
-					<CustomButton
-						additionClassName='mr-4'
-						handlePress={() => { return }}
+					<Button
+						variant={'ghost'}
+						onPress={() => { return }}
 					>
 						<StyledIcon>
 							<Search />
 						</StyledIcon>
-					</CustomButton>
-					<CustomButton
-						additionClassName='mr-3'
-						handlePress={() => {
+					</Button>
+					<Button
+						variant={'ghost'}
+						onPress={() => {
 							setOrientationMode((prev) => prev === 'grid' ? 'row' : 'grid')
 						}}>
 						<StyledIcon>
@@ -57,14 +63,8 @@ const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ className, parentId }
 								)
 							}
 						</StyledIcon>
-					</CustomButton>
-					<CustomButton
-						handlePress={() => { return }}
-					>
-						<StyledIcon>
-							<EllipsisVertical />
-						</StyledIcon>
-					</CustomButton>
+					</Button>
+					<SettingsPopover />
 				</View>
 			</View>
 

@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FlatListImage from './FlatListImage'
-import { Item } from '@/lib/Realm/models/Item'
+import { Item } from '~/lib/Realm/models/Item'
 import { useItemsFlatListContext } from './ItemsFlatListContext'
 import StyledText from '../StyledText'
 

@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React, { JSXElementConstructor, ReactElement } from 'react'
 import { Dropdown } from 'react-native-element-dropdown'
 import { DropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model'
-import { useColorScheme } from 'nativewind'
+import { useColorScheme } from '~/lib/useColorScheme'
 
 const StyledDropdown: <T>(
 	props: DropdownProps<T>

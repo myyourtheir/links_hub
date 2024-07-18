@@ -1,6 +1,6 @@
 import { Text, TextProps } from 'react-native'
 import React, { forwardRef, ReactNode } from 'react'
-import { StyledComponent, useColorScheme } from 'nativewind'
+import { useColorScheme } from '~/lib/useColorScheme'
 
 
 const StyledText = forwardRef<

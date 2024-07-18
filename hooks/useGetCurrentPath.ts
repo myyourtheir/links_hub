@@ -1,5 +1,5 @@
-import { RealmContext } from '@/lib/Realm'
-import { Item } from '@/lib/Realm/models/Item'
+import { RealmContext } from '~/lib/Realm'
+import { Item } from '~/lib/Realm/models/Item'
 const { useObject } = RealmContext
 
 

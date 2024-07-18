@@ -1,10 +1,9 @@
-import { useOrientationContext } from '@/app/(tabs)/HomeScreen/(components)/OrientationContext'
-import { getAppData } from '@/lib/AsyncStorage'
+import { useOrientationContext } from '~/app/(tabs)/HomeScreen/(components)/OrientationContext'
+import { getAppData } from '~/lib/AsyncStorage'
 import i18next from 'i18next'
-import { useColorScheme } from 'nativewind'
-import { ColorSchemeSystem } from 'nativewind/dist/style-sheet/color-scheme'
 import { useCallback, useEffect, useState } from 'react'
 import * as SplashScreen from 'expo-splash-screen'
+import { useColorScheme } from '~/lib/useColorScheme'
 
 
 const useInitialSetup = () => {
@@ -20,7 +19,7 @@ const useInitialSetup = () => {
 						i18next.changeLanguage(data[0])
 					}
 					if (data[1]) {
-						setColorScheme(data[1] as ColorSchemeSystem)
+						// setColorScheme(data[1] as "light" | "dark" | "system")
 					}
 					if (data[2]) {
 						setOrientationMode(data[2] as "grid" | "row")

@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React, { cloneElement, ReactElement, ReactNode } from 'react'
 import { IconNode, LucideProps } from 'lucide-react-native'
-import { useColorScheme } from 'nativewind'
+import { useColorScheme } from '~/lib/useColorScheme'
 
 type StyledIconProps = {
 	children: ReactElement<LucideProps>

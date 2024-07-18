@@ -1,4 +1,4 @@
-import { Item } from '@/lib/Realm/models/Item'
+import { Item } from '~/lib/Realm/models/Item'
 import { FlatListProps, ListRenderItemInfo } from 'react-native'
 
 

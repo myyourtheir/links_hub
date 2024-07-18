@@ -1,13 +1,13 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router'
-import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
+import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { UseFormGetValues, UseFormSetValue } from 'react-hook-form'
-import { FormSchema } from '@/app/(tabs)/AddingScreen'
-import useGetCurrentPath from '@/hooks/useGetCurrentPath'
+import { FormSchema } from '~/app/(tabs)/AddingScreen'
+import useGetCurrentPath from '~/hooks/useGetCurrentPath'
 import { BSON } from 'realm'
 import StyledText from './StyledText'
-import { useColorScheme } from 'nativewind'
+import { useColorScheme } from '~/lib/useColorScheme'
 
 export type PathSelectorTriggerProps = {
 	ContainerClassName?: string,

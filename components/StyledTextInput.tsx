@@ -1,6 +1,7 @@
 import { TextInput, TextInputProps } from 'react-native'
 import React, { forwardRef } from 'react'
-import { useColorScheme } from 'nativewind'
+import { useColorScheme } from '~/lib/useColorScheme'
+
 type StyledTextInputProps = {
 	additionClassName?: string
 } & Partial<TextInputProps>

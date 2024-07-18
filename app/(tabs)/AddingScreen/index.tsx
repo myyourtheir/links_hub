@@ -2,24 +2,24 @@ import { TextInput, View } from 'react-native'
 import { zodResolver } from "@hookform/resolvers/zod"
 import React, { useEffect } from 'react'
 import { Dropdown } from 'react-native-element-dropdown'
-import TopContent from '@/components/TopContent'
-import StyledTextInput from '@/components/StyledTextInput'
+import TopContent from '~/components/TopContent'
+import StyledTextInput from '~/components/StyledTextInput'
 import { Plus } from 'lucide-react-native'
 import {
 	useForm,
 	Controller,
 	SubmitHandler
 } from 'react-hook-form'
-import PathSelectorTrigger from '@/components/PathSelectorTrigger'
-import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
+import PathSelectorTrigger from '~/components/PathSelectorTrigger'
+import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { z } from 'zod'
-import { RealmContext } from '@/lib/Realm'
+import { RealmContext } from '~/lib/Realm'
 import { router } from 'expo-router'
-import BottomRoundButtonWrapper from '@/components/BottomRoundButtonWrapper'
-import StyledText from '@/components/StyledText'
-import { useColorScheme } from 'nativewind'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/Form'
-import StyledDropdown from '@/components/StryledDropdown'
+import BottomRoundButtonWrapper from '~/components/BottomRoundButtonWrapper'
+import StyledText from '~/components/StyledText'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '~/components/Form'
+import StyledDropdown from '~/components/StryledDropdown'
+import { useColorScheme } from '~/lib/useColorScheme'
 const { useRealm } = RealmContext
 
 

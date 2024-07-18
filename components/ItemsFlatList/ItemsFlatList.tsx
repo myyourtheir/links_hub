@@ -1,13 +1,13 @@
 import { View, Text, FlatList, TouchableOpacity, FlatListProps } from 'react-native'
 import React, { FC, ReactElement, ReactNode } from 'react'
-import FlatListGridItem from '@/components/ItemsFlatList/FlatListGridItem'
-import FlatListRowItem from '@/components/ItemsFlatList/FlatListRowItem'
-import { extractOrientationDependingProps } from '@/utils/extractOrientationDependingProps'
-import { Item } from '@/lib/Realm/models/Item'
+import FlatListGridItem from '~/components/ItemsFlatList/FlatListGridItem'
+import FlatListRowItem from '~/components/ItemsFlatList/FlatListRowItem'
+import { extractOrientationDependingProps } from '~/utils/extractOrientationDependingProps'
+import { Item } from '~/lib/Realm/models/Item'
 import { ItemsFlatListContext } from './ItemsFlatListContext'
 import FlatListItemWrapper from './FlatListItemWrapper'
 import FlatListItemFactory from './FlatListItemFactory'
-import { useOrientationContext } from '@/app/(tabs)/HomeScreen/(components)/OrientationContext'
+import { useOrientationContext } from '~/app/(tabs)/HomeScreen/(components)/OrientationContext'
 
 
 

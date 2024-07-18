@@ -3,14 +3,15 @@ import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dropdown } from 'react-native-element-dropdown'
 import i18next from 'i18next'
-import { langResources } from '@/i18n'
-import TopContent from '@/components/TopContent'
+import { langResources } from '~/i18n'
+import TopContent from '~/components/TopContent'
 import { useTranslation } from 'react-i18next'
-import { useColorScheme } from 'nativewind'
-import StyledText from '@/components/StyledText'
-import StyledDropdown from '@/components/StryledDropdown'
-import { FormItem } from '@/components/Form'
-import { setAppData } from '@/lib/AsyncStorage'
+
+import StyledText from '~/components/StyledText'
+import StyledDropdown from '~/components/StryledDropdown'
+import { FormItem } from '~/components/Form'
+import { setAppData } from '~/lib/AsyncStorage'
+import { useColorScheme } from '~/lib/useColorScheme'
 
 type LangDataType = {
 	title: 'Русский' | 'English',

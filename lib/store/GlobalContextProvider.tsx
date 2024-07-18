@@ -1,5 +1,5 @@
-import { FormSchema } from '@/app/(tabs)/AddingScreen'
-import { Item } from '@/lib/Realm/models/Item'
+import { FormSchema } from '~/app/(tabs)/AddingScreen'
+import { Item } from '~/lib/Realm/models/Item'
 import { TFunction } from 'i18next'
 import React, { createContext, ReactNode, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'

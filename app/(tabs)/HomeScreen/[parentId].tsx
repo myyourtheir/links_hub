@@ -1,13 +1,13 @@
 import { Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import TopLayoutComponent from './(components)/TopLayoutComponent'
-import ItemsFlatList from '@/components/ItemsFlatList/ItemsFlatList'
-import { RealmContext } from '@/lib/Realm'
-import { Item } from '@/lib/Realm/models/Item'
+import ItemsFlatList from '~/components/ItemsFlatList/ItemsFlatList'
+import { RealmContext } from '~/lib/Realm'
+import { Item } from '~/lib/Realm/models/Item'
 import { BSON } from 'realm'
 import { router, useLocalSearchParams } from 'expo-router'
-import { useGlobalContext } from '@/lib/store/GlobalContextProvider'
-import StyledText from '@/components/StyledText'
+import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
+import StyledText from '~/components/StyledText'
 
 
 const { useQuery } = RealmContext
