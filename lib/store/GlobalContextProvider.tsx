@@ -1,4 +1,4 @@
-import { FormSchema } from '~/app/AddingScreen'
+import { FormSchema } from '~/app/(screens)/AddingScreen'
 import { Item } from '~/lib/Realm/models/Item'
 import { TFunction } from 'i18next'
 import React, { createContext, ReactNode, useContext, useState } from 'react'

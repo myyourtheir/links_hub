@@ -18,7 +18,7 @@ type TopContentProps = {
 
 const TopContent: FC<TopContentProps> = ({ children, className, withBack = false, backIconWrapperClassName }) => {
 	return (
-		<View className={cn('h-[8vh] flex flex-row items-center justify-between  bg-background', className)}>
+		<View className={cn('h-[8vh] flex flex-row items-center justify-between  bg-background mb-5', className)}>
 			{
 				withBack ? (
 					<View className={cn('flex-row items-start', backIconWrapperClassName)}>

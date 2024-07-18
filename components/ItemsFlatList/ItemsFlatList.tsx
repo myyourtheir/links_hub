@@ -7,7 +7,7 @@ import { Item } from '~/lib/Realm/models/Item'
 import { ItemsFlatListContext } from './ItemsFlatListContext'
 import FlatListItemWrapper from './FlatListItemWrapper'
 import FlatListItemFactory from './FlatListItemFactory'
-import { useOrientationContext } from '~/app/HomeScreen/(components)/OrientationContext'
+import { useOrientationContext } from '~/app/(screens)/HomeScreen/(components)/OrientationContext'
 
 
 

@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { DropdownMenuTriggerRef } from '@rn-primitives/dropdown-menu'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -8,12 +7,9 @@ import { z } from 'zod'
 import { Button } from '~/components/ui/button'
 import {
 	Dialog,
-	DialogClose,
 	DialogContent,
-	DialogDescription,
 	DialogFooter,
 	DialogHeader,
-	DialogTitle,
 	DialogTrigger,
 } from '~/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '~/components/ui/Form'
