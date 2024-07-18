@@ -19,7 +19,7 @@ const useInitialSetup = () => {
 						i18next.changeLanguage(data[0])
 					}
 					if (data[1]) {
-						// setColorScheme(data[1] as "light" | "dark" | "system")
+						setColorScheme(data[1] as "light" | "dark" | "system")
 					}
 					if (data[2]) {
 						setOrientationMode(data[2] as "grid" | "row")

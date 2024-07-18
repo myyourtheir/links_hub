@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import React, { useEffect } from 'react'
 import { Dropdown } from 'react-native-element-dropdown'
 import TopContent from '~/components/TopContent'
-import StyledTextInput from '~/components/StyledTextInput'
 import { Plus } from 'lucide-react-native'
 import {
 	useForm,
@@ -16,10 +15,12 @@ import { z } from 'zod'
 import { RealmContext } from '~/lib/Realm'
 import { router } from 'expo-router'
 import BottomRoundButtonWrapper from '~/components/BottomRoundButtonWrapper'
-import StyledText from '~/components/StyledText'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '~/components/Form'
-import StyledDropdown from '~/components/StryledDropdown'
+
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '~/components/ui/Form'
 import { useColorScheme } from '~/lib/useColorScheme'
+import { Input } from '~/components/ui/input'
+import { Label } from '~/components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 const { useRealm } = RealmContext
 
 
@@ -91,7 +92,7 @@ const AddingScreen = () => {
 	return (
 
 		<Form {...form}>
-			<TopContent additionClassName='px-0'>
+			<TopContent className='px-0'>
 				<FormField
 					control={form.control}
 					name='title'
@@ -99,8 +100,9 @@ const AddingScreen = () => {
 						return (
 							<FormItem>
 								<FormControl>
-									<TextInput placeholder={t('addingTitle')}
-										className={`text-xl ${colorScheme == 'dark' ? 'text-[#cccccc]' : 'text-[#2a2d2e]'}`}
+									<Input
+										placeholder={t('addingTitle')}
+										className={`border-none `}
 										cursorColor={colorScheme == 'dark' ? '#cccccc' : '#2a2d2e'}
 										placeholderTextColor={colorScheme == 'dark' ? '#cccccc' : '#2a2d2e'}
 										onChangeText={e => onChange(e)}
@@ -120,22 +122,30 @@ const AddingScreen = () => {
 				<FormField
 					control={form.control}
 					name='type'
-					render={({ field: { value, onChange } }) => {
+					render={({ field: { value, onChange, ...props } }) => {
 						return (
 							<FormItem >
-								<FormLabel additionClassName=''>
+								<FormLabel nativeID={props.name} className=''>
 									{t("addingType")}
 								</FormLabel>
 								<FormControl>
 									<View>
-										<StyledDropdown
-											data={itemTypes}
-											labelField={'label'}
-											valueField={'value'}
-											onChange={(el) => onChange(el.value)}
-											value={value}
-
-										/>
+										<Select defaultValue={{ value: 'apple', label: 'Apple' }}>
+											<SelectTrigger className='w-[250px]'>
+												<SelectValue
+													className='text-foreground text-sm native:text-lg'
+													placeholder='Select a fruit'
+												/>
+											</SelectTrigger>
+											<SelectContent className='w-[250px]'>
+												{itemTypes.map(el =>
+													<SelectItem key={el.value} label={el.label} value={el.value}>
+														{el.label}
+													</SelectItem>
+												)
+												}
+											</SelectContent>
+										</Select>
 									</View>
 								</FormControl>
 								<FormMessage />
@@ -149,11 +159,13 @@ const AddingScreen = () => {
 					render={({ field: { onChange, ...props } }) => {
 						return (
 							<FormItem>
-								<FormLabel additionClassName=''>
+								<FormLabel nativeID={props.name} className=''>
 									{t("addingLink")}
 								</FormLabel>
 								<FormControl>
-									<StyledTextInput
+									<Input
+										className=''
+										aria-labelledby={props.name}
 										onChangeText={e => onChange(e)}
 										{...props}
 									/>
@@ -164,7 +176,7 @@ const AddingScreen = () => {
 					}}
 				/>
 				<FormItem>
-					<FormLabel>
+					<FormLabel nativeID=''>
 						{t('addingPath')}
 					</FormLabel>
 					<View>

@@ -24,7 +24,7 @@ const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ className, parentId }
 		setAppData('orientationMode', orientationMode)
 	}, [orientationMode])
 	return (
-		<TopContent additionClassName='flex-col justify-start items-center h-[8vh]'>
+		<TopContent className='flex-col justify-start items-center'>
 			<View className='w-full flex-row justify-between'>
 				<Button
 					className=''

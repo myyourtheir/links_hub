@@ -1,4 +1,4 @@
-import { View, Text, Touchable, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -10,8 +10,8 @@ import { BSON } from 'realm'
 import { RealmContext } from '~/lib/Realm'
 import BottomRoundButtonWrapper from '~/components/BottomRoundButtonWrapper'
 import { Check } from 'lucide-react-native'
-import { FormSchema } from '../(tabs)/AddingScreen'
-import StyledText from '~/components/StyledText'
+import { Text } from '~/components/ui/text'
+
 
 const { useQuery } = RealmContext
 const PathSelector = () => {
@@ -58,9 +58,9 @@ const PathSelector = () => {
 const EmptyComponent = () => {
 	return (
 		<View className='w-full items-center pt-5'>
-			<StyledText>
+			<Text>
 				{'Дальше ничего нет('}
-			</StyledText>
+			</Text>
 		</View>
 	)
 }

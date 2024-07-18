@@ -71,8 +71,8 @@ export default function Root() {
 			<RealmProvider>
 				<GlobalContextProvider>
 					<OrientationContextProvider>
-						<StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
 						<SafeAreaView className={`bg-background`}>
+							<StatusBar backgroundColor={isDarkColorScheme ? 'black' : 'white'} style={isDarkColorScheme ? 'light' : 'dark'} />
 							<Slot />
 						</SafeAreaView>
 						<PortalHost />

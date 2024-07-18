@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import FlatListImage from './FlatListImage'
 import { Item } from '~/lib/Realm/models/Item'
 import { useItemsFlatListContext } from './ItemsFlatListContext'
-import StyledText from '../StyledText'
+import { Text } from '../ui/text'
 
 const FlatListRowItem = ({ item }: { item: Item }) => {
 	const { onItemClick } = useItemsFlatListContext()
@@ -20,7 +20,7 @@ const FlatListRowItem = ({ item }: { item: Item }) => {
 						height: 40
 					}}
 				/>
-				<StyledText additionClassName='text-base'>{item.title}</StyledText>
+				<Text className='text-base'>{item.title}</Text>
 			</View>
 		</TouchableOpacity>
 	)

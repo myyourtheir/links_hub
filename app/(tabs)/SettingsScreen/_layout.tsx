@@ -1,22 +1,40 @@
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Slot } from 'expo-router'
+import { router, Slot } from 'expo-router'
 import TopContent from '~/components/TopContent'
-import StyledText from '~/components/StyledText'
-import { t } from 'i18next'
+import { Text } from '~/components/ui/text'
+import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
+import { Button } from '~/components/ui/button'
+import StyledIcon from '~/components/StyledIcon'
+import { ChevronLeft } from 'lucide-react-native'
 
 
 const SettingsLayout = () => {
+	const { t } = useGlobalContext()
 	return (
-		<View className='  h-full'>
+		<View className='bg-background  h-full'>
 			<TopContent>
-				<StyledText additionClassName='text-xl'>
-					{t('settings')}
-				</StyledText>
-			</TopContent>
+				<View className='flex-row items-start'>
+					<Button
+						variant={'ghost'}
+						onPress={() => {
+							if (router.canGoBack()) {
+								router.back()
+							} else {
+
+							}
+						}}>
+						<StyledIcon>
+							<ChevronLeft />
+						</StyledIcon>
+					</Button>
+					<Text className='self-center text-2xl'>
+						{t('settings')}
+					</Text>
+				</View>
+			</TopContent >
 			<Slot />
-		</View>
+		</View >
 	)
 }
 

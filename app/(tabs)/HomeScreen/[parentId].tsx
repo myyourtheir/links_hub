@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import TopLayoutComponent from './(components)/TopLayoutComponent'
 import ItemsFlatList from '~/components/ItemsFlatList/ItemsFlatList'
@@ -7,7 +7,8 @@ import { Item } from '~/lib/Realm/models/Item'
 import { BSON } from 'realm'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
-import StyledText from '~/components/StyledText'
+import { Text } from '~/components/ui/text'
+
 
 
 const { useQuery } = RealmContext
@@ -64,9 +65,9 @@ function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[
 		<View
 			className='w-full h-full items-center pt-10 gap-8 justify-center '
 		>
-			<StyledText additionClassName='text-md'>
+			<Text className='text-md'>
 				Здесь пока ничего нет...
-			</StyledText>
+			</Text>
 			<TouchableOpacity
 				onPress={() => {
 					setCurrentFolder(parentId != "null" ? new BSON.ObjectId(parentId as string) : null)
@@ -81,9 +82,9 @@ function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[
 				}
 				className='border rounded-md px-3 py-2'
 			>
-				<StyledText additionClassName='text-lg'>
+				<Text className='text-lg'>
 					Добавьте элемент
-				</StyledText>
+				</Text>
 			</TouchableOpacity>
 		</View>
 	)

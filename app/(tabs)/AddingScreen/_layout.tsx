@@ -5,7 +5,9 @@ import { Slot } from 'expo-router'
 
 const AddingLayout = () => {
 	return (
-		<Slot />
+		<View className='bg-background h-full'>
+			<Slot />
+		</View>
 	)
 }
 
