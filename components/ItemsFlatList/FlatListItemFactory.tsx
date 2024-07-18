@@ -3,7 +3,7 @@ import React from 'react'
 import { Item } from '~/lib/Realm/models/Item'
 import FlatListItemWrapper from './FlatListItemWrapper'
 import FlatListRowItem from './FlatListRowItem'
-import { useOrientationContext } from '~/app/(tabs)/HomeScreen/(components)/OrientationContext'
+import { useOrientationContext } from '~/app/HomeScreen/(components)/OrientationContext'
 import FlatListGridItem from './FlatListGridItem'
 
 const FlatListItemFactory = ({ item, withOptionsMenu }: { item: Item, withOptionsMenu: boolean }) => {
@@ -11,28 +11,13 @@ const FlatListItemFactory = ({ item, withOptionsMenu }: { item: Item, withOption
 	return (
 		<>
 			{
-				item.type !== 'empty' && withOptionsMenu
-					? (
-						<FlatListItemWrapper>
-							{
-								orientationMode === 'row' ?
-									<FlatListRowItem item={item} />
-									:
-									<FlatListGridItem item={item} />
-							}
-						</FlatListItemWrapper>
-					)
+				orientationMode === 'row' ?
+					<FlatListRowItem item={item} />
 					:
-					<>
-						{
-							orientationMode === 'row' ?
-								<FlatListRowItem item={item} />
-								:
-								<FlatListGridItem item={item} />
-						}
-					</>
+					<FlatListGridItem item={item} />
 			}
 		</>
+
 	)
 
 }

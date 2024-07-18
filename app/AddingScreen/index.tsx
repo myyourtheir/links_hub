@@ -52,7 +52,6 @@ const AddingScreen = () => {
 		},
 	]
 	const realm = useRealm()
-	// { setValue, control, formState: { errors }, getValues, handleSubmit }
 	const form = useForm<z.infer<typeof schema>>({
 		resolver: zodResolver(schema),
 		defaultValues: defaultValues,

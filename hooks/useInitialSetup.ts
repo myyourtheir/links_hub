@@ -1,4 +1,4 @@
-import { useOrientationContext } from '~/app/(tabs)/HomeScreen/(components)/OrientationContext'
+import { useOrientationContext } from '~/app/HomeScreen/(components)/OrientationContext'
 import { getAppData } from '~/lib/AsyncStorage'
 import i18next from 'i18next'
 import { useCallback, useEffect, useState } from 'react'

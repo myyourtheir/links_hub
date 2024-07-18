@@ -64,11 +64,11 @@ const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ className, parentId }
 							}
 						</StyledIcon>
 					</Button>
-					<SettingsPopover />
+					<SettingsPopover parentId={parentId} />
 				</View>
 			</View>
 
-			<View className=' w-full overflow-x-auto whitespace-nowrap mt-3'>
+			<View className=' w-full overflow-x-auto whitespace-nowrap mt-3 px-6'>
 				<ScrollPathArea parentId={parentId} />
 			</View>
 

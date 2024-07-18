@@ -20,6 +20,7 @@
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/native": "^6.0.2",
     "@realm/react": "^0.8.0",
+    "@rn-primitives/dialog": "^1.0.3",
     "@rn-primitives/dropdown-menu": "^1.0.3",
     "@rn-primitives/label": "^1.0.3",
     "@rn-primitives/select": "^1.0.3",

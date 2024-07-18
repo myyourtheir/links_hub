@@ -18,11 +18,21 @@ import {
 	DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu'
 import { Text } from '~/components/ui/text'
+import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
+import AddFolderDialog from './AddFolderDialog'
+import { ForwardRefExoticComponent, LegacyRef, RefAttributes, useRef, useState } from 'react'
+import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils'
+import { View } from 'react-native-reanimated/lib/typescript/Animated'
+import { DropdownMenuTriggerRef } from '@rn-primitives/dropdown-menu'
 
-export default function SettingsPopover() {
+type SettingsPopoverProps = {
+	parentId: string | string[]
+}
 
+export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
+	const { t } = useGlobalContext()
 	return (
-		<DropdownMenu>
+		<DropdownMenu >
 			<DropdownMenuTrigger asChild>
 				<Button
 					variant={'ghost'}
@@ -40,21 +50,33 @@ export default function SettingsPopover() {
 				<DropdownMenuSub>
 
 					<DropdownMenuSubTrigger>
-						<Text>Добавить</Text>
+						<Text>
+							{t('add')}
+						</Text>
 					</DropdownMenuSubTrigger>
 
 					<DropdownMenuSubContent>
-						<Animated.View entering={FadeIn.duration(200)}>
+						{/* <Animated.View entering={FadeIn.duration(200)}> */}
+						<DropdownMenuItem>
+							<AddFolderDialog parentId={parentId} />
+						</DropdownMenuItem>
 
-							<DropdownMenuItem>
-								<Text>Категорию</Text>
-							</DropdownMenuItem>
+						<DropdownMenuItem>
+							<Link
+								href={{
+									pathname: 'AddingScreen/AddLinkScreen',
+									params: {
+										parentId
+									}
+								}}
+							>
+								<Text>
+									{t('link')}
+								</Text>
+							</Link>
+						</DropdownMenuItem>
 
-							<DropdownMenuItem>
-								<Text>Ссылку</Text>
-							</DropdownMenuItem>
-
-						</Animated.View>
+						{/* </Animated.View> */}
 					</DropdownMenuSubContent>
 				</DropdownMenuSub>
 
@@ -62,7 +84,9 @@ export default function SettingsPopover() {
 
 				<DropdownMenuItem>
 					<Link href={{ pathname: 'SettingsScreen' }}>
-						<Text>Настройки</Text>
+						<Text>
+							{t('settings')}
+						</Text>
 					</Link>
 				</DropdownMenuItem>
 

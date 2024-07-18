@@ -4,8 +4,10 @@
 	"addingLink": "URL",
 	"addingPath": "Путь",
 	"folder": "Папка",
+	"section": "Раздел",
 	"link": "Ссылка",
 	"settings": "Настройки",
 	"language": "Язык",
-	"darkmode": "Темный режим"
+	"darkmode": "Темный режим",
+	"add": "Добавить"
 }

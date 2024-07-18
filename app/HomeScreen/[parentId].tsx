@@ -60,7 +60,7 @@ export default HomeScreen
 
 
 function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[] }) {
-	const { setCurrentFolder } = useGlobalContext()
+	// const { setCurrentFolder } = useGlobalContext()
 	return (
 		<View
 			className='w-full h-full items-center pt-10 gap-8 justify-center '
@@ -68,7 +68,7 @@ function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[
 			<Text className='text-md'>
 				Здесь пока ничего нет...
 			</Text>
-			<TouchableOpacity
+			{/* <TouchableOpacity
 				onPress={() => {
 					setCurrentFolder(parentId != "null" ? new BSON.ObjectId(parentId as string) : null)
 					router.push({
@@ -85,7 +85,7 @@ function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[
 				<Text className='text-lg'>
 					Добавьте элемент
 				</Text>
-			</TouchableOpacity>
+			</TouchableOpacity> */}
 		</View>
 	)
 }

@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { Slot } from 'expo-router'
 import { RealmContext } from '~/lib/Realm'
 import GlobalContextProvider from '~/lib/store/GlobalContextProvider'
-import OrientationContextProvider from './(tabs)/HomeScreen/(components)/OrientationContext'
+import OrientationContextProvider from './HomeScreen/(components)/OrientationContext'
 import '~/global.css'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Theme, ThemeProvider } from '@react-navigation/native'
@@ -67,11 +67,11 @@ export default function Root() {
 
 	return (
 
-		<ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+		<ThemeProvider key={'global'} value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
 			<RealmProvider>
 				<GlobalContextProvider>
-					<OrientationContextProvider>
-						<SafeAreaView className={`bg-background`}>
+					<OrientationContextProvider >
+						<SafeAreaView className={`bg-background h-full`}>
 							<StatusBar backgroundColor={isDarkColorScheme ? 'black' : 'white'} style={isDarkColorScheme ? 'light' : 'dark'} />
 							<Slot />
 						</SafeAreaView>

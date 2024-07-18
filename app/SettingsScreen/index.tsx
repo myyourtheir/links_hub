@@ -28,7 +28,7 @@ const langData: LangDataType[] = [
 ]
 
 const SettingsScreen = () => {
-	const { t } = useTranslation()
+	const { t, i18n: { language } } = useTranslation()
 	const onChange = (lang: LangDataType) => {
 		i18next.changeLanguage(lang.value)
 		setAppData('language', lang.value)
@@ -50,7 +50,7 @@ const SettingsScreen = () => {
 						<Select
 
 							onValueChange={onChange as (option: Option) => void}
-							defaultValue={langData.find(lang => getAppData('language').then(data => data == lang.value))}
+							defaultValue={langData.find(lang => language == lang.value)}
 						>
 							<SelectTrigger style={{ width: 150 }}>
 								<SelectValue
@@ -74,7 +74,7 @@ const SettingsScreen = () => {
 					<ListItemTitle>
 						<Text
 							nativeID='darkmode'
-							className='text-lg'>
+							className='text-xl'>
 							{t('darkmode')}
 						</Text>
 					</ListItemTitle>
