@@ -15,6 +15,7 @@ const { useRealm } = RealmContext
 
 type AddLinkFormProps = {
 	parentId: string | string[]
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const schema = z.object({
@@ -24,7 +25,7 @@ const schema = z.object({
 
 type FormSchema = z.infer<typeof schema>
 
-const AddLinkForm = ({ parentId }: AddLinkFormProps) => {
+const AddLinkForm = ({ parentId, setOpen }: AddLinkFormProps) => {
 
 	const defaultValues: FormSchema = {
 		title: '',
@@ -49,6 +50,7 @@ const AddLinkForm = ({ parentId }: AddLinkFormProps) => {
 				})
 			}
 			)
+			setOpen(false)
 		} catch (e) {
 			console.log('error while add data to realm', e)
 		}

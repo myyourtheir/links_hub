@@ -27,15 +27,16 @@ type AddLinkDialogProps = {
 
 function AddLinkDialog({ parentId }: AddLinkDialogProps) {
 	const { t } = useTranslation()
+	const [open, setOpen] = React.useState(false)
 	return (
-		<Dialog >
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger >
 				<Text>
 					{t('link')}
 				</Text>
 			</DialogTrigger>
 			<DialogContent className='w-[300px] '>
-				<AddLinkForm parentId={parentId} />
+				<AddLinkForm parentId={parentId} setOpen={setOpen} />
 			</DialogContent>
 		</Dialog>
 	)

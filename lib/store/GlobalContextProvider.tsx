@@ -2,17 +2,18 @@ import { TFunction } from 'i18next'
 import React, { createContext, ReactNode, useContext, useReducer, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BSON } from 'realm'
+import { Item } from '../Realm/models/Item'
 
 
-type GlobalState = {
+export type GlobalState = {
 	mode: 'view' | 'select' | 'move',
-	selectedIds: BSON.ObjectId[],
+	selected: Item[],
 	folderToSetIn: BSON.ObjectId | null
 }
 
-type GlobalAction =
+export type GlobalAction =
 	| { type: "setMode", value: GlobalState['mode'] }
-	| { type: 'toggleSelected', value: GlobalState['selectedIds'][0] }
+	| { type: 'toggleSelected', value: GlobalState['selected'][0] }
 	| { type: 'resetSelected' }
 	| { type: 'setFolderToSetIn', value: GlobalState['folderToSetIn'] }
 
@@ -36,18 +37,18 @@ function reducer(state: GlobalState, action: GlobalAction): GlobalState {
 		case 'resetSelected':
 			return {
 				...state,
-				selectedIds: []
+				selected: []
 			}
 		case 'toggleSelected':
-			if (state.selectedIds.find(id => action.value.toString() == id.toString())) {
+			if (state.selected.find(item => action.value._id.toString() == item._id.toString())) {
 				return {
 					...state,
-					selectedIds: state.selectedIds.filter(id => id.toString() !== action.value.toString())
+					selected: state.selected.filter(item => item._id.toString() != action.value._id.toString())
 				}
 			} else {
 				return {
 					...state,
-					selectedIds: [...state.selectedIds, action.value]
+					selected: [...state.selected, action.value]
 				}
 			}
 		case 'setFolderToSetIn':
@@ -60,7 +61,7 @@ function reducer(state: GlobalState, action: GlobalAction): GlobalState {
 
 const initialState: GlobalState = {
 	mode: 'view',
-	selectedIds: [],
+	selected: [],
 	folderToSetIn: null
 }
 

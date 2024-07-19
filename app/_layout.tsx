@@ -1,5 +1,4 @@
 import 'react-native-get-random-values'
-
 import React from 'react'
 import { Slot } from 'expo-router'
 import { RealmContext } from '~/lib/Realm'

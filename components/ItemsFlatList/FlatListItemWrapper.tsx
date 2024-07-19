@@ -1,28 +1,26 @@
-import { View, Text, Pressable } from 'react-native'
-import React, { Children, ReactNode } from 'react'
-import { EllipsisVertical } from 'lucide-react-native'
-import StyledIcon from '../StyledIcon'
+import { View } from 'react-native'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
-import FlatListRowItem from './FlatListRowItem'
 import { ItemComponentProps } from './types'
 import { Checkbox } from '../ui/checkbox'
 import { ItemsFlatListContext, useItemsFlatListContext } from './ItemsFlatListContext'
 import { Item } from '~/lib/Realm/models/Item'
 
 type FlatListItemWrapperProps = {
-	children: React.ReactElement<ItemComponentProps>
+	children: React.ReactElement<ItemComponentProps>,
+	item: Item
 }
 
 
-const FlatListItemSelectWrapper = ({ children }: FlatListItemWrapperProps) => {
-	const childrenId = children.props.item._id.toString()
-	const { globalState: { mode, selectedIds }, globalDispatch } = useGlobalContext()
+const FlatListItemSelectWrapper = ({ children, item }: FlatListItemWrapperProps) => {
+	const childrenId = item?._id.toString()
+	const { globalState: { mode, selected }, globalDispatch } = useGlobalContext()
 	const { onItemClick } = useItemsFlatListContext()
-	const isChecked = selectedIds.find(id => childrenId === id.toString()) ? true : false
+	const isChecked = selected.find(item => childrenId === item._id.toString()) ? true : false
 	const onItemSelectClick: (item: Item) => void = (item) => {
-		globalDispatch({ type: 'toggleSelected', value: item._id })
+		globalDispatch({ type: 'toggleSelected', value: item })
 	}
 	return (
+
 		<View key={childrenId} className='relative'>
 			{
 				mode === 'select'
@@ -36,7 +34,7 @@ const FlatListItemSelectWrapper = ({ children }: FlatListItemWrapperProps) => {
 							}
 						}}>
 						<View className='absolute left-1 top-2 z-10'>
-							<Checkbox checked={isChecked} onCheckedChange={() => { return }} />
+							<Checkbox checked={isChecked} onCheckedChange={() => { onItemSelectClick(children.props.item) }} />
 						</View>
 						{children}
 					</ItemsFlatListContext.Provider>
@@ -47,7 +45,7 @@ const FlatListItemSelectWrapper = ({ children }: FlatListItemWrapperProps) => {
 								onItemClick,
 								onItemLongPress: (item) => {
 									globalDispatch({ type: 'setMode', value: 'select' })
-									globalDispatch({ type: 'toggleSelected', value: item._id })
+									globalDispatch({ type: 'toggleSelected', value: item })
 								}
 							}
 						}

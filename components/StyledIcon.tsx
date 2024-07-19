@@ -3,7 +3,7 @@ import React, { cloneElement, ReactElement, ReactNode } from 'react'
 import { IconNode, LucideProps } from 'lucide-react-native'
 import { useColorScheme } from '~/lib/useColorScheme'
 
-type StyledIconProps = {
+export type StyledIconProps = {
 	children: ReactElement<LucideProps>
 }
 

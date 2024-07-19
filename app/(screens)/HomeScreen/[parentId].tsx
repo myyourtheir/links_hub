@@ -7,6 +7,8 @@ import { Item } from '~/lib/Realm/models/Item'
 import { BSON } from 'realm'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Text } from '~/components/ui/text'
+import BottomFlatListOptionsBarWrapper from '~/components/ItemsFlatList/BottomFlatListOptionsBar/BottomFlatListOptionsBarWrapper'
+
 
 
 
@@ -18,7 +20,7 @@ const HomeScreen = () => {
 		return items
 			.filtered(`parentId=${parentId != 'null' ? 'oid(' + parentId + ')' : null}`)
 			.sorted('updatedTime', false)
-	}, [])
+	}, [parentId])
 
 	if (items.length % 2 !== 0) {
 		items = [...items.snapshot(), {
@@ -42,7 +44,7 @@ const HomeScreen = () => {
 	}
 
 	return (
-		<>
+		<BottomFlatListOptionsBarWrapper>
 			<TopLayoutComponent
 				parentId={parentId as string}
 			/>
@@ -51,7 +53,7 @@ const HomeScreen = () => {
 				ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}
 				onItemClick={handleItemClick}
 			/>
-		</>
+		</BottomFlatListOptionsBarWrapper>
 	)
 }
 
@@ -59,7 +61,6 @@ export default HomeScreen
 
 
 function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[] }) {
-	// const { setCurrentFolder } = useGlobalContext()
 	return (
 		<View
 			className='w-full h-full items-center pt-10 gap-8 justify-center '
@@ -67,24 +68,6 @@ function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[
 			<Text className='text-md'>
 				Здесь пока ничего нет...
 			</Text>
-			{/* <TouchableOpacity
-				onPress={() => {
-					setCurrentFolder(parentId != "null" ? new BSON.ObjectId(parentId as string) : null)
-					router.push({
-						pathname: '/AddingScreen',
-						params: {
-							defaultParentId: parentId
-						}
-					})
-
-				}
-				}
-				className='border rounded-md px-3 py-2'
-			>
-				<Text className='text-lg'>
-					Добавьте элемент
-				</Text>
-			</TouchableOpacity> */}
 		</View>
 	)
 }

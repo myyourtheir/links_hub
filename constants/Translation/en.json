@@ -9,5 +9,10 @@
 	"settings": "Settings",
 	"language": "Language",
 	"darkmode": "Dark mode",
-	"add": "Add"
+	"add": "Add",
+	"move": "Move",
+	"copy": "Copy",
+	"share": "Share",
+	"remove": "Remove",
+	"rename": "Rename"
 }

@@ -20,7 +20,7 @@ const FlatListItemFactory = ({ item }: { item: Item, withOptionsMenu: boolean })
 							<FlatListGridItem item={item} />
 					) : (
 
-						<FlatListItemSelectWrapper>
+						<FlatListItemSelectWrapper item={item}>
 							{
 								orientationMode === 'row' ?
 									<FlatListRowItem item={item} />
