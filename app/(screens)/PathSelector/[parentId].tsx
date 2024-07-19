@@ -15,7 +15,7 @@ import { Text } from '~/components/ui/text'
 
 const { useQuery } = RealmContext
 const PathSelector = () => {
-	const { setCurrentFolder } = useGlobalContext()
+
 	const { parentId } = useLocalSearchParams()
 	let items = useQuery(Item, items => {
 		return items
@@ -33,7 +33,7 @@ const PathSelector = () => {
 	}
 
 	const handleSubmit = () => {
-		setCurrentFolder(parentId != 'null' ? new BSON.ObjectId(parentId as string) : null)
+		// setCurrentFolder(parentId != 'null' ? new BSON.ObjectId(parentId as string) : null)
 		router.replace('/AddingScreen')
 	}
 
@@ -43,7 +43,7 @@ const PathSelector = () => {
 				onPress={handleSubmit}
 				buttonIcon={<Check color={'white'} size={30} />}
 			>
-				<TopContent additionClassName='min-h-[7vh]' />
+				<TopContent className='min-h-[7vh]' />
 				<ItemsFlatList
 					data={items}
 					onItemClick={onItemClick}

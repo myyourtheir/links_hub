@@ -19,9 +19,9 @@ export type PathSelectorTriggerProps = {
 
 const PathSelectorTrigger = ({ ContainerClassName, getValues, value, setValue }: PathSelectorTriggerProps) => {
 	const { currentPathText } = useGetCurrentPath({ currentParent: value })
-	const { setCurrentAddingData, t } = useGlobalContext()
+	const { t } = useGlobalContext()
 	const handlePress = () => {
-		setCurrentAddingData(getValues())
+		// setCurrentAddingData(getValues())
 		router.push({ pathname: '/PathSelector/[parentId]', params: { parentId: 'null' } })
 	}
 	const { colorScheme } = useColorScheme()

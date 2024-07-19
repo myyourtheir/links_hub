@@ -4,13 +4,15 @@ import FlatListImage from './FlatListImage'
 import { Item } from '~/lib/Realm/models/Item'
 import { useItemsFlatListContext } from './ItemsFlatListContext'
 import { Text } from '../ui/text'
+import { ItemComponentProps } from './types'
 
-const FlatListRowItem = ({ item }: { item: Item }) => {
-	const { onItemClick } = useItemsFlatListContext()
+const FlatListRowItem = ({ item }: ItemComponentProps) => {
+	const { onItemClick, onItemLongPress } = useItemsFlatListContext()
 	return (
 		<TouchableOpacity
 			activeOpacity={0.7}
 			onPress={() => onItemClick(item)}
+			onLongPress={() => onItemLongPress(item)}
 		>
 			<View className='w-full flex flex-row gap-x-2 items-center mb-3'>
 				<FlatListImage

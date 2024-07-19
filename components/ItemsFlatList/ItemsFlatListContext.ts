@@ -3,6 +3,7 @@ import { createContext, useContext } from 'react'
 
 type ItemsFlatListContextProps = {
 	onItemClick: (item: Item) => void
+	onItemLongPress: (item: Item) => void
 }
 
 export const ItemsFlatListContext = createContext<ItemsFlatListContextProps | null>(null)

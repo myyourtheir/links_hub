@@ -21,7 +21,8 @@ const ItemsFlatList: FC<ItemsFlatListProps> = ({ data, onItemClick, withOptionsM
 	const { orientationMode } = useOrientationContext()
 	return (
 		<ItemsFlatListContext.Provider value={{
-			onItemClick
+			onItemClick,
+			onItemLongPress: () => { return }
 		}}>
 			<FlatList
 				className='mt-1'

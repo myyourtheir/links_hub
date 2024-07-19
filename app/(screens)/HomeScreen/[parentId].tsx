@@ -6,7 +6,6 @@ import { RealmContext } from '~/lib/Realm'
 import { Item } from '~/lib/Realm/models/Item'
 import { BSON } from 'realm'
 import { router, useLocalSearchParams } from 'expo-router'
-import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { Text } from '~/components/ui/text'
 
 

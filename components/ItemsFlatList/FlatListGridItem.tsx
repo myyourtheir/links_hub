@@ -4,16 +4,18 @@ import FlatListImage from './FlatListImage'
 import { Item } from '~/lib/Realm/models/Item'
 import { useItemsFlatListContext } from './ItemsFlatListContext'
 import { Text } from '../ui/text'
+import { ItemComponentProps } from './types'
 
 
 
 
-const FlatListGridItem = ({ item }: { item: Item }) => {
-	const { onItemClick } = useItemsFlatListContext()
+const FlatListGridItem = ({ item }: ItemComponentProps) => {
+	const { onItemClick, onItemLongPress } = useItemsFlatListContext()
 	return (
 		<TouchableOpacity
 			activeOpacity={0.7}
 			onPress={() => onItemClick(item)}
+			onLongPress={() => onItemLongPress(item)}
 		>
 			<View className='flex flex-col mb-3'>
 				<FlatListImage
