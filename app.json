@@ -31,7 +31,8 @@
 			"favicon": "./assets/images/link.png"
 		},
 		"plugins": [
-			"expo-router"
+			"expo-router",
+			"expo-share-intent"
 		],
 		"experiments": {
 			"typedRoutes": true

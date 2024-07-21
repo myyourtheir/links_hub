@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Slot } from 'expo-router'
+import { Slot, useRouter } from 'expo-router'
 import { RealmContext } from '~/lib/Realm'
 import GlobalContextProvider from '~/lib/store/GlobalContextProvider'
 import OrientationContextProvider from './(screens)/HomeScreen/(components)/OrientationContext'
@@ -13,7 +13,10 @@ import { NAV_THEME } from '~/lib/constants'
 import { useColorScheme } from '~/lib/useColorScheme'
 import { StatusBar } from 'expo-status-bar'
 import { PortalHost } from '@rn-primitives/portal'
+import { ShareIntentProvider } from "expo-share-intent"
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+
+
 const LIGHT_THEME: Theme = {
 	dark: false,
 	colors: NAV_THEME.light,
@@ -33,6 +36,8 @@ export default function Root() {
 	const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme()
 	const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false)
 	const { RealmProvider } = RealmContext
+	const router = useRouter()
+
 	React.useEffect(() => {
 		(async () => {
 			const theme = await AsyncStorage.getItem('theme')
@@ -63,19 +68,32 @@ export default function Root() {
 	}
 
 	return (
-		<SafeAreaProvider>
-			<RealmProvider closeOnUnmount>
-				<ThemeProvider key={'global'} value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-					<GlobalContextProvider>
-						<OrientationContextProvider >
-							<StatusBar backgroundColor={isDarkColorScheme ? 'black' : 'white'} style={isDarkColorScheme ? 'light' : 'dark'} />
-							<Slot />
-							<PortalHost />
-						</OrientationContextProvider>
-					</GlobalContextProvider>
-				</ThemeProvider>
-			</RealmProvider >
-		</SafeAreaProvider>
+		<ShareIntentProvider
+			options={{
+				debug: true,
+				resetOnBackground: true,
+				onResetShareIntent: () =>
+					// used when app going in background and when the reset button is pressed
+					router.replace({
+						pathname: "/",
+					}),
+			}}
+		>
+
+			<SafeAreaProvider>
+				<RealmProvider closeOnUnmount>
+					<ThemeProvider key={'global'} value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+						<GlobalContextProvider>
+							<OrientationContextProvider >
+								<StatusBar backgroundColor={isDarkColorScheme ? 'black' : 'white'} style={isDarkColorScheme ? 'light' : 'dark'} />
+								<Slot />
+								<PortalHost />
+							</OrientationContextProvider>
+						</GlobalContextProvider>
+					</ThemeProvider>
+				</RealmProvider >
+			</SafeAreaProvider>
+		</ShareIntentProvider>
 
 	)
 }

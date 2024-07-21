@@ -6,6 +6,7 @@ import 'react-native-get-random-values'
 export class Item extends Realm.Object<Item> {
 	_id!: BSON.ObjectID
 	title!: string
+	descrition?: string
 	url?: string
 	image?: string
 	price?: number
@@ -20,6 +21,7 @@ export class Item extends Realm.Object<Item> {
 		properties: {
 			_id: { type: 'objectId', default: () => new BSON.ObjectID },
 			title: { type: 'string', indexed: 'full-text' },
+			descrition: { type: 'string', default: '' },
 			url: { type: 'string', optional: true },
 			image: { type: 'string', optional: true },
 			price: { type: 'float', optional: true },
