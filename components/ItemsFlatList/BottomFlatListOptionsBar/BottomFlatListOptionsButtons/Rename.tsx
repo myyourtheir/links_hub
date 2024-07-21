@@ -1,4 +1,3 @@
-import { View, Text, GestureResponderEvent } from 'react-native'
 import React, { useState } from 'react'
 import BottomFlatListOptionsItem from '../BottomFlatListOptionsItem'
 import { FolderPen, Trash2 } from 'lucide-react-native'
@@ -17,6 +16,7 @@ import {
 import { Form, FormControl, FormField, FormItem, FormMessage } from '~/components/ui/Form'
 import { Input } from '~/components/ui/input'
 import { Button } from '~/components/ui/button'
+import { Text } from '~/components/ui/text'
 const { useRealm } = RealmContext
 
 const schema = z.object({

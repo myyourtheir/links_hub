@@ -5,7 +5,7 @@ import useInitialSetup from '~/hooks/useInitialSetup'
 import { useColorScheme, View } from 'react-native'
 
 
-const App = () => {
+export default function App() {
 	const { appIsReady, onLayoutRootView } = useInitialSetup()
 	if (!appIsReady) return null
 	return (
@@ -17,5 +17,3 @@ const App = () => {
 		</View>
 	)
 }
-
-export default App

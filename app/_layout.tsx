@@ -1,4 +1,4 @@
-import 'react-native-get-random-values'
+
 import React from 'react'
 import { Slot } from 'expo-router'
 import { RealmContext } from '~/lib/Realm'
@@ -8,7 +8,7 @@ import '~/global.css'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Theme, ThemeProvider } from '@react-navigation/native'
 import { SplashScreen } from 'expo-router'
-import { Platform, View } from 'react-native'
+import { Platform } from 'react-native'
 import { NAV_THEME } from '~/lib/constants'
 import { useColorScheme } from '~/lib/useColorScheme'
 import { StatusBar } from 'expo-status-bar'
@@ -64,8 +64,8 @@ export default function Root() {
 
 	return (
 		<SafeAreaProvider>
-			<ThemeProvider key={'global'} value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-				<RealmProvider>
+			<RealmProvider>
+				<ThemeProvider key={'global'} value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
 					<GlobalContextProvider>
 						<OrientationContextProvider >
 							<StatusBar backgroundColor={isDarkColorScheme ? 'black' : 'white'} style={isDarkColorScheme ? 'light' : 'dark'} />
@@ -73,8 +73,8 @@ export default function Root() {
 							<PortalHost />
 						</OrientationContextProvider>
 					</GlobalContextProvider>
-				</RealmProvider>
-			</ThemeProvider>
+				</ThemeProvider>
+			</RealmProvider >
 		</SafeAreaProvider>
 
 	)
