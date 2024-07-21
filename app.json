@@ -32,7 +32,15 @@
 		},
 		"plugins": [
 			"expo-router",
-			"expo-share-intent"
+			[
+				"expo-share-intent",
+				{
+					"androidIntentFilters": [
+						"text/*",
+						"image/*"
+					]
+				}
+			]
 		],
 		"experiments": {
 			"typedRoutes": true

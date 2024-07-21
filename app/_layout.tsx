@@ -36,7 +36,7 @@ export default function Root() {
 	const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme()
 	const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false)
 	const { RealmProvider } = RealmContext
-	const router = useRouter()
+
 
 	React.useEffect(() => {
 		(async () => {
@@ -71,12 +71,7 @@ export default function Root() {
 		<ShareIntentProvider
 			options={{
 				debug: true,
-				resetOnBackground: true,
-				onResetShareIntent: () =>
-					// used when app going in background and when the reset button is pressed
-					router.replace({
-						pathname: "/",
-					}),
+				resetOnBackground: true
 			}}
 		>
 

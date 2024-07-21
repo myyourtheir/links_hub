@@ -9,6 +9,7 @@ import { router, useLocalSearchParams } from 'expo-router'
 import { Text } from '~/components/ui/text'
 import BottomFlatListOptionsBarWrapper from '~/components/ItemsFlatList/BottomFlatListOptionsBar/BottomFlatListOptionsBarWrapper'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
+import useRedirectWhenShareIntent from '~/hooks/useRedirectWhenShareIntent'
 
 
 
@@ -16,8 +17,8 @@ import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 const { useQuery, useRealm } = RealmContext
 
 const HomeScreen = () => {
+	useRedirectWhenShareIntent()
 	const { parentId } = useLocalSearchParams()
-
 	const { globalDispatch } = useGlobalContext()
 	const realm = useRealm()
 	const items = useQuery(
