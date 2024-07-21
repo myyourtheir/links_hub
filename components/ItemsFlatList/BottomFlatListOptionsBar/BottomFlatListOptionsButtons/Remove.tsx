@@ -13,6 +13,7 @@ const RemoveOptionButton = () => {
 	const handlePress = () => {
 		globalDispatch({ type: 'setMode', value: 'view' })
 		globalDispatch({ type: 'resetSelected' })
+		//TODO не работает удаление
 		realm.write(() => {
 			realm.delete(selected)
 		})

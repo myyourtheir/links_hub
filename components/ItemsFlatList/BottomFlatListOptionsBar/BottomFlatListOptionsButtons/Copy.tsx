@@ -12,6 +12,7 @@ const CopyOptionButton = () => {
 		if (selected[0].url) {
 			Clipboard.setStringAsync(selected[0].url)
 				.then(value => {
+					//TODO Добавить фидбек
 					console.log('value copied', value)
 				})
 				.catch(error => {

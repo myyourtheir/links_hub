@@ -16,5 +16,6 @@
 	"remove": "Remove",
 	"rename": "Rename",
 	"moveHere": "Move here",
-	"cancel": "Cancel"
+	"cancel": "Cancel",
+	"nothing": "Nothing here yet..."
 }

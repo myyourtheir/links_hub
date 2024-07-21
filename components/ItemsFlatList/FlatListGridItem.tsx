@@ -17,7 +17,7 @@ const FlatListGridItem = ({ item }: ItemComponentProps) => {
 			onPress={() => onItemClick(item)}
 			onLongPress={() => onItemLongPress(item)}
 		>
-			<View className='flex flex-col mb-3'>
+			<View className='flex flex-col mb-3 max-w-[160px]'>
 				<FlatListImage
 					className='w-full h-full'
 					item={item}
@@ -27,7 +27,8 @@ const FlatListGridItem = ({ item }: ItemComponentProps) => {
 					}}
 				/>
 				<Text
-					className={"max-w-[160px] max-h-5 truncate hover:text-clip text-center text-base mt-0"}
+					numberOfLines={1}
+					className='font-normal text-ellipsis whitespace-nowrap overflow-hidden'
 				>
 					{item.title}
 				</Text>

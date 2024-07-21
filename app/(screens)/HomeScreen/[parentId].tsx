@@ -74,12 +74,13 @@ export default HomeScreen
 
 
 function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[] }) {
+	const { t } = useGlobalContext()
 	return (
 		<View
 			className='w-full h-full items-center pt-10 gap-8 justify-center '
 		>
 			<Text className='text-md'>
-				Здесь пока ничего нет...
+				{t('nothing')}
 			</Text>
 		</View>
 	)

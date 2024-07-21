@@ -24,14 +24,14 @@ const schema = z.object({
 })
 export type FormSchema = z.infer<typeof schema>
 
-const defaultValues: FormSchema = {
-	title: '',
-}
 
 
 const RenameOptionButton = () => {
 	const [open, setOpen] = useState(false)
 	const { t, globalState: { selected }, globalDispatch } = useGlobalContext()
+	const defaultValues: FormSchema = {
+		title: selected[0].title,
+	}
 	const realm = useRealm()
 	const form = useForm<z.infer<typeof schema>>({
 		resolver: zodResolver(schema),
