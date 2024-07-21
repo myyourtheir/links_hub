@@ -5,7 +5,7 @@ import FlatListRowItem from '~/components/ItemsFlatList/FlatListRowItem'
 import { extractOrientationDependingProps } from '~/utils/extractOrientationDependingProps'
 import { Item } from '~/lib/Realm/models/Item'
 import { ItemsFlatListContext } from './ItemsFlatListContext'
-import FlatListItemWrapper from './FlatListItemWrapper'
+import FlatListItemWrapper from './FlatListItemSelectWrapper'
 import FlatListItemFactory from './FlatListItemFactory'
 import { useOrientationContext } from '~/app/(screens)/HomeScreen/(components)/OrientationContext'
 

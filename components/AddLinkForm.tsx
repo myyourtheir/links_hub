@@ -20,7 +20,8 @@ type AddLinkFormProps = {
 
 const schema = z.object({
 	title: z.string(),
-	url: z.string().url()
+	url: z.string().url(),
+	description: z.string().nullable()
 })
 
 type FormSchema = z.infer<typeof schema>
@@ -29,7 +30,8 @@ const AddLinkForm = ({ parentId, setOpen }: AddLinkFormProps) => {
 
 	const defaultValues: FormSchema = {
 		title: '',
-		url: ''
+		url: '',
+		description: ''
 	}
 	const { t } = useTranslation()
 	const form = useForm({ defaultValues })
@@ -38,21 +40,21 @@ const AddLinkForm = ({ parentId, setOpen }: AddLinkFormProps) => {
 	const onSubmit: SubmitHandler<FormSchema> = (data) => {
 		try {
 			schema.parse(data)
+			try {
+				realm.write(() => {
+					realm.create('Item', {
+						parentId: parentId !== 'null' ? new BSON.ObjectId(parentId as string) : null,
+						type: 'link',
+						...data,
+					})
+				}
+				)
+				setOpen(false)
+			} catch (e) {
+				console.log('error while add data to realm', e)
+			}
 		} catch (e) {
 			console.log('error while parsing data', e)
-		}
-		try {
-			realm.write(() => {
-				realm.create('Item', {
-					parentId: parentId !== 'null' ? new BSON.ObjectId(parentId as string) : null,
-					type: 'link',
-					...data,
-				})
-			}
-			)
-			setOpen(false)
-		} catch (e) {
-			console.log('error while add data to realm', e)
 		}
 	}
 
@@ -90,6 +92,25 @@ const AddLinkForm = ({ parentId, setOpen }: AddLinkFormProps) => {
 								/>
 							</FormControl>
 							<FormMessage />
+						</FormItem>
+					}
+				/>
+				<FormField
+					name='description'
+					render={({ field: { value, onChange } }) =>
+						<FormItem className='p-0 m-0 w-full gap-y-4' >
+							<Input
+								multiline
+								nativeID='description'
+								className='py-2'
+								style={{
+									height: 80,
+									textAlignVertical: 'top'
+								}}
+								value={value}
+								placeholder={t('addingDescription')}
+								onChangeText={onChange}
+							/>
 						</FormItem>
 					}
 				/>

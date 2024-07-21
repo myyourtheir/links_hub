@@ -3,6 +3,7 @@
 	"addingType": "Тип",
 	"addingLink": "URL",
 	"addingPath": "Путь",
+	"addingDescription": "Описание",
 	"folder": "Папка",
 	"section": "Раздел",
 	"link": "Ссылка",

@@ -45,21 +45,21 @@ function AddFolderDialog({ parentId }: AddFolderDialogProps) {
 	const onSubmit: SubmitHandler<FormSchema> = (data) => {
 		try {
 			schema.parse(data)
+			try {
+				realm.write(() => {
+					realm.create('Item', {
+						parentId: parentId !== 'null' ? new BSON.ObjectId(parentId as string) : null,
+						type: 'folder',
+						...data,
+					})
+				}
+				)
+				setOpen(false)
+			} catch (e) {
+				console.log('error while add data to realm', e)
+			}
 		} catch (e) {
 			console.log('error while parsing data', e)
-		}
-		try {
-			realm.write(() => {
-				realm.create('Item', {
-					parentId: parentId !== 'null' ? new BSON.ObjectId(parentId as string) : null,
-					type: 'folder',
-					...data,
-				})
-			}
-			)
-			setOpen(false)
-		} catch (e) {
-			console.log('error while add data to realm', e)
 		}
 	}
 

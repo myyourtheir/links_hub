@@ -4,7 +4,7 @@ import { Item } from '~/lib/Realm/models/Item'
 import FlatListRowItem from './FlatListRowItem'
 import { useOrientationContext } from '~/app/(screens)/HomeScreen/(components)/OrientationContext'
 import FlatListGridItem from './FlatListGridItem'
-import FlatListItemSelectWrapper from './FlatListItemWrapper'
+import FlatListItemSelectWrapper from './FlatListItemSelectWrapper'
 
 const FlatListItemFactory = ({ item }: { item: Item, withOptionsMenu: boolean }) => {
 	const { orientationMode } = useOrientationContext()

@@ -70,7 +70,7 @@ export default function Root() {
 	return (
 		<ShareIntentProvider
 			options={{
-				debug: true,
+				debug: false,
 				resetOnBackground: true
 			}}
 		>
