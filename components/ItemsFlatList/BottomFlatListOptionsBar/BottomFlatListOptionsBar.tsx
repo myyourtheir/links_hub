@@ -11,14 +11,15 @@ import RenameOptionButton from './BottomFlatListOptionsButtons/Rename'
 
 
 const BottomFlatListOptionsBar = () => {
-	const { t } = useGlobalContext()
+	const { t, globalState: { selected } } = useGlobalContext()
+	const isOneItemSelected = selected.length === 1
 	return (
 		<View className=' w-full h-full flex-row content-stretch shrink justify-around items-center'>
 			<MoveOptionButton />
-			<CopyOptionButton />
-			<ShareOptionButton />
+			{isOneItemSelected && selected[0].type === 'link' && <CopyOptionButton />}
+			{isOneItemSelected && selected[0].type === 'link' && <ShareOptionButton />}
 			<RemoveOptionButton />
-			<RenameOptionButton />
+			{isOneItemSelected && <RenameOptionButton />}
 		</View>
 	)
 }

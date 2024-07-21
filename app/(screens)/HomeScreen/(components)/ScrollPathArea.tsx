@@ -6,11 +6,12 @@ import { Link } from 'expo-router'
 import StyledIcon from '~/components/StyledIcon'
 import { House } from 'lucide-react-native'
 import { Text } from '~/components/ui/text'
+import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 
 const ScrollPathArea = ({ parentId }: { parentId: string }) => {
 	const { pathArray } = useGetCurrentPath({ currentParent: parentId !== 'null' ? new BSON.ObjectId(parentId as string) : null })
 	const scrollViewRef = useRef<ScrollView>(null)
-
+	const { globalDispatch } = useGlobalContext()
 	return (
 		<ScrollView
 			horizontal
@@ -21,7 +22,16 @@ const ScrollPathArea = ({ parentId }: { parentId: string }) => {
 			{pathArray.map(item => {
 				if (item == null) {
 					return (
-						<Link key={'home'} href={{ pathname: '/HomeScreen/[parentId]', params: { parentId: 'null' } }}>
+						<Link
+							key={'home'}
+							href={{ pathname: '/HomeScreen/[parentId]', params: { parentId: 'null' } }}
+							onPress={e => {
+								globalDispatch({
+									type: 'setFolderToSetIn',
+									value: null
+								})
+							}}
+						>
 							<StyledIcon>
 								<House />
 							</StyledIcon>
@@ -29,7 +39,16 @@ const ScrollPathArea = ({ parentId }: { parentId: string }) => {
 					)
 				} else {
 					return (
-						<Link key={item?._id.toString()} href={{ pathname: '/HomeScreen/[parentId]', params: { parentId: item?._id?.toString() } }}>
+						<Link
+							key={item?._id.toString()}
+							href={{ pathname: '/HomeScreen/[parentId]', params: { parentId: item?._id?.toString() } }}
+							onPress={e => {
+								globalDispatch({
+									type: 'setFolderToSetIn',
+									value: parentId !== 'null' ? new BSON.ObjectId(parentId) : null
+								})
+							}}
+						>
 							<Text className=''>{' > ' + item?.title}</Text>
 						</Link>
 					)

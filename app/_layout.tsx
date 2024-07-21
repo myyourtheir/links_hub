@@ -64,7 +64,7 @@ export default function Root() {
 
 	return (
 		<SafeAreaProvider>
-			<RealmProvider>
+			<RealmProvider closeOnUnmount>
 				<ThemeProvider key={'global'} value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
 					<GlobalContextProvider>
 						<OrientationContextProvider >

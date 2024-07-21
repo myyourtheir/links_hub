@@ -10,6 +10,8 @@ import { router } from 'expo-router'
 import SettingsPopover from './SettingsPopover'
 import { Button } from '~/components/ui/button'
 import ChevronLeft from '~/lib/icons/ChevronLeft'
+import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
+import { BSON } from 'realm'
 
 type TopLayoutComponentProps = {
 
@@ -20,26 +22,31 @@ type TopLayoutComponentProps = {
 const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ className, parentId }) => {
 	// const { currentFolder: currentParent } = useGlobalContext()
 	const { orientationMode, setOrientationMode } = useOrientationContext()
+	const { globalState: { mode }, globalDispatch } = useGlobalContext()
 	useEffect(() => {
 		setAppData('orientationMode', orientationMode)
 	}, [orientationMode])
 	return (
 		<TopContent className='flex-col justify-start items-center'>
 			<View className='w-full flex-row justify-between'>
-				<Button
-					className=''
-					variant={'ghost'}
-					onPress={() => {
-						if (router.canGoBack()) {
-							router.back()
-						} else {
+				{
+					mode === 'view' ?
+						<Button
+							className=''
+							variant={'ghost'}
+							onPress={() => {
+								if (router.canGoBack()) {
+									router.back()
+								}
 
-						}
-					}}>
-					<StyledIcon>
-						<ChevronLeft />
-					</StyledIcon>
-				</Button>
+							}}>
+							<StyledIcon>
+								<ChevronLeft />
+							</StyledIcon>
+						</Button>
+						:
+						<View />
+				}
 				<View className=' flex-row w-fit '>
 					<Button
 						variant={'ghost'}

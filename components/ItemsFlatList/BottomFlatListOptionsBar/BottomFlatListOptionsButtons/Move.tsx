@@ -7,10 +7,10 @@ import { RealmContext } from '~/lib/Realm'
 const { useRealm } = RealmContext
 
 const MoveOptionButton = () => {
-	const { t, globalState: { selected } } = useGlobalContext()
+	const { t, globalState: { selected }, globalDispatch } = useGlobalContext()
 	const realm = useRealm()
 	const handlePress = (e: GestureResponderEvent) => {
-
+		globalDispatch({ type: 'setMode', value: 'move' })
 	}
 	return (
 		<BottomFlatListOptionsItem onPress={handlePress} icon={<FolderInput />} title={t('move')} />

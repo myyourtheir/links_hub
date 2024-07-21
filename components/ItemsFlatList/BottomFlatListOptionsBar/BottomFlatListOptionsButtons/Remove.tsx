@@ -11,11 +11,11 @@ const RemoveOptionButton = () => {
 	const { t, globalState: { selected }, globalDispatch } = useGlobalContext()
 	const realm = useRealm()
 	const handlePress = () => {
+		globalDispatch({ type: 'setMode', value: 'view' })
+		globalDispatch({ type: 'resetSelected' })
 		realm.write(() => {
 			realm.delete(selected)
 		})
-		globalDispatch({ type: 'setMode', value: 'view' })
-		globalDispatch({ type: 'resetSelected' })
 	}
 	return (
 		<BottomFlatListOptionsItem onPress={handlePress} icon={<Trash2 />} title={t('remove')} />

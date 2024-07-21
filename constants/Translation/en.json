@@ -14,5 +14,7 @@
 	"copy": "Copy",
 	"share": "Share",
 	"remove": "Remove",
-	"rename": "Rename"
+	"rename": "Rename",
+	"moveHere": "Move here",
+	"cancel": "Cancel"
 }

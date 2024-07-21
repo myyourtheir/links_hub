@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import TopLayoutComponent from './(components)/TopLayoutComponent'
 import ItemsFlatList from '~/components/ItemsFlatList/ItemsFlatList'
 import { RealmContext } from '~/lib/Realm'
@@ -8,32 +8,41 @@ import { BSON } from 'realm'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Text } from '~/components/ui/text'
 import BottomFlatListOptionsBarWrapper from '~/components/ItemsFlatList/BottomFlatListOptionsBar/BottomFlatListOptionsBarWrapper'
+import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 
 
 
 
-const { useQuery } = RealmContext
+const { useQuery, useRealm } = RealmContext
 
 const HomeScreen = () => {
 	const { parentId } = useLocalSearchParams()
-	let items = useQuery(
+
+	const { globalDispatch } = useGlobalContext()
+	const realm = useRealm()
+	const items = useQuery(
 		{
 			type: Item,
 			query: items => {
 				return items
-					.filtered(`parentId=${parentId != 'null' ? 'oid(' + parentId + ')' : null}`)
-					.sorted('updatedTime', false)
+					.filtered(`parentId=${parentId !== 'null' ? 'oid(' + parentId + ')' : null}`)
+					.sorted(['type', 'updatedTime'])
 			}
-		})
-
-	if (items.length % 2 !== 0) {
-		items = [...items.snapshot(), {
-			_id: new BSON.ObjectID,
-			type: 'empty',
-		}] as any
-	}
+		}, [realm])
+	const renderItems = useMemo(() => {
+		const newItems = [...items]
+		if (items.length % 2 !== 0) {
+			newItems.push({
+				_id: new BSON.ObjectID,
+				type: 'empty',
+			} as Item)
+		}
+		return newItems
+	}, [items])
+	// if (!items.isValid()) return null
 	const handleItemClick = (item: Item) => {
 		if (item.type === 'folder') {
+			globalDispatch({ type: 'setFolderToSetIn', value: item._id })
 			router.push({ pathname: '/HomeScreen/[parentId]', params: { parentId: item._id.toString() } })
 		}
 		if (item.type === 'link') {
@@ -53,7 +62,7 @@ const HomeScreen = () => {
 				parentId={parentId as string}
 			/>
 			<ItemsFlatList
-				data={items as ArrayLike<Item>}
+				data={renderItems as ArrayLike<Item>}
 				ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}
 				onItemClick={handleItemClick}
 			/>

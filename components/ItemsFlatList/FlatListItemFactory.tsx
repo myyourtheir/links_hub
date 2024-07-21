@@ -38,4 +38,4 @@ const FlatListItemFactory = ({ item }: { item: Item, withOptionsMenu: boolean })
 
 }
 
-export default FlatListItemFactory
+export default React.memo(FlatListItemFactory)
