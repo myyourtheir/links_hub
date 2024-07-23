@@ -44,6 +44,7 @@ const AddLinkScreen = () => {
 
 
 	const onSubmit: SubmitHandler<FormAddLinkSchema> = (data) => {
+		console.log(data)
 		try {
 			schema.parse(data)
 			try {
@@ -56,7 +57,7 @@ const AddLinkScreen = () => {
 					})
 				})
 				resetShareIntent()
-				globalDispatch({ type: 'setAddingData', value: defaultValues })
+				globalDispatch({ type: 'setAddingData', value: null })
 				globalDispatch({ type: 'setMode', value: 'view' })
 				router.replace({ pathname: '/HomeScreen/[parentId]', params: { parentId: folderToSetIn !== null ? folderToSetIn.toString() : 'null' } })
 			} catch (e) {

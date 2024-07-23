@@ -35,7 +35,7 @@ function AddLinkDialog({ parentId }: AddLinkDialogProps) {
 					{t('link')}
 				</Text>
 			</DialogTrigger>
-			<DialogContent className='w-[300px] '>
+			<DialogContent className='w-[350px] '>
 				<AddLinkForm parentId={parentId} setOpen={setOpen} />
 			</DialogContent>
 		</Dialog>

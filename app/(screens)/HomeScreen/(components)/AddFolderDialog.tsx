@@ -70,7 +70,7 @@ function AddFolderDialog({ parentId }: AddFolderDialogProps) {
 					{t('section')}
 				</Text>
 			</DialogTrigger>
-			<DialogContent className='sm:max-w-[425px] min-w-[300px]'>
+			<DialogContent className='w-[350px]'>
 				<DialogHeader />
 				<Form {...form}>
 					<FormField

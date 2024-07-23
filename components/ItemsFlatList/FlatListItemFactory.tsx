@@ -6,9 +6,11 @@ import { useOrientationContext } from '~/app/(screens)/HomeScreen/(components)/O
 import FlatListGridItem from './FlatListGridItem'
 import FlatListItemSelectWrapper from './FlatListItemSelectWrapper'
 import { useGlobalSearchParams } from 'expo-router'
+import FlatListItemInfoCardWrapper from './FlatListItemInfoCardWrapper'
+import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 
 const FlatListItemFactory = ({ item }: { item: Item, withOptionsMenu: boolean }) => {
-
+	const { globalState: { mode } } = useGlobalContext()
 	const { addIntent } = useGlobalSearchParams()
 
 	if (addIntent === 'true') {
@@ -18,11 +20,21 @@ const FlatListItemFactory = ({ item }: { item: Item, withOptionsMenu: boolean })
 			return <OrientationDepItem item={item} />
 		}
 		else {
-			return (
-				<FlatListItemSelectWrapper item={item}>
-					<OrientationDepItem item={item} />
-				</FlatListItemSelectWrapper>
-			)
+			if (item.type == 'link' && mode === 'view') {
+				return (
+					<FlatListItemInfoCardWrapper item={item}>
+						<FlatListItemSelectWrapper item={item}>
+							<OrientationDepItem item={item} />
+						</FlatListItemSelectWrapper>
+					</FlatListItemInfoCardWrapper>
+				)
+			} else {
+				return (
+					<FlatListItemSelectWrapper item={item}>
+						<OrientationDepItem item={item} />
+					</FlatListItemSelectWrapper>
+				)
+			}
 		}
 	}
 
