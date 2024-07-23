@@ -3,12 +3,14 @@ import React, { createContext, ReactNode, useContext, useReducer, useState } fro
 import { useTranslation } from 'react-i18next'
 import { BSON } from 'realm'
 import { Item } from '../Realm/models/Item'
+import { FormAddLinkSchema } from '~/app/(screens)/AddingIntentScreen'
 
 
 export type GlobalState = {
 	mode: 'view' | 'select' | 'move',
 	selected: Item[],
-	folderToSetIn: BSON.ObjectId | null
+	folderToSetIn: BSON.ObjectId | null,
+	addingData: FormAddLinkSchema | null
 }
 
 export type GlobalAction =
@@ -16,7 +18,7 @@ export type GlobalAction =
 	| { type: 'toggleSelected', value: GlobalState['selected'][0] }
 	| { type: 'resetSelected' }
 	| { type: 'setFolderToSetIn', value: GlobalState['folderToSetIn'] }
-
+	| { type: 'setAddingData', value: GlobalState['addingData'] }
 export type GlobalContextProps = {
 	globalState: GlobalState,
 	globalDispatch: React.Dispatch<GlobalAction>
@@ -56,13 +58,19 @@ function reducer(state: GlobalState, action: GlobalAction): GlobalState {
 				...state,
 				folderToSetIn: action.value
 			}
+		case 'setAddingData':
+			return {
+				...state,
+				addingData: action.value
+			}
 	}
 }
 
 const initialState: GlobalState = {
 	mode: 'view',
 	selected: [],
-	folderToSetIn: null
+	folderToSetIn: null,
+	addingData: null
 }
 
 

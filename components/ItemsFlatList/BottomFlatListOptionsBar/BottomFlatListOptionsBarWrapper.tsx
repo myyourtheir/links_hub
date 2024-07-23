@@ -4,6 +4,8 @@ import Animated, { FadeInDown, FadeOutDown } from 'react-native-reanimated'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import BottomFlatListOptionsBar from './BottomFlatListOptionsBar'
 import MoveBottomBar from './MoveBottomBar'
+import { useGlobalSearchParams } from 'expo-router'
+import AddBottomBar from '~/components/AddBottomBar'
 
 type BottomFlatListOptionsBarWrapperProps = {
 	children: ReactNode
@@ -11,6 +13,7 @@ type BottomFlatListOptionsBarWrapperProps = {
 
 const BottomFlatListOptionsBarWrapper = ({ children }: BottomFlatListOptionsBarWrapperProps) => {
 	const { globalState: { mode, selected } } = useGlobalContext()
+	const { addIntent } = useGlobalSearchParams()
 	return (
 		<View className=' h-full w-full bg-transparent'>
 			{children}
@@ -25,7 +28,11 @@ const BottomFlatListOptionsBarWrapper = ({ children }: BottomFlatListOptionsBarW
 			{mode === 'move' &&
 				// <Animated.View entering={FadeInDown.duration(100)} exiting={FadeOutDown.duration(100)}>
 				<View className='w-full h-16  '>
-					<MoveBottomBar />
+					{addIntent === 'true'
+						? <AddBottomBar />
+						: <MoveBottomBar />
+					}
+
 				</View>
 				// </Animated.View>
 

@@ -1,6 +1,5 @@
 import { TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useMemo } from 'react'
-import TopLayoutComponent from './(components)/TopLayoutComponent'
 import ItemsFlatList from '~/components/ItemsFlatList/ItemsFlatList'
 import { RealmContext } from '~/lib/Realm'
 import { Item } from '~/lib/Realm/models/Item'
@@ -10,14 +9,14 @@ import { Text } from '~/components/ui/text'
 import BottomFlatListOptionsBarWrapper from '~/components/ItemsFlatList/BottomFlatListOptionsBar/BottomFlatListOptionsBarWrapper'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import useRedirectWhenShareIntent from '~/hooks/useRedirectWhenShareIntent'
+import TopComponent from './(components)/TopComponent'
 
 
 
 
 const { useQuery, useRealm } = RealmContext
 
-const HomeScreen = () => {
-	useRedirectWhenShareIntent()
+const SelectPathScreen = () => {
 	const { parentId } = useLocalSearchParams()
 	const { globalDispatch } = useGlobalContext()
 	const realm = useRealm()
@@ -26,11 +25,14 @@ const HomeScreen = () => {
 			type: Item,
 			query: items => {
 				return items
-					.filtered(`parentId=${parentId !== 'null' ? 'oid(' + parentId + ')' : null}`)
+					.filtered(`
+							parentId=${parentId !== 'null' ? 'oid(' + parentId + ')' : null}  
+							AND 
+							type=="folder"
+						`)
 					.sorted(['type', 'updatedTime'])
 			}
 		}, [realm])
-
 	useEffect(() => {
 		globalDispatch({
 			type: 'setFolderToSetIn',
@@ -48,23 +50,17 @@ const HomeScreen = () => {
 
 	// if (!items.isValid()) return null
 	const handleItemClick = (item: Item) => {
-		if (item.type === 'folder') {
-			router.push({ pathname: '/HomeScreen/[parentId]', params: { parentId: item._id.toString() } })
-		}
-		if (item.type === 'link') {
-			if (item.url) {
-				router.push(item.url)
+		router.push({
+			pathname: '/AddingIntentScreen/SelectPath/[parentId]', params: {
+				parentId: item._id.toString(),
+				addIntent: 'true'
 			}
-			else {
-				throw new Error('No link in item')
-			}
-		}
-
+		})
 	}
 
 	return (
 		<BottomFlatListOptionsBarWrapper>
-			<TopLayoutComponent
+			<TopComponent
 				parentId={parentId as string}
 			/>
 			<ItemsFlatList
@@ -76,7 +72,7 @@ const HomeScreen = () => {
 	)
 }
 
-export default HomeScreen
+export default SelectPathScreen
 
 
 function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[] }) {

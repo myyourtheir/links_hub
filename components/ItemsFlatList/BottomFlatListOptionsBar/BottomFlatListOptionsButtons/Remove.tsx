@@ -13,7 +13,7 @@ const RemoveOptionButton = () => {
 	const handlePress = () => {
 		globalDispatch({ type: 'setMode', value: 'view' })
 		globalDispatch({ type: 'resetSelected' })
-		//TODO не работает удаление
+		//TODO сделать удаление всех детей или запретить удаление, если есть папка является чьим-то родителем
 		realm.write(() => {
 			realm.delete(selected)
 		})

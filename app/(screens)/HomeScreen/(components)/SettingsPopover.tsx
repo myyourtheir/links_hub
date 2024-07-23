@@ -40,15 +40,15 @@ export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
 				className='w-48'
 				sideOffset={-40}
 			>
-				<Animated.View entering={FadeIn.duration(200)}>
-					<DropdownMenuSub>
+				<DropdownMenuSub>
 
-						<DropdownMenuSubTrigger>
-							<Text>
-								{t('add')}
-							</Text>
-						</DropdownMenuSubTrigger>
+					<DropdownMenuSubTrigger>
+						<Text>
+							{t('add')}
+						</Text>
+					</DropdownMenuSubTrigger>
 
+					<Animated.View entering={FadeIn.duration(200)}>
 						<DropdownMenuSubContent>
 							<DropdownMenuItem>
 								<AddFolderDialog parentId={parentId} />
@@ -58,13 +58,13 @@ export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
 								<AddLinkDialog parentId={parentId} />
 							</DropdownMenuItem>
 						</DropdownMenuSubContent>
-					</DropdownMenuSub>
-				</Animated.View>
+					</Animated.View>
+				</DropdownMenuSub>
 
 				<DropdownMenuSeparator />
 
 				<DropdownMenuItem>
-					<Link href={{ pathname: 'SettingsScreen' }}>
+					<Link className='w-full' href={{ pathname: 'SettingsScreen' }}>
 						<Text>
 							{t('settings')}
 						</Text>

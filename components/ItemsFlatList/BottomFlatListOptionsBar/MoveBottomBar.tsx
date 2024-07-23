@@ -6,10 +6,36 @@ import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { Button } from '~/components/ui/button'
 import { RealmContext } from '~/lib/Realm'
 const { useRealm } = RealmContext
+
+
 const MoveBottomBar = () => {
 	const { globalState: { selected, folderToSetIn }, t, globalDispatch } = useGlobalContext()
 	const realm = useRealm()
-	console.log(folderToSetIn)
+
+	const handlePress = () => {
+		if (folderToSetIn !== null) {
+			if (!selected.map(item => item._id.toString()).includes(folderToSetIn.toString())) {
+				// try {
+				realm.write(() => {
+					for (const item of selected) {
+						item.parentId = folderToSetIn
+					}
+				})
+				// } catch {
+				// 	console.log('it is not possible to move a section to itself')
+				// }
+			} //TODO предупреждение, что нельзя переместить в папку, которая выбрана
+		} else {
+			realm.write(() => {
+				for (const item of selected) {
+					item.parentId = folderToSetIn
+				}
+			})
+		}
+		globalDispatch({ type: 'resetSelected' })
+		globalDispatch({ type: 'setMode', value: 'view' })
+	}
+
 	return (
 		<View className='border-t-[0.5px] border-foreground w-full h-full flex-row content-stretch shrink justify-between  items-center p-4'>
 			<Text className='text-center'>
@@ -28,25 +54,7 @@ const MoveBottomBar = () => {
 					</Text>
 				</Button>
 				<Button
-					onPress={e => {
-						if (folderToSetIn !== null) {
-							if (!selected.map(item => item._id.toString()).includes(folderToSetIn.toString())) {
-								realm.write(() => {
-									for (const item of selected) {
-										item.parentId = folderToSetIn
-									}
-								})
-							} //TODO предупреждение, что нельзя переместить в папку, которая выбрана
-						} else {
-							realm.write(() => {
-								for (const item of selected) {
-									item.parentId = folderToSetIn
-								}
-							})
-						}
-						globalDispatch({ type: 'resetSelected' })
-						globalDispatch({ type: 'setMode', value: 'view' })
-					}}
+					onPress={handlePress}
 					size={'sm'}>
 					<Text>
 						{t('moveHere')}
