@@ -1,6 +1,6 @@
-
+import 'react-native-get-random-values'
 import React from 'react'
-import { Slot, useRouter } from 'expo-router'
+import { Slot } from 'expo-router'
 import { RealmContext } from '~/lib/Realm'
 import GlobalContextProvider from '~/lib/store/GlobalContextProvider'
 import OrientationContextProvider from './(screens)/HomeScreen/(components)/OrientationContext'
