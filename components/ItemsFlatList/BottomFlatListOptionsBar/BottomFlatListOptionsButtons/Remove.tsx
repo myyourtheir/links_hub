@@ -5,18 +5,20 @@ import { Trash2 } from 'lucide-react-native'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { RealmContext } from '~/lib/Realm'
 import { router } from 'expo-router'
+import { useCascadeDelete } from '~/hooks/useCascadeDelete'
 const { useRealm } = RealmContext
 
 const RemoveOptionButton = () => {
 	const { t, globalState: { selected }, globalDispatch } = useGlobalContext()
 	const realm = useRealm()
+	const { deleteItemWithCascade } = useCascadeDelete()
 	const handlePress = () => {
 		globalDispatch({ type: 'setMode', value: 'view' })
 		globalDispatch({ type: 'resetSelected' })
 		//TODO сделать удаление всех детей или запретить удаление, если есть папка является чьим-то родителем
-		realm.write(() => {
-			realm.delete(selected)
-		})
+		for (const item of selected) {
+			deleteItemWithCascade(item._id)
+		}
 	}
 	return (
 		<BottomFlatListOptionsItem onPress={handlePress} icon={<Trash2 />} title={t('remove')} />
