@@ -11,6 +11,7 @@ import BottomFlatListOptionsBarWrapper from '~/components/ItemsFlatList/BottomFl
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import useRedirectWhenShareIntent from '~/hooks/useRedirectWhenShareIntent'
 import RecentItems from '~/components/RecentItems'
+import useHandleBack from '~/hooks/useHanldeBack'
 
 
 
@@ -20,8 +21,9 @@ const { useQuery, useRealm } = RealmContext
 const HomeScreen = () => {
 	useRedirectWhenShareIntent()
 	const { parentId } = useLocalSearchParams()
-	const { globalDispatch } = useGlobalContext()
+	const { globalDispatch, globalState: { mode } } = useGlobalContext()
 	const realm = useRealm()
+
 	const items = useQuery(
 		{
 			type: Item,
@@ -39,6 +41,15 @@ const HomeScreen = () => {
 		})
 	}, [])
 
+	useHandleBack(() => {
+		if (mode === 'select') {
+			globalDispatch({ type: 'setMode', value: 'view' })
+			return true
+		} else {
+			return false
+		}
+	}, [mode, parentId])
+
 	const renderItems = [...items]
 	if (items?.length % 2 !== 0) {
 		renderItems.push({
@@ -47,7 +58,6 @@ const HomeScreen = () => {
 		} as Item)
 	}
 
-	// if (!items.isValid()) return null
 	const handleItemClick = (item: Item) => {
 		if (item.type === 'folder') {
 			router.push({ pathname: '/HomeScreen/[parentId]', params: { parentId: item._id.toString() } })
