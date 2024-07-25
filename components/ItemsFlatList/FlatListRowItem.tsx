@@ -25,7 +25,7 @@ const FlatListRowItem = ({ item }: ItemComponentProps) => {
 			// 		: FadeInRight.duration(100).withInitialValues({ opacity: 100 })
 			// }
 			>
-				<View className={`${mode === 'select' && 'ml-10'} w-full flex-row gap-x-2 items-center mb-3 max-w-[90%]`}>
+				<View className={`${mode === 'select' && 'ml-10'} flex-1 flex-row gap-x-2 items-center mb-3 w-[85%]`}>
 					<FlatListImage
 						item={item}
 						style={{

@@ -1,5 +1,5 @@
 import { TextInput, View } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Text } from '~/components/ui/text'
 import { router } from 'expo-router'
 import TopContent from '~/components/TopContent'
@@ -15,7 +15,7 @@ import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { BSON } from 'realm'
 import useGetCurrentPath from '~/hooks/useGetCurrentPath'
 import useFocus from '~/hooks/useFocus'
-
+import useParseUrl from '~/hooks/useParseUrl'
 const { useRealm } = RealmContext
 
 
@@ -30,21 +30,28 @@ export type FormAddLinkSchema = z.infer<typeof schema>
 
 const AddLinkScreen = () => {
 	const titleInputRef = useRef<TextInput>(null)
-	useFocus({ ref: titleInputRef })
+	const descriptionInputRef = useRef<TextInput>(null)
+	useFocus({ ref: descriptionInputRef })
 	const { shareIntent, resetShareIntent } = useShareIntentContext()
 	const { t } = useTranslation()
 	const realm = useRealm()
 	const { globalState: { folderToSetIn, addingData }, globalDispatch } = useGlobalContext()
-
-
+	const { parsedTitle } = useParseUrl(shareIntent.webUrl)
 	const defaultValues: FormAddLinkSchema = addingData ? addingData : {
 		title: '',
 		description: '',
-		url: shareIntent ? shareIntent.webUrl : 'null',
+		url: shareIntent.type == 'weburl' ? shareIntent.webUrl : 'null',
 		parentId: null
 	}
 	const form = useForm({ defaultValues })
 	const { currentPathText } = useGetCurrentPath({ currentParent: folderToSetIn })
+	useEffect(() => {
+		if (shareIntent.type == 'weburl') {
+			if (!form.getFieldState('title').isDirty) {
+				form.setValue('title', parsedTitle)
+			}
+		}
+	}, [parsedTitle])
 
 
 
@@ -135,6 +142,7 @@ const AddLinkScreen = () => {
 									</Text>
 								</FormLabel>
 								<Input
+									ref={descriptionInputRef}
 									multiline
 									nativeID='description'
 									className='py-2'

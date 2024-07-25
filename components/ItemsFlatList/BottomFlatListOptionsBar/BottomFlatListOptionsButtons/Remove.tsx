@@ -15,7 +15,6 @@ const RemoveOptionButton = () => {
 	const handlePress = () => {
 		globalDispatch({ type: 'setMode', value: 'view' })
 		globalDispatch({ type: 'resetSelected' })
-		//TODO сделать удаление всех детей или запретить удаление, если есть папка является чьим-то родителем
 		for (const item of selected) {
 			deleteItemWithCascade(item._id)
 		}
