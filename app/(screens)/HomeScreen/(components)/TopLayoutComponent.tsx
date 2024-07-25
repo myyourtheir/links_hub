@@ -51,7 +51,7 @@ const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ className, parentId }
 					<Button
 						variant={'ghost'}
 						onPress={() => {
-							router.push('SearchScreen')
+							router.push('/SearchScreen')
 						}}
 					>
 						<StyledIcon>
@@ -80,33 +80,6 @@ const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ className, parentId }
 			<View className=' w-full overflow-x-auto whitespace-nowrap mt-3 px-6'>
 				<ScrollPathArea parentId={parentId} />
 			</View>
-
-			{/* <View className='flex-row items-end h-1/2 max-w-[60%] overflow-x-auto whitespace-nowrap'>
-				<ScrollPathArea parentId={parentId} />
-			</View>
-			<View className=' flex-row w-fit gap-x-8 items-end justify-center'>
-				<CustomButton handlePress={() => { return }}>
-					<StyledIcon>
-						<Search size={30} strokeWidth={1.25} />
-					</StyledIcon>
-				</CustomButton>
-				<View>
-					<CustomButton handlePress={() => {
-						setOrientationMode((prev) => prev === 'grid' ? 'row' : 'grid')
-					}}>
-						<StyledIcon>
-							{
-								orientationMode === 'row' ? (
-									<Rows2 size={30} strokeWidth={1.25} />
-								) : (
-									<Grid2X2 size={30} strokeWidth={1.25} />
-								)
-							}
-						</StyledIcon>
-					</CustomButton>
-				</View>
-
-			</View> */}
 		</TopContent >
 	)
 }

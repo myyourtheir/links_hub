@@ -1,5 +1,5 @@
-import { View } from 'react-native'
-import React from 'react'
+import { TextInput, View } from 'react-native'
+import React, { useRef } from 'react'
 import { Text } from '~/components/ui/text'
 import { router } from 'expo-router'
 import TopContent from '~/components/TopContent'
@@ -14,6 +14,7 @@ import { useShareIntentContext } from 'expo-share-intent'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { BSON } from 'realm'
 import useGetCurrentPath from '~/hooks/useGetCurrentPath'
+import useFocus from '~/hooks/useFocus'
 
 const { useRealm } = RealmContext
 
@@ -28,11 +29,14 @@ const schema = z.object({
 export type FormAddLinkSchema = z.infer<typeof schema>
 
 const AddLinkScreen = () => {
+	const titleInputRef = useRef<TextInput>(null)
+	useFocus({ ref: titleInputRef })
 	const { shareIntent, resetShareIntent } = useShareIntentContext()
-
 	const { t } = useTranslation()
 	const realm = useRealm()
 	const { globalState: { folderToSetIn, addingData }, globalDispatch } = useGlobalContext()
+
+
 	const defaultValues: FormAddLinkSchema = addingData ? addingData : {
 		title: '',
 		description: '',
@@ -43,8 +47,8 @@ const AddLinkScreen = () => {
 	const { currentPathText } = useGetCurrentPath({ currentParent: folderToSetIn })
 
 
+
 	const onSubmit: SubmitHandler<FormAddLinkSchema> = (data) => {
-		console.log(data)
 		try {
 			schema.parse(data)
 			try {
@@ -70,13 +74,27 @@ const AddLinkScreen = () => {
 	return (
 		<>
 			<Form {...form}>
-				<TopContent className='mb-4' withBack backIconWrapperClassName='flex-row items-start justify-start'>
+				<TopContent
+					className='mb-4'
+					withBack
+					backIconWrapperClassName='flex-row items-start justify-start'
+					onBackPress={() => {
+						resetShareIntent()
+						router.replace({
+							pathname: "/HomeScreen/[parentId]",
+							params: {
+								parentId: 'null'
+							}
+						})
+					}}
+				>
 					<FormField
 						name='title'
 						render={({ field: { value, onChange } }) =>
 							<FormItem className=' p-0 m-0 flex-1'>
 								<FormControl>
 									<Input
+										ref={titleInputRef}
 										className=' border-0 border-b mr-4'
 										placeholder={t('addingTitle')}
 										value={value}

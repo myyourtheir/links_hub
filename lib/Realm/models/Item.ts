@@ -21,7 +21,7 @@ export class Item extends Realm.Object<Item> {
 		properties: {
 			_id: { type: 'objectId', default: () => new BSON.ObjectID },
 			title: { type: 'string', indexed: 'full-text' },
-			description: { type: 'string', default: '' },
+			description: { type: 'string', default: '', indexed: 'full-text' },
 			url: { type: 'string', optional: true },
 			image: { type: 'string', optional: true },
 			price: { type: 'float', optional: true },

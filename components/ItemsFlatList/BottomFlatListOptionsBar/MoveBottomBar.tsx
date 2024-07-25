@@ -29,6 +29,7 @@ const MoveBottomBar = () => {
 			realm.write(() => {
 				for (const item of selected) {
 					item.parentId = folderToSetIn
+					item.updatedTime = new Date()
 				}
 			})
 		}

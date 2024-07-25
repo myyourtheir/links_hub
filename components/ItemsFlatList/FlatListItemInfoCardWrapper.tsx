@@ -15,7 +15,6 @@ import { Button } from '~/components/ui/button'
 import StyledIcon from '../StyledIcon'
 import { Info } from 'lucide-react-native'
 import { Item } from '~/lib/Realm/models/Item'
-import Animated, { FlipInYRight, FlipOutYLeft, FlipOutYRight } from 'react-native-reanimated'
 import { Form, FormField, FormItem, FormLabel } from '~/components/ui/Form'
 import { Input } from '~/components/ui/input'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -68,6 +67,7 @@ const InfoDialogContent = ({ item }: { item: Item }) => {
 			try {
 				realm.write(() => {
 					item.description = data.description as string | undefined
+					item.updatedTime = new Date()
 				}
 				)
 			} catch (e) {

@@ -13,10 +13,22 @@ type TopContentProps = {
 	withBack?: boolean
 	children?: ReactNode
 	className?: string,
-	backIconWrapperClassName?: string
+	backIconWrapperClassName?: string,
+	onBackPress?: () => void
 }
 
-const TopContent: FC<TopContentProps> = ({ children, className, withBack = false, backIconWrapperClassName }) => {
+const TopContent: FC<TopContentProps> = (
+	{ children,
+		className,
+		withBack = false,
+		backIconWrapperClassName,
+		onBackPress = () => {
+			if (router.canGoBack()) {
+				router.back()
+			} else {
+			}
+		}
+	}) => {
 	return (
 		<View className={cn('h-[12vh] flex-row items-center justify-between  bg-background ', className)}>
 			{
@@ -25,12 +37,7 @@ const TopContent: FC<TopContentProps> = ({ children, className, withBack = false
 						<Button
 							className=''
 							variant={'ghost'}
-							onPress={() => {
-								if (router.canGoBack()) {
-									router.back()
-								} else {
-								}
-							}}>
+							onPress={onBackPress}>
 							<StyledIcon>
 								<ChevronLeft />
 							</StyledIcon>

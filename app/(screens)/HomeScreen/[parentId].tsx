@@ -10,6 +10,7 @@ import { Text } from '~/components/ui/text'
 import BottomFlatListOptionsBarWrapper from '~/components/ItemsFlatList/BottomFlatListOptionsBar/BottomFlatListOptionsBarWrapper'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import useRedirectWhenShareIntent from '~/hooks/useRedirectWhenShareIntent'
+import RecentItems from '~/components/RecentItems'
 
 
 
@@ -59,7 +60,6 @@ const HomeScreen = () => {
 				throw new Error('No link in item')
 			}
 		}
-
 	}
 
 	return (
@@ -67,6 +67,11 @@ const HomeScreen = () => {
 			<TopLayoutComponent
 				parentId={parentId as string}
 			/>
+			{
+				parentId === 'null'
+				&&
+				<RecentItems />
+			}
 			<ItemsFlatList
 				data={renderItems as ArrayLike<Item>}
 				ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}

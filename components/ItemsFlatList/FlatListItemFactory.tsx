@@ -20,6 +20,7 @@ const FlatListItemFactory = ({ item }: { item: Item, withOptionsMenu: boolean })
 			return <OrientationDepItem item={item} />
 		}
 		else {
+
 			if (item.type == 'link' && mode === 'view') {
 				return (
 					<FlatListItemInfoCardWrapper item={item}>
@@ -35,6 +36,7 @@ const FlatListItemFactory = ({ item }: { item: Item, withOptionsMenu: boolean })
 					</FlatListItemSelectWrapper>
 				)
 			}
+
 		}
 	}
 

@@ -41,6 +41,7 @@ const RenameOptionButton = () => {
 		realm.write(() => {
 			for (const item of selected) {
 				item.title = data.title
+				item.updatedTime = new Date()
 			}
 		})
 		setOpen(false)

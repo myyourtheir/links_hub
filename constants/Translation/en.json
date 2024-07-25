@@ -19,5 +19,7 @@
 	"moveHere": "Move here",
 	"addHere": "Add here",
 	"cancel": "Cancel",
-	"nothing": "Nothing here yet..."
+	"nothing": "Nothing here yet",
+	"nothingFound": "Nothing was found...",
+	"recent": "Recent"
 }
