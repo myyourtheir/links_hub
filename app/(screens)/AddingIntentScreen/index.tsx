@@ -32,7 +32,7 @@ export type FormAddLinkSchema = z.infer<typeof schema>
 const AddLinkScreen = () => {
 	const titleInputRef = useRef<TextInput>(null)
 	const descriptionInputRef = useRef<TextInput>(null)
-	useFocus({ ref: descriptionInputRef })
+	// useFocus({ ref: descriptionInputRef })
 	const { shareIntent, resetShareIntent } = useShareIntentContext()
 	const { t } = useTranslation()
 	const realm = useRealm()
@@ -42,7 +42,7 @@ const AddLinkScreen = () => {
 		if (shareIntent.type == 'weburl') {
 			return shareIntent.webUrl
 		}
-		if (shareIntent.type == 'media' && shareIntent.files) {
+		if ((shareIntent.type == 'media' || shareIntent.type == 'file') && shareIntent.files) {
 			return shareIntent.files[0].path
 		}
 		return 'null'
@@ -72,7 +72,7 @@ const AddLinkScreen = () => {
 					realm.create('Item', {
 						// parentId: folderToSetIn,
 						...data,
-						type: shareIntent.type == 'media' ? 'media' : 'link',
+						type: shareIntent.type == 'weburl' ? 'link' : 'media',
 						parentId: folderToSetIn
 					})
 				})

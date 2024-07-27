@@ -8,7 +8,6 @@ import { router, useLocalSearchParams } from 'expo-router'
 import { Text } from '~/components/ui/text'
 import BottomFlatListOptionsBarWrapper from '~/components/ItemsFlatList/BottomFlatListOptionsBar/BottomFlatListOptionsBarWrapper'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
-import useRedirectWhenShareIntent from '~/hooks/useRedirectWhenShareIntent'
 import TopComponent from './(components)/TopComponent'
 
 

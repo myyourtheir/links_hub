@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 const useParseUrl = (url: string | null) => {
 	const [parsedTitle, setParsedTitle] = useState('')
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (url) {
 			fetch(url)
 				.then(function (response) {
