@@ -21,7 +21,7 @@ const FlatListItemFactory = ({ item }: { item: Item, withOptionsMenu: boolean })
 		}
 		else {
 
-			if (item.type == 'link' && mode === 'view') {
+			if ((item.type == 'link' || item.type == 'media') && mode === 'view') {
 				return (
 					<FlatListItemInfoCardWrapper item={item}>
 						<FlatListItemSelectWrapper item={item}>

@@ -12,6 +12,8 @@ import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import useRedirectWhenShareIntent from '~/hooks/useRedirectWhenShareIntent'
 import RecentItems from '~/components/RecentItems'
 import useHandleBack from '~/hooks/useHanldeBack'
+import { z } from 'zod'
+import handleItemClick from '~/utils/handleItemClick'
 
 
 
@@ -61,19 +63,7 @@ const HomeScreen = () => {
 	}
 
 
-	const handleItemClick = (item: Item) => {
-		if (item.type === 'folder') {
-			router.push({ pathname: '/HomeScreen/[parentId]', params: { parentId: item._id.toString() } })
-		}
-		if (item.type === 'link') {
-			if (item.url) {
-				router.push(item.url)
-			}
-			else {
-				throw new Error('No link in item')
-			}
-		}
-	}
+
 
 	return (
 		<BottomFlatListOptionsBarWrapper>

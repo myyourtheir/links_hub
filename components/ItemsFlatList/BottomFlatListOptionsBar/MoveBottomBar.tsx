@@ -24,7 +24,7 @@ const MoveBottomBar = () => {
 				// } catch {
 				// 	console.log('it is not possible to move a section to itself')
 				// }
-			} //TODO предупреждение, что нельзя переместить в папку, которая выбрана
+			}
 		} else {
 			realm.write(() => {
 				for (const item of selected) {

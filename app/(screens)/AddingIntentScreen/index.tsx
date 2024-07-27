@@ -1,5 +1,5 @@
 import { TextInput, View } from 'react-native'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { Text } from '~/components/ui/text'
 import { router } from 'expo-router'
 import TopContent from '~/components/TopContent'
@@ -16,13 +16,14 @@ import { BSON } from 'realm'
 import useGetCurrentPath from '~/hooks/useGetCurrentPath'
 import useFocus from '~/hooks/useFocus'
 import useParseUrl from '~/hooks/useParseUrl'
+import { ShareIntent } from 'expo-share-intent/build/ExpoShareIntentModule.types'
 const { useRealm } = RealmContext
 
 
 const schema = z.object({
 	title: z.string(),
 	description: z.string().nullable(),
-	url: z.string().url().nullable(),
+	url: z.string().nullable(),
 	parentId: z.instanceof(BSON.ObjectId).nullable()
 })
 
@@ -37,19 +38,27 @@ const AddLinkScreen = () => {
 	const realm = useRealm()
 	const { globalState: { folderToSetIn, addingData }, globalDispatch } = useGlobalContext()
 	const { parsedTitle } = useParseUrl(shareIntent.webUrl)
+	const getUrl = useCallback((shareIntent: ShareIntent) => {
+		if (shareIntent.type == 'weburl') {
+			return shareIntent.webUrl
+		}
+		if (shareIntent.type == 'media' && shareIntent.files) {
+			return shareIntent.files[0].path
+		}
+		return 'null'
+	}, [])
 	const defaultValues: FormAddLinkSchema = addingData ? addingData : {
 		title: '',
 		description: '',
-		url: shareIntent.type == 'weburl' ? shareIntent.webUrl : 'null',
+		url: getUrl(shareIntent),
 		parentId: null
 	}
 	const form = useForm({ defaultValues })
+	console.log(shareIntent)
 	const { currentPathText } = useGetCurrentPath({ currentParent: folderToSetIn })
 	useEffect(() => {
-		if (shareIntent.type == 'weburl') {
-			if (!form.getFieldState('title').isDirty) {
-				form.setValue('title', parsedTitle)
-			}
+		if (shareIntent.type == 'weburl' && !form.getFieldState('title').isDirty) {
+			form.setValue('title', parsedTitle)
 		}
 	}, [parsedTitle])
 
@@ -63,7 +72,7 @@ const AddLinkScreen = () => {
 					realm.create('Item', {
 						// parentId: folderToSetIn,
 						...data,
-						type: 'link',
+						type: shareIntent.type == 'media' ? 'media' : 'link',
 						parentId: folderToSetIn
 					})
 				})

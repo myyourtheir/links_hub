@@ -14,7 +14,7 @@ const FlatListImage: FC<FlatListImageProps> = ({ item, style, className }) => {
 	const getSource = () => {
 		if (!item.image) {
 			if (item.type === 'folder') return images.folder
-			if (item.type === 'link') return images.link
+			if (item.type === 'link' || item.type === 'media') return images.link
 			if (item.type === 'empty') return images.emptyItemImage
 		} else {
 			return item.image

@@ -11,9 +11,7 @@ const CopyOptionButton = () => {
 	const handlePress = (e: GestureResponderEvent) => {
 		if (selected[0].url) {
 			Clipboard.setStringAsync(selected[0].url)
-				.then(value => {
-					//TODO Добавить фидбек
-					console.log('value copied', value)
+				.then(() => {
 				})
 				.catch(error => {
 					console.log('error occured while coping', error)
@@ -21,8 +19,7 @@ const CopyOptionButton = () => {
 				.finally(() => {
 					globalDispatch({ type: 'resetSelected' })
 					globalDispatch({ type: 'setMode', value: 'view' })
-				}
-				)
+				})
 
 		}
 	}
