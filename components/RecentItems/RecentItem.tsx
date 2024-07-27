@@ -20,7 +20,7 @@ const RecentItem = ({ item }: ItemComponentProps) => {
 			onPress={() => onItemClick(item)}
 			onLongPress={() => onItemLongPress(item)}
 		>
-			<View className='flex flex-col mb-3 w-[70px]'>
+			<View className='flex flex-col mb-3'>
 				<FlatListImage
 					className='w-full h-full'
 					item={item}
@@ -31,7 +31,10 @@ const RecentItem = ({ item }: ItemComponentProps) => {
 				/>
 				<Text
 					numberOfLines={1}
-					className='font-normal text-ellipsis whitespace-nowrap overflow-hidden text-center'
+					style={{
+						width: 70
+					}}
+					className='font-normal text-ellipsis whitespace-nowrap overflow-hidden text-center '
 				>
 					{item.title}
 				</Text>

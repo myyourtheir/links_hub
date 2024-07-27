@@ -12,7 +12,7 @@ import RenameOptionButton from './BottomFlatListOptionsButtons/Rename'
 
 const BottomFlatListOptionsBar = () => {
 	const { t, globalState: { selected } } = useGlobalContext()
-	const isOneItemSelected = selected.length === 1
+	const isOneItemSelected = selected?.length === 1
 	return (
 		<View className=' w-full h-full flex-row content-stretch shrink justify-around items-center'>
 			<MoveOptionButton />

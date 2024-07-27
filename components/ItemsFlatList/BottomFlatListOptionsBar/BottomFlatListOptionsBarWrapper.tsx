@@ -18,7 +18,7 @@ const BottomFlatListOptionsBarWrapper = ({ children }: BottomFlatListOptionsBarW
 		<View className=' h-full w-full bg-transparent'>
 			{children}
 			{
-				mode === 'select' && selected.length !== 0 &&
+				mode === 'select' && selected?.length !== 0 &&
 				<Animated.View entering={FadeInDown.duration(100)} exiting={FadeOutDown.duration(100)}>
 					<View className='w-full h-16  '>
 						<BottomFlatListOptionsBar />

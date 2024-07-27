@@ -1,5 +1,5 @@
-import { TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useMemo } from 'react'
+import { View } from 'react-native'
+import React, { useEffect } from 'react'
 import TopLayoutComponent from './(components)/TopLayoutComponent'
 import ItemsFlatList from '~/components/ItemsFlatList/ItemsFlatList'
 import { RealmContext } from '~/lib/Realm'
@@ -44,6 +44,7 @@ const HomeScreen = () => {
 	useHandleBack(() => {
 		if (mode === 'select') {
 			globalDispatch({ type: 'setMode', value: 'view' })
+			globalDispatch({ type: 'resetSelected' })
 			return true
 		} else {
 			return false
@@ -51,12 +52,14 @@ const HomeScreen = () => {
 	}, [mode, parentId])
 
 	const renderItems = [...items]
-	if (items?.length % 2 !== 0) {
+
+	if (renderItems.length % 2 !== 0) {
 		renderItems.push({
-			_id: new BSON.ObjectID,
+			_id: new BSON.ObjectId,
 			type: 'empty',
 		} as Item)
 	}
+
 
 	const handleItemClick = (item: Item) => {
 		if (item.type === 'folder') {

@@ -40,7 +40,7 @@ const MoveBottomBar = () => {
 	return (
 		<View className='border-t-[0.5px] border-foreground w-full h-full flex-row content-stretch shrink justify-between  items-center p-4'>
 			<Text className='text-center'>
-				Элементов: {selected.length}
+				Элементов: {selected?.length}
 			</Text>
 			<View className='flex-row gap-x-3'>
 				<Button

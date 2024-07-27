@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { TextInput } from 'react-native'
 import { BSON } from 'realm'
 import { z } from 'zod'
 import { Button } from '~/components/ui/button'
@@ -15,6 +16,7 @@ import {
 import { Form, FormControl, FormField, FormItem, FormMessage } from '~/components/ui/Form'
 import { Input } from '~/components/ui/input'
 import { Text } from '~/components/ui/text'
+import useFocus from '~/hooks/useFocus'
 import { RealmContext } from '~/lib/Realm'
 const { useRealm } = RealmContext
 
@@ -34,6 +36,8 @@ const defaultValues: FormSchema = {
 
 function AddFolderDialog({ parentId }: AddFolderDialogProps) {
 	const [open, setOpen] = React.useState(false)
+	const inputRef = React.useRef<TextInput>(null)
+	useFocus({ ref: inputRef })
 	const { t } = useTranslation()
 	const realm = useRealm()
 	const form = useForm<z.infer<typeof schema>>({
@@ -79,6 +83,7 @@ function AddFolderDialog({ parentId }: AddFolderDialogProps) {
 							<FormItem className=' p-0 m-0'>
 								<FormControl>
 									<Input
+										ref={inputRef}
 										className=' border-0 border-b  '
 										placeholder={t('addingTitle')}
 										value={value}

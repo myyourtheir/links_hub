@@ -1,5 +1,5 @@
-import { View } from 'react-native'
-import React from 'react'
+import { TextInput, View } from 'react-native'
+import React, { forwardRef } from 'react'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '~/components/ui/Form'
 import { Input } from '~/components//ui/input'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -26,7 +26,7 @@ const schema = z.object({
 
 type FormSchema = z.infer<typeof schema>
 
-const AddLinkForm = ({ parentId, setOpen }: AddLinkFormProps) => {
+const AddLinkForm = forwardRef(({ parentId, setOpen }: AddLinkFormProps, ref: React.Ref<TextInput>) => {
 
 	const defaultValues: FormSchema = {
 		title: '',
@@ -69,6 +69,7 @@ const AddLinkForm = ({ parentId, setOpen }: AddLinkFormProps) => {
 						<FormItem className=' p-0 m-0'>
 							<FormControl>
 								<Input
+									ref={ref}
 									className=' border-0 border-b  '
 									placeholder={t('addingTitle')}
 									value={value}
@@ -122,6 +123,6 @@ const AddLinkForm = ({ parentId, setOpen }: AddLinkFormProps) => {
 			</DialogFooter>
 		</>
 	)
-}
+})
 
 export default AddLinkForm
