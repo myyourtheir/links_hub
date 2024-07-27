@@ -9,6 +9,7 @@ import { Text } from '~/components/ui/text'
 import BottomFlatListOptionsBarWrapper from '~/components/ItemsFlatList/BottomFlatListOptionsBar/BottomFlatListOptionsBarWrapper'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import TopBar from './(components)/TopBar'
+import { useTranslation } from 'react-i18next'
 const { useQuery, useRealm } = RealmContext
 
 
@@ -67,7 +68,7 @@ export default SearchScreen
 
 
 function ItemsFlatListEmptyComponent() {
-	const { t } = useGlobalContext()
+	const { t } = useTranslation()
 	return (
 		<View
 			className='w-full h-full items-center pt-10 gap-8 justify-center '

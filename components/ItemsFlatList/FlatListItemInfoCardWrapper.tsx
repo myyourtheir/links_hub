@@ -19,9 +19,9 @@ import { Form, FormField, FormItem, FormLabel } from '~/components/ui/Form'
 import { Input } from '~/components/ui/input'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RealmContext } from '~/lib/Realm'
+import { useTranslation } from 'react-i18next'
 const { useRealm } = RealmContext
 
 
@@ -59,7 +59,7 @@ const InfoDialogContent = ({ item }: { item: Item }) => {
 		resolver: zodResolver(schema),
 	})
 	const realm = useRealm()
-	const { t } = useGlobalContext()
+	const { t } = useTranslation()
 
 	const onSubmit: SubmitHandler<FormSchema> = (data) => {
 		try {

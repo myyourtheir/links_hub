@@ -8,11 +8,12 @@ import { ItemsFlatListContext } from '../ItemsFlatList/ItemsFlatListContext'
 import RecentItem from './RecentItem'
 import { router } from 'expo-router'
 import useHandleItemClick from '~/utils/handleItemClick'
+import { useTranslation } from 'react-i18next'
 const { useQuery, useRealm } = RealmContext
 
 
 const RecentItems = () => {
-	const { t } = useGlobalContext()
+	const { t } = useTranslation()
 	const realm = useRealm()
 	const items = useQuery({
 		type: Item,

@@ -17,6 +17,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '~/component
 import { Input } from '~/components/ui/input'
 import { Button } from '~/components/ui/button'
 import { Text } from '~/components/ui/text'
+import { useTranslation } from 'react-i18next'
 const { useRealm } = RealmContext
 
 const schema = z.object({
@@ -28,7 +29,8 @@ export type FormSchema = z.infer<typeof schema>
 
 const RenameOptionButton = () => {
 	const [open, setOpen] = useState(false)
-	const { t, globalState: { selected }, globalDispatch } = useGlobalContext()
+	const { globalState: { selected }, globalDispatch } = useGlobalContext()
+	const { t } = useTranslation()
 	const defaultValues: FormSchema = {
 		title: selected[0].title,
 	}

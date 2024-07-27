@@ -5,12 +5,13 @@ import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { Button } from '~/components/ui/button'
 import { RealmContext } from '~/lib/Realm'
 import { router, useGlobalSearchParams, useLocalSearchParams } from 'expo-router'
+import { useTranslation } from 'react-i18next'
 const { useRealm } = RealmContext
 
 
 const AddBottomBar = () => {
-	const { t, globalDispatch } = useGlobalContext()
-
+	const { globalDispatch } = useGlobalContext()
+	const { t } = useTranslation()
 
 	const handleAddPress = () => {
 		globalDispatch({ type: 'setMode', value: 'view' })

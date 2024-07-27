@@ -22,7 +22,6 @@ export type GlobalAction =
 export type GlobalContextProps = {
 	globalState: GlobalState,
 	globalDispatch: React.Dispatch<GlobalAction>
-	t: TFunction<"translation", undefined>
 }
 
 const GlobalContext = createContext<GlobalContextProps | null>(null)
@@ -75,14 +74,13 @@ const initialState: GlobalState = {
 
 
 const GlobalContextProvider = ({ children }: { children: ReactNode }) => {
-	const { t } = useTranslation()
+
 	const [globalState, globalDispatch] = useReducer(
 		reducer,
 		initialState
 	)
 	return (
 		<GlobalContext.Provider value={{
-			t,
 			globalState,
 			globalDispatch
 		}}>

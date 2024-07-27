@@ -16,6 +16,7 @@ import { PortalHost } from '@rn-primitives/portal'
 import { ShareIntentProvider } from "expo-share-intent"
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import LoadingScreen from '~/components/LoadingScreen'
+import '~/i18n'
 
 
 const LIGHT_THEME: Theme = {
@@ -79,13 +80,11 @@ export default function Root() {
 			<SafeAreaProvider>
 				<RealmProvider fallback={<LoadingScreen />}>
 					<ThemeProvider key={'global'} value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-						<GlobalContextProvider>
-							<OrientationContextProvider >
-								<StatusBar backgroundColor={isDarkColorScheme ? 'black' : 'white'} style={isDarkColorScheme ? 'light' : 'dark'} />
-								<Slot />
-								<PortalHost />
-							</OrientationContextProvider>
-						</GlobalContextProvider>
+						<OrientationContextProvider >
+							<StatusBar backgroundColor={isDarkColorScheme ? 'black' : 'white'} style={isDarkColorScheme ? 'light' : 'dark'} />
+							<Slot />
+							<PortalHost />
+						</OrientationContextProvider>
 					</ThemeProvider>
 				</RealmProvider >
 			</SafeAreaProvider>

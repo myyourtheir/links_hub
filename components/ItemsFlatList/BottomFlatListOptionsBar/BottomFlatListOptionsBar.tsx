@@ -6,12 +6,14 @@ import MoveOptionButton from './BottomFlatListOptionsButtons/Move'
 import CopyOptionButton from './BottomFlatListOptionsButtons/Copy'
 import ShareOptionButton from './BottomFlatListOptionsButtons/Share'
 import RenameOptionButton from './BottomFlatListOptionsButtons/Rename'
+import { useTranslation } from 'react-i18next'
 
 
 
 
 const BottomFlatListOptionsBar = () => {
-	const { t, globalState: { selected } } = useGlobalContext()
+	const { globalState: { selected } } = useGlobalContext()
+	const { t } = useTranslation()
 	const isOneItemSelected = selected?.length === 1
 	return (
 		<View className=' w-full h-full flex-row content-stretch shrink justify-around items-center'>

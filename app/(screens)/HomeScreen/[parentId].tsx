@@ -14,6 +14,7 @@ import RecentItems from '~/components/RecentItems'
 import useHandleBack from '~/hooks/useHanldeBack'
 import { z } from 'zod'
 import useHandleItemClick from '~/utils/handleItemClick'
+import { useTranslation } from 'react-i18next'
 
 
 
@@ -78,7 +79,7 @@ export default HomeScreen
 
 
 function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[] }) {
-	const { t } = useGlobalContext()
+	const { t } = useTranslation()
 	return (
 		<View
 			className='w-full h-full items-center pt-10 gap-8 justify-center '

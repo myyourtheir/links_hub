@@ -18,13 +18,14 @@ import { Text } from '~/components/ui/text'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import AddFolderDialog from './AddFolderDialog'
 import AddLinkDialog from './AddLinkDialog'
+import { useTranslation } from 'react-i18next'
 
 type SettingsPopoverProps = {
 	parentId: string | string[]
 }
 
 export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
-	const { t } = useGlobalContext()
+	const { t } = useTranslation()
 	return (
 		<DropdownMenu >
 			<DropdownMenuTrigger asChild>

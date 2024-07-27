@@ -9,6 +9,7 @@ import { Text } from '~/components/ui/text'
 import BottomFlatListOptionsBarWrapper from '~/components/ItemsFlatList/BottomFlatListOptionsBar/BottomFlatListOptionsBarWrapper'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import TopComponent from './(components)/TopComponent'
+import { useTranslation } from 'react-i18next'
 
 
 
@@ -68,7 +69,7 @@ export default SelectPathScreen
 
 
 function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[] }) {
-	const { t } = useGlobalContext()
+	const { t } = useTranslation()
 	return (
 		<View
 			className='w-full h-full items-center pt-10 gap-8 justify-center '

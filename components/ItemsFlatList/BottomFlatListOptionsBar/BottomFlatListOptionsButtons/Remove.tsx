@@ -6,10 +6,12 @@ import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { RealmContext } from '~/lib/Realm'
 import { router } from 'expo-router'
 import { useCascadeDelete } from '~/hooks/useCascadeDelete'
+import { useTranslation } from 'react-i18next'
 const { useRealm } = RealmContext
 
 const RemoveOptionButton = () => {
-	const { t, globalState: { selected }, globalDispatch } = useGlobalContext()
+	const { globalState: { selected }, globalDispatch } = useGlobalContext()
+	const { t } = useTranslation()
 	const realm = useRealm()
 	const { deleteItemWithCascade } = useCascadeDelete()
 	const handlePress = () => {

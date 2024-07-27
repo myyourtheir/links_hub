@@ -3,14 +3,14 @@ import React from 'react'
 import { router, Slot } from 'expo-router'
 import TopContent from '~/components/TopContent'
 import { Text } from '~/components/ui/text'
-import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { Button } from '~/components/ui/button'
 import StyledIcon from '~/components/StyledIcon'
 import { ChevronLeft } from 'lucide-react-native'
+import { useTranslation } from 'react-i18next'
 
 
 const SettingsLayout = () => {
-	const { t } = useGlobalContext()
+	const { t } = useTranslation()
 	return (
 		<View className='bg-background  h-full'>
 			<TopContent>
