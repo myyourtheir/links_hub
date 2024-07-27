@@ -5,11 +5,13 @@ import { Text } from '~/components/ui/text'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { Button } from '~/components/ui/button'
 import { RealmContext } from '~/lib/Realm'
+import { useTranslation } from 'react-i18next'
 const { useRealm } = RealmContext
 
 
 const MoveBottomBar = () => {
-	const { globalState: { selected, folderToSetIn }, t, globalDispatch } = useGlobalContext()
+	const { globalState: { selected, folderToSetIn }, globalDispatch } = useGlobalContext()
+	const { t } = useTranslation()
 	const realm = useRealm()
 
 	const handlePress = () => {
