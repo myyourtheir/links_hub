@@ -16,8 +16,12 @@ const FlatListGridItem = ({ item }: ItemComponentProps) => {
 			activeOpacity={0.7}
 			onPress={() => onItemClick(item)}
 			onLongPress={() => onItemLongPress(item)}
+
 		>
-			<View className='flex flex-col mb-3 max-w-[160px]'>
+			<View
+				className='flex flex-col mb-3 max-w-[160px]'
+
+			>
 				<FlatListImage
 					className='w-full h-full'
 					item={item}

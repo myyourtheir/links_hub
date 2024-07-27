@@ -26,18 +26,11 @@ const SearchScreen = () => {
 				if (defferedText == '') {
 					return items
 				} else {
-					return items.filtered('title CONTAINS $0 OR description CONTAINS $0', defferedText)
+					return items.filtered('title CONTAINS[c] $0 OR description CONTAINS[c] $0', defferedText)
 				}
 			}
 		}, [realm, defferedText])
 
-	const renderItems = [...items]
-	if (items?.length % 2 !== 0) {
-		renderItems.push({
-			_id: new BSON.ObjectID,
-			type: 'empty',
-		} as Item)
-	}
 
 	// if (!items.isValid()) return null
 	const handleItemClick = (item: Item) => {
@@ -62,7 +55,7 @@ const SearchScreen = () => {
 				setSearchText={setSearchText}
 			/>
 			<ItemsFlatList
-				data={renderItems as ArrayLike<Item>}
+				data={items}
 				ListEmptyComponent={() => <ItemsFlatListEmptyComponent />}
 				onItemClick={handleItemClick}
 			/>

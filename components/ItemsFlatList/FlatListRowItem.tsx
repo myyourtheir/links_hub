@@ -18,33 +18,27 @@ const FlatListRowItem = ({ item }: ItemComponentProps) => {
 			onPress={() => onItemClick(item)}
 			onLongPress={() => onItemLongPress(item)}
 		>
-			<Animated.View
-			// entering={
-			// 	mode == 'select'
-			// 		? FadeInLeft.duration(100).withInitialValues({ opacity: 100 })
-			// 		: FadeInRight.duration(100).withInitialValues({ opacity: 100 })
-			// }
+
+			<View
+				className={`${mode === 'select' && 'ml-10'}  flex-row gap-x-2 items-center mb-3`}
 			>
-				<View
-					className={`${mode === 'select' && 'ml-10'}  flex-row gap-x-2 items-center mb-3`}
-				>
-					<FlatListImage
-						item={item}
-						style={{
-							width: 40,
-							height: 40
-						}}
-					/>
-					<Text
-						style={{
-							width: '80%',
-							maxWidth: 400
-						}}
-						numberOfLines={1}
-						className='font-normal text-ellipsis whitespace-nowrap overflow-hidden'
-					>{item.title}</Text>
-				</View>
-			</Animated.View>
+				<FlatListImage
+					item={item}
+					style={{
+						width: 40,
+						height: 40
+					}}
+				/>
+				<Text
+					style={{
+						width: '80%',
+						maxWidth: 400
+					}}
+					numberOfLines={1}
+					className='font-normal text-ellipsis whitespace-nowrap overflow-hidden'
+				>{item.title}</Text>
+			</View>
+
 		</TouchableOpacity>
 	)
 }

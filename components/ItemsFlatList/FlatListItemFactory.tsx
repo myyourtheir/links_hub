@@ -16,28 +16,24 @@ const FlatListItemFactory = ({ item }: { item: Item, withOptionsMenu: boolean })
 	if (addIntent === 'true') {
 		return <OrientationDepItem item={item} />
 	} else {
-		if (item.type == 'empty') {
-			return <OrientationDepItem item={item} />
-		}
-		else {
 
-			if ((item.type == 'link' || item.type == 'media') && mode === 'view') {
-				return (
-					<FlatListItemInfoCardWrapper item={item}>
-						<FlatListItemSelectWrapper item={item}>
-							<OrientationDepItem item={item} />
-						</FlatListItemSelectWrapper>
-					</FlatListItemInfoCardWrapper>
-				)
-			} else {
-				return (
+
+		if ((item.type == 'link' || item.type == 'media') && mode === 'view') {
+			return (
+				<FlatListItemInfoCardWrapper item={item}>
 					<FlatListItemSelectWrapper item={item}>
 						<OrientationDepItem item={item} />
 					</FlatListItemSelectWrapper>
-				)
-			}
-
+				</FlatListItemInfoCardWrapper>
+			)
+		} else {
+			return (
+				<FlatListItemSelectWrapper item={item}>
+					<OrientationDepItem item={item} />
+				</FlatListItemSelectWrapper>
+			)
 		}
+
 	}
 
 

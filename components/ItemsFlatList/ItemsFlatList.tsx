@@ -27,8 +27,9 @@ const ItemsFlatList: FC<ItemsFlatListProps> = ({ data, onItemClick, withOptionsM
 			<FlatList
 				className='mt-1'
 				contentContainerStyle={{
-					paddingHorizontal: 8
+					marginHorizontal: '5%',
 				}}
+				horizontal={false}
 				data={data}
 				keyExtractor={(item) => item._id.toString()}
 				showsVerticalScrollIndicator={false}

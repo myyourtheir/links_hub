@@ -11,7 +11,7 @@ export const extractOrientationDependingProps = ({ orientationMode }: { orientat
 				key: 'gridFlatList',
 				numColumns: 2,
 				columnWrapperStyle: {
-					justifyContent: 'space-around',
+					justifyContent: 'space-between',
 				},
 			}
 

@@ -39,13 +39,6 @@ const SelectPathScreen = () => {
 		})
 	}, [])
 
-	const renderItems = [...items]
-	if (items?.length % 2 !== 0) {
-		renderItems.push({
-			_id: new BSON.ObjectID,
-			type: 'empty',
-		} as Item)
-	}
 
 	// if (!items.isValid()) return null
 	const handleItemClick = (item: Item) => {
@@ -63,7 +56,7 @@ const SelectPathScreen = () => {
 				parentId={parentId as string}
 			/>
 			<ItemsFlatList
-				data={renderItems as ArrayLike<Item>}
+				data={items}
 				ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}
 				onItemClick={handleItemClick}
 			/>

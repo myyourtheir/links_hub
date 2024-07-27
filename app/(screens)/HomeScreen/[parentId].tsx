@@ -53,16 +53,6 @@ const HomeScreen = () => {
 		}
 	}, [mode, parentId])
 
-	const renderItems = [...items]
-
-	if (renderItems.length % 2 !== 0) {
-		renderItems.push({
-			_id: new BSON.ObjectId,
-			type: 'empty',
-		} as Item)
-	}
-
-
 	const { handleItemClick } = useHandleItemClick()
 
 	return (
@@ -76,7 +66,7 @@ const HomeScreen = () => {
 				<RecentItems />
 			}
 			<ItemsFlatList
-				data={renderItems as ArrayLike<Item>}
+				data={items}
 				ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}
 				onItemClick={handleItemClick}
 			/>
