@@ -7,6 +7,7 @@ import { Item } from '~/lib/Realm/models/Item'
 import { ItemsFlatListContext } from '../ItemsFlatList/ItemsFlatListContext'
 import RecentItem from './RecentItem'
 import { router } from 'expo-router'
+import useHandleItemClick from '~/utils/handleItemClick'
 const { useQuery, useRealm } = RealmContext
 
 
@@ -20,19 +21,7 @@ const RecentItems = () => {
 				.sorted('updatedTime', true)
 		}
 	}, [realm]).slice(0, 10)
-	const handleItemClick = (item: Item) => {
-		if (item.type === 'folder') {
-			router.push({ pathname: '/HomeScreen/[parentId]', params: { parentId: item._id.toString() } })
-		}
-		if (item.type === 'link') {
-			if (item.url) {
-				router.push(item.url)
-			}
-			else {
-				throw new Error('No link in item')
-			}
-		}
-	}
+	const { handleItemClick } = useHandleItemClick()
 	return (
 		<View className=' h-1/6 px-4 py-2'>
 			<View className=''>

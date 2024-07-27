@@ -13,7 +13,7 @@ import useRedirectWhenShareIntent from '~/hooks/useRedirectWhenShareIntent'
 import RecentItems from '~/components/RecentItems'
 import useHandleBack from '~/hooks/useHanldeBack'
 import { z } from 'zod'
-import handleItemClick from '~/utils/handleItemClick'
+import useHandleItemClick from '~/utils/handleItemClick'
 
 
 
@@ -32,7 +32,7 @@ const HomeScreen = () => {
 			query: items => {
 				return items
 					.filtered(`parentId=${parentId !== 'null' ? 'oid(' + parentId + ')' : null}`)
-					.sorted(['type', 'updatedTime'])
+					.sorted(['type', 'title'])
 			}
 		}, [realm])
 
@@ -63,7 +63,7 @@ const HomeScreen = () => {
 	}
 
 
-
+	const { handleItemClick } = useHandleItemClick()
 
 	return (
 		<BottomFlatListOptionsBarWrapper>
