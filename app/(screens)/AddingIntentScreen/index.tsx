@@ -37,20 +37,12 @@ const AddLinkScreen = () => {
 	const { t } = useTranslation()
 	const realm = useRealm()
 	const { globalState: { folderToSetIn, addingData }, globalDispatch } = useGlobalContext()
-	const { parsedTitle } = useParseUrl(shareIntent.webUrl)
-	const getUrl = useCallback((shareIntent: ShareIntent) => {
-		if (shareIntent.type == 'weburl') {
-			return shareIntent.webUrl
-		}
-		if ((shareIntent.type == 'media' || shareIntent.type == 'file') && shareIntent.files) {
-			return shareIntent.files[0].path
-		}
-		return 'null'
-	}, [])
+	const { parsedTitle, getUrl } = useParseUrl(shareIntent)
+
 	const defaultValues: FormAddLinkSchema = addingData ? addingData : {
 		title: '',
 		description: '',
-		url: getUrl(shareIntent),
+		url: getUrl(),
 		parentId: null
 	}
 	const form = useForm({ defaultValues })
