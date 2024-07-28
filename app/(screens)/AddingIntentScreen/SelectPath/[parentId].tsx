@@ -75,7 +75,7 @@ function ItemsFlatListEmptyComponent({ parentId }: { parentId?: string | string[
 			className='w-full h-full items-center pt-10 gap-8 justify-center '
 		>
 			<Text className='text-md'>
-				{t('nothing')}
+				{t('noFolders')}
 			</Text>
 		</View>
 	)

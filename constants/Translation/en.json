@@ -21,5 +21,6 @@
 	"cancel": "Cancel",
 	"nothing": "Nothing here yet",
 	"nothingFound": "Nothing was found...",
-	"recent": "Recent"
+	"recent": "Recent",
+	"noFolders": "There is nothing further"
 }
