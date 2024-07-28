@@ -51,13 +51,8 @@ export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
 
 					<Animated.View entering={FadeIn.duration(200)}>
 						<DropdownMenuSubContent>
-							<DropdownMenuItem>
-								<AddFolderDialog parentId={parentId} />
-							</DropdownMenuItem>
-
-							<DropdownMenuItem>
-								<AddLinkDialog parentId={parentId} />
-							</DropdownMenuItem>
+							<AddFolderDialog parentId={parentId} />
+							<AddLinkDialog parentId={parentId} />
 						</DropdownMenuSubContent>
 					</Animated.View>
 				</DropdownMenuSub>

@@ -13,6 +13,7 @@ import {
 	DialogHeader,
 	DialogTrigger,
 } from '~/components/ui/dialog'
+import { DropdownMenuItem } from '~/components/ui/dropdown-menu'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '~/components/ui/Form'
 import { Input } from '~/components/ui/input'
 import { Text } from '~/components/ui/text'
@@ -69,11 +70,13 @@ function AddFolderDialog({ parentId }: AddFolderDialogProps) {
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger >
-				<Text>
-					{t('section')}
-				</Text>
-			</DialogTrigger>
+			<DropdownMenuItem>
+				<DialogTrigger className='w-full'>
+					<Text>
+						{t('section')}
+					</Text>
+				</DialogTrigger>
+			</DropdownMenuItem>
 			<DialogContent className='w-[350px]'>
 				<DialogHeader />
 				<Form {...form}>
