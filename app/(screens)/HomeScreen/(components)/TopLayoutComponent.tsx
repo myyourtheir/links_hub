@@ -30,7 +30,7 @@ const TopLayoutComponent: FC<TopLayoutComponentProps> = ({ className, parentId }
 		<TopContent className='flex-col justify-start items-center'>
 			<View className='w-full flex-row justify-between'>
 				{
-					mode === 'view' ?
+					mode === 'view' && parentId !== 'null' ?
 						<Button
 							className=''
 							variant={'ghost'}
