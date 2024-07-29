@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import { View } from 'react-native'
 import Animated, { FadeInDown, FadeOutDown } from 'react-native-reanimated'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
@@ -42,4 +42,4 @@ const BottomFlatListOptionsBarWrapper = ({ children }: BottomFlatListOptionsBarW
 	)
 }
 
-export default BottomFlatListOptionsBarWrapper
+export default React.memo(BottomFlatListOptionsBarWrapper)

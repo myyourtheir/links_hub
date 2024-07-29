@@ -41,7 +41,7 @@ export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
 				className='w-48'
 				sideOffset={-40}
 			>
-				<DropdownMenuSub>
+				{/* <DropdownMenuSub>
 
 					<DropdownMenuSubTrigger>
 						<Text>
@@ -57,7 +57,7 @@ export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
 					</Animated.View>
 				</DropdownMenuSub>
 
-				<DropdownMenuSeparator />
+				<DropdownMenuSeparator /> */}
 
 				<DropdownMenuItem>
 					<Link className='w-full' href={{ pathname: 'SettingsScreen' }}>

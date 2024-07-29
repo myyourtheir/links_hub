@@ -15,6 +15,10 @@ import useHandleBack from '~/hooks/useHanldeBack'
 import { z } from 'zod'
 import useHandleItemClick from '~/utils/handleItemClick'
 import { useTranslation } from 'react-i18next'
+import BottomRoundButtonWrapper from '~/components/BottomRoundButtonWrapper'
+import { PlusIcon } from 'lucide-react-native'
+import StyledIcon from '~/components/StyledIcon'
+import AddItemWrapper from '~/components/AddItemWrapper'
 
 
 
@@ -57,21 +61,23 @@ const HomeScreen = () => {
 	const { handleItemClick } = useHandleItemClick()
 
 	return (
-		<BottomFlatListOptionsBarWrapper>
-			<TopLayoutComponent
-				parentId={parentId as string}
-			/>
-			{
-				parentId === 'null'
-				&&
-				<RecentItems />
-			}
-			<ItemsFlatList
-				data={items}
-				ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}
-				onItemClick={handleItemClick}
-			/>
-		</BottomFlatListOptionsBarWrapper>
+		<AddItemWrapper parentId={parentId as string}>
+			<BottomFlatListOptionsBarWrapper>
+				<TopLayoutComponent
+					parentId={parentId as string}
+				/>
+				{
+					parentId === 'null'
+					&&
+					<RecentItems />
+				}
+				<ItemsFlatList
+					data={items}
+					ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}
+					onItemClick={handleItemClick}
+				/>
+			</BottomFlatListOptionsBarWrapper>
+		</AddItemWrapper>
 	)
 }
 
