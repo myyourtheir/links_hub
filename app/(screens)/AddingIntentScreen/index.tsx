@@ -49,7 +49,7 @@ const AddLinkScreen = () => {
 	console.log(shareIntent)
 	const { currentPathText } = useGetCurrentPath({ currentParent: folderToSetIn })
 	useEffect(() => {
-		if (shareIntent.type == 'weburl' && !form.getFieldState('title').isDirty) {
+		if ((shareIntent.type == 'weburl' || shareIntent.type == 'file') && !form.getFieldState('title').isDirty) {
 			form.setValue('title', parsedTitle)
 		}
 	}, [parsedTitle])

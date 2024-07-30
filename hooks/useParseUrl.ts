@@ -15,28 +15,34 @@ const useParseUrl = (shareIntent: ShareIntent) => {
 	}, [])
 
 	useLayoutEffect(() => {
-		if (shareIntent?.text !== shareIntent.webUrl) {
-			setParsedTitle(shareIntent.text?.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '') as string)
-		} else {
-			if (url) {
-				fetch(url)
-					.then(function (response) {
-						return response.text()
-					})
-					.then(function (html) {
-						const titles = html.match('<title>.+</title>')
-						if (titles && titles?.length !== 0) {
-							const titleTag = titles[0]
-							const title = titleTag.replace(/<\/?title>/g, '')
-							setParsedTitle(title)
-						}
-					})
-					.catch(function (err) {
-						console.log('Failed to fetch page: ', err)
-					})
+		if (shareIntent.type === 'weburl') {
+			if (shareIntent?.text !== shareIntent.webUrl) {
+				setParsedTitle(shareIntent.text?.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '') as string)
+			} else {
+				if (url) {
+					fetch(url)
+						.then(function (response) {
+							return response.text()
+						})
+						.then(function (html) {
+							const titles = html.match('<title>.+</title>')
+							if (titles && titles?.length !== 0) {
+								const titleTag = titles[0]
+								const title = titleTag.replace(/<\/?title>/g, '')
+								setParsedTitle(title)
+							}
+						})
+						.catch(function (err) {
+							console.log('Failed to fetch page: ', err)
+						})
+				}
 			}
 		}
-	}, [url])
+		if (shareIntent.type === 'file' && shareIntent.files) {
+			setParsedTitle(shareIntent.files[0].fileName)
+		}
+	}
+		, [url])
 
 	return { parsedTitle, getUrl }
 }
