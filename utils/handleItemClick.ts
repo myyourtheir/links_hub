@@ -21,7 +21,6 @@ const useHandleItemClick = () => {
 			const zodSchema = z.string().url()
 
 			if (item.url && zodSchema.parse(item.url)) {
-				console.log('open link', item.url)
 				try {
 					router.push(item.url)
 				} catch (e) {

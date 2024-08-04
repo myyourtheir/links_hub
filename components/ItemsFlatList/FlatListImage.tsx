@@ -1,8 +1,9 @@
-import { View, Text, Image, ImageStyle, StyleProp } from 'react-native'
+import { View, Text, ImageStyle, StyleProp, Image } from 'react-native'
 import React, { FC } from 'react'
 import images from '~/constants/images'
 import { Item } from '~/lib/Realm/models/Item'
 import { useColorScheme } from '~/lib/useColorScheme'
+import { useParseIconsContext } from '~/hooks/useParseIconsContext'
 
 type FlatListImageProps = {
 	item: Item,
@@ -12,24 +13,47 @@ type FlatListImageProps = {
 
 const FlatListImage: FC<FlatListImageProps> = ({ item, style, className }) => {
 	const { isDarkColorScheme } = useColorScheme()
-	const getSource = () => {
-		if (!item.image) {
-			if (isDarkColorScheme) {
-				if (item.type === 'folder') return images.folder
-				if (item.type === 'link') return images.whiteLink
-				if (item.type === 'media') return images.whiteFile
-			} else {
-				if (item.type === 'folder') return images.folder
-				if (item.type === 'link') return images.link
-				if (item.type === 'media') return images.file
+	const { parseIcons } = useParseIconsContext()
+	const getDefaultSource = () => {
+
+		if (isDarkColorScheme) {
+			if (item.type === 'folder') return images.folder
+			if (item.type === 'link') return images.whiteLink
+			if (item.type === 'media') {
+				switch (true) {
+					case /.docx?$/.test(item.url as string): return images.docFile
+					case /.xlsx?$/.test(item.url as string): return images.xlsFile
+					case /pdf$/.test(item.url as string): return images.pdfFile
+					default: return images.whiteFile
+				}
 			}
 		} else {
-			return item.image
+			if (item.type === 'folder') return images.folder
+			if (item.type === 'link') return images.link
+			if (item.type === 'media') {
+				switch (true) {
+					case /.docx?$/.test(item.url as string): return images.docFile
+					case /.xlsx?$/.test(item.url as string): return images.xlsFile
+					case /pdf$/.test(item.url as string): return images.pdfFile
+					default: return images.file
+				}
+			}
 		}
 	}
 
 	return (
-		<Image className={`${className}`} source={getSource()} resizeMode='contain' style={style} />
+		<>
+			{item.image && parseIcons ?
+				<Image
+					defaultSource={getDefaultSource()}
+					className={`${className}`}
+					source={{ uri: item.image }}
+					resizeMode='contain' style={style}
+				/>
+				:
+				<Image className={`${className}`} source={getDefaultSource()} resizeMode='contain' style={style} />}
+		</>
+
 	)
 }
 

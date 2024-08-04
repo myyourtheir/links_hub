@@ -17,6 +17,7 @@ import { ShareIntentProvider } from "expo-share-intent"
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import LoadingScreen from '~/components/LoadingScreen'
 import '~/i18n'
+import { ParseIconsProvider } from '~/hooks/useParseIconsContext'
 
 
 const LIGHT_THEME: Theme = {
@@ -79,13 +80,15 @@ export default function Root() {
 
 			<SafeAreaProvider>
 				<RealmProvider fallback={<LoadingScreen />}>
-					<ThemeProvider key={'global'} value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-						<OrientationContextProvider >
-							<StatusBar backgroundColor={isDarkColorScheme ? 'black' : 'white'} style={isDarkColorScheme ? 'light' : 'dark'} />
-							<Slot />
-							<PortalHost />
-						</OrientationContextProvider>
-					</ThemeProvider>
+					<ParseIconsProvider>
+						<ThemeProvider key={'global'} value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+							<OrientationContextProvider >
+								<StatusBar backgroundColor={isDarkColorScheme ? 'black' : 'white'} style={isDarkColorScheme ? 'light' : 'dark'} />
+								<Slot />
+								<PortalHost />
+							</OrientationContextProvider>
+						</ThemeProvider>
+					</ParseIconsProvider>
 				</RealmProvider >
 			</SafeAreaProvider>
 		</ShareIntentProvider>

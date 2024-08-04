@@ -37,7 +37,7 @@ const AddLinkScreen = () => {
 	const { t } = useTranslation()
 	const realm = useRealm()
 	const { globalState: { folderToSetIn, addingData }, globalDispatch } = useGlobalContext()
-	const { parsedTitle, getUrl } = useParseUrl(shareIntent)
+	const { parsedTitle, getUrl, parsedIcon } = useParseUrl(shareIntent)
 
 	const defaultValues: FormAddLinkSchema = addingData ? addingData : {
 		title: '',
@@ -49,7 +49,7 @@ const AddLinkScreen = () => {
 	console.log(shareIntent)
 	const { currentPathText } = useGetCurrentPath({ currentParent: folderToSetIn })
 	useEffect(() => {
-		if ((shareIntent.type == 'weburl' || shareIntent.type == 'file') && !form.getFieldState('title').isDirty) {
+		if ((shareIntent.type == 'weburl' || shareIntent.type == 'file') && !form.getFieldState('title').isDirty && !addingData) {
 			form.setValue('title', parsedTitle)
 		}
 	}, [parsedTitle])
@@ -64,6 +64,7 @@ const AddLinkScreen = () => {
 					realm.create('Item', {
 						// parentId: folderToSetIn,
 						...data,
+						image: parsedIcon,
 						type: shareIntent.type == 'weburl' ? 'link' : 'media',
 						parentId: folderToSetIn
 					})

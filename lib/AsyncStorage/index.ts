@@ -3,7 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 type AppDataKeys = {
 	theme: 'light' | 'dark',
 	language: 'en' | 'ru'
-	orientationMode: 'grid' | 'row'
+	orientationMode: 'grid' | 'row',
+	parseIcons: 'true' | 'false'
 }
 
 

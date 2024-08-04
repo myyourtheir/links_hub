@@ -9,6 +9,8 @@ import { Text } from '~/components/ui/text'
 import { Option, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 import { List, ListItem, ListItemTitle, ListItemValue } from '~/components/ui/list'
 import { Switch } from '~/components/ui/switch'
+import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
+import { useParseIconsContext } from '~/hooks/useParseIconsContext'
 
 
 type LangDataType = {
@@ -34,6 +36,8 @@ const SettingsScreen = () => {
 		setAppData('language', lang.value)
 	}
 	const { toggleColorScheme, isDarkColorScheme } = useColorScheme()
+	const { setParseIcons, parseIcons } = useParseIconsContext()
+	console.log(parseIcons)
 	return (
 
 		<View className='w-full px-4'>
@@ -86,6 +90,25 @@ const SettingsScreen = () => {
 								setAppData('theme', value === true ? 'dark' : 'light')
 							}}
 							nativeID='darkmode'
+						/>
+					</ListItemValue>
+				</ListItem>
+				<ListItem>
+					<ListItemTitle>
+						<Text
+							nativeID='pareseIcons'
+							className='text-xl'>
+							{t('pasrseIcons')}
+						</Text>
+					</ListItemTitle>
+					<ListItemValue >
+						<Switch
+							checked={parseIcons}
+							onCheckedChange={(value) => {
+								setParseIcons(value)
+								setAppData('parseIcons', value === true ? 'true' : 'false')
+							}}
+							nativeID='pareseIcons'
 						/>
 					</ListItemValue>
 				</ListItem>
