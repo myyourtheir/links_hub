@@ -1,10 +1,10 @@
-import { View, Text, ImageStyle, StyleProp, Image } from 'react-native'
+import { ImageStyle, StyleProp, Image } from 'react-native'
 import React, { FC } from 'react'
 import images from '~/constants/images'
 import { Item } from '~/lib/Realm/models/Item'
 import { useColorScheme } from '~/lib/useColorScheme'
 import { useParseIconsContext } from '~/hooks/useParseIconsContext'
-import { SvgUri } from 'react-native-svg'
+import ExtendedImage from '../ExtendedImage'
 
 type FlatListImageProps = {
 	item: Item,
@@ -45,23 +45,7 @@ const FlatListImage: FC<FlatListImageProps> = ({ item, style, className }) => {
 	return (
 		<>
 			{item.image && parseIcons ?
-				item.image.endsWith('.svg') ?
-					<View className={`${className} `} style={style}>
-						<SvgUri
-							width="100%"
-							height='100%'
-							uri={item.image}
-
-						/>
-					</View>
-					:
-					<Image
-						defaultSource={getDefaultSource()}
-						className={`${className}`}
-						source={{ uri: item.image }}
-						resizeMode='contain'
-						style={style}
-					/>
+				<ExtendedImage icon={item.image} style={style} />
 				:
 				<Image className={`${className}`} source={getDefaultSource()} resizeMode='contain' style={style} />}
 		</>

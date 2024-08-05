@@ -62,6 +62,7 @@ const useParseUrl = (shareIntent: ShareIntent) => {
 							}
 						})
 						setParsedIcons(Array.from(new Set(icons.map(icon => icon.href))))
+						console.log(Array.from(new Set(icons.map(icon => icon.href))))
 					})
 					.catch(function (err) {
 						console.log('Failed to fetch page: ', err)

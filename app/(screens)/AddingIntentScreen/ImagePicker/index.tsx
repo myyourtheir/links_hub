@@ -1,11 +1,10 @@
-import { Dimensions, Image, NativeScrollEvent, NativeSyntheticEvent, ScrollView, View } from 'react-native'
+import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, View } from 'react-native'
 import React, { useState } from 'react'
 import { Text } from '~/components/ui/text'
 import { t } from 'i18next'
-import Animated from 'react-native-reanimated'
 import { List, ListItem, ListItemTitle, ListItemValue } from '~/components/ui/list'
 import { Switch } from '~/components/ui/switch'
-import { SvgUri } from 'react-native-svg'
+import ExtendedImage from '~/components/ExtendedImage'
 
 
 
@@ -67,26 +66,15 @@ const ImagePicker = ({ icons, onChange }: ImagePickerProps) => {
 						onMomentumScrollEnd={handleOnScroll}
 					>
 						{icons && icons.map(icon => (
-							icon.endsWith('.svg') ?
-								<View key={icon} style={{ width: 160, height: 160, marginHorizontal: 16 }}>
-									<SvgUri
-										width="100%"
-										height='100%'
-										uri={icon}
-									/>
-								</View>
-								:
-								<Image
-									resizeMode='contain'
-									key={icon}
-									style={{ width: 160, height: 160, marginHorizontal: 16 }}
-									source={{ uri: icon }}
-								/>
+							<ExtendedImage key={icon} icon={icon} style={{ width: 160, height: 160, marginHorizontal: 16 }} />
 						))}
 					</ScrollView>
-					<Text className='self-center'>
-						{t('scrollIt')}
-					</Text>
+					{
+						icons && icons.length > 1 &&
+						<Text className='self-center'>
+							{t('scrollIt')}
+						</Text>
+					}
 				</View>
 			}
 		</>
