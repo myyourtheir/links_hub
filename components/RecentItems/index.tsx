@@ -19,6 +19,7 @@ const RecentItems = () => {
 		type: Item,
 		query: items => {
 			return items
+				.filtered(`type='link'`)
 				.sorted('updatedTime', true)
 		}
 	}, [realm]).slice(0, 10)
