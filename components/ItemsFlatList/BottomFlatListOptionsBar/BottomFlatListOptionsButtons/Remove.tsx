@@ -1,4 +1,4 @@
-import { View, Text, GestureResponderEvent } from 'react-native'
+import { View, GestureResponderEvent } from 'react-native'
 import React from 'react'
 import BottomFlatListOptionsItem from '../BottomFlatListOptionsItem'
 import { Trash2 } from 'lucide-react-native'
@@ -7,7 +7,22 @@ import { RealmContext } from '~/lib/Realm'
 import { router } from 'expo-router'
 import { useCascadeDelete } from '~/hooks/useCascadeDelete'
 import { useTranslation } from 'react-i18next'
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from '~/components/ui/alert-dialog'
+import { Button } from '~/components/ui/button'
+import { Text } from '~/components/ui/text'
 const { useRealm } = RealmContext
+
+
 
 const RemoveOptionButton = () => {
 	const { globalState: { selected }, globalDispatch } = useGlobalContext()
@@ -22,7 +37,25 @@ const RemoveOptionButton = () => {
 		}
 	}
 	return (
-		<BottomFlatListOptionsItem onPress={handlePress} icon={<Trash2 />} title={t('remove')} />
+		<AlertDialog>
+			<AlertDialogTrigger asChild>
+				<BottomFlatListOptionsItem icon={<Trash2 />} title={t('remove')} />
+			</AlertDialogTrigger>
+			<AlertDialogContent className='w-[300px]'>
+				<AlertDialogHeader>
+					<AlertDialogTitle>{t('areYouSure')}</AlertDialogTitle>
+
+				</AlertDialogHeader>
+				<AlertDialogFooter>
+					<AlertDialogCancel>
+						<Text>{t('cancel')}</Text>
+					</AlertDialogCancel>
+					<AlertDialogAction className='' onPress={handlePress}>
+						<Text>{t('remove')}</Text>
+					</AlertDialogAction>
+				</AlertDialogFooter>
+			</AlertDialogContent>
+		</AlertDialog>
 	)
 }
 
