@@ -1,4 +1,4 @@
-import { TextInput, View } from 'react-native'
+import { ScrollView, Share, TextInput, View } from 'react-native'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { Text } from '~/components/ui/text'
 import { router } from 'expo-router'
@@ -17,12 +17,14 @@ import useGetCurrentPath from '~/hooks/useGetCurrentPath'
 import useFocus from '~/hooks/useFocus'
 import useParseUrl from '~/hooks/useParseUrl'
 import { ShareIntent } from 'expo-share-intent/build/ExpoShareIntentModule.types'
+import ImagePicker from './ImagePicker'
 const { useRealm } = RealmContext
 
 
 const schema = z.object({
 	title: z.string(),
 	description: z.string().nullable(),
+	image: z.string().nullable(),
 	url: z.string().nullable(),
 	parentId: z.instanceof(BSON.ObjectId).nullable()
 })
@@ -37,11 +39,12 @@ const AddLinkScreen = () => {
 	const { t } = useTranslation()
 	const realm = useRealm()
 	const { globalState: { folderToSetIn, addingData }, globalDispatch } = useGlobalContext()
-	const { parsedTitle, getUrl, parsedIcon } = useParseUrl(shareIntent)
+	const { parsedTitle, getUrl, parsedIcons } = useParseUrl(shareIntent)
 
 	const defaultValues: FormAddLinkSchema = addingData ? addingData : {
 		title: '',
 		description: '',
+		image: parsedIcons ? parsedIcons[0] : null,
 		url: getUrl(),
 		parentId: null
 	}
@@ -64,7 +67,6 @@ const AddLinkScreen = () => {
 					realm.create('Item', {
 						// parentId: folderToSetIn,
 						...data,
-						image: parsedIcon,
 						type: shareIntent.type == 'weburl' ? 'link' : 'media',
 						parentId: folderToSetIn
 					})
@@ -81,7 +83,7 @@ const AddLinkScreen = () => {
 		}
 	}
 	return (
-		<>
+		<ScrollView>
 			<Form {...form}>
 				<TopContent
 					className='mb-4'
@@ -192,6 +194,25 @@ const AddLinkScreen = () => {
 							</FormItem>
 						}
 					/>
+					{
+						shareIntent.type == 'weburl' ?
+							parsedIcons ?
+								<FormField
+									name='image'
+									render={({ field: { value, onChange } }) =>
+										<FormItem className='p-0 m-0 w-full gap-y-4' >
+											<FormLabel nativeID='image'>
+												<Text>
+													{t('icon')}
+												</Text>
+											</FormLabel>
+											<ImagePicker icons={parsedIcons} value={value} onChange={onChange} />
+										</FormItem>
+									}
+								/> :
+								<Text> {t('noParsedIcons')}</Text> :
+							null
+					}
 				</View>
 
 
@@ -203,7 +224,7 @@ const AddLinkScreen = () => {
 					ОК
 				</Text>
 			</Button>
-		</>
+		</ScrollView>
 	)
 }
 

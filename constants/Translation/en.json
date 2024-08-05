@@ -23,5 +23,9 @@
 	"nothingFound": "Nothing was found...",
 	"recent": "Recent",
 	"noFolders": "There is nothing further",
-	"pasrseIcons": "Parse icons"
+	"pasrseIcons": "Parse icons",
+	"icon": "Icon",
+	"noParsedIcons": "There are no icons available",
+	"scrollIt": "Scroll it to select icon",
+	"showIcon": "Show icon"
 }

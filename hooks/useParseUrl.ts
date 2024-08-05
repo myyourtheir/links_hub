@@ -5,7 +5,7 @@ import { FadingTransition } from 'react-native-reanimated'
 
 const useParseUrl = (shareIntent: ShareIntent) => {
 	const [parsedTitle, setParsedTitle] = useState('')
-	const [parsedIcon, setParsedIcon] = useState<string | null>('')
+	const [parsedIcons, setParsedIcons] = useState<string[] | null>(null)
 	const url = shareIntent.webUrl
 
 	const getUrl = useCallback(() => {
@@ -32,7 +32,6 @@ const useParseUrl = (shareIntent: ShareIntent) => {
 
 							const $ = cheerio.load(data)
 							const title = $('title').text()
-							console.log(title)
 							if (title) {
 								setParsedTitle(title)
 							}
@@ -52,14 +51,9 @@ const useParseUrl = (shareIntent: ShareIntent) => {
 								}
 							})
 
-							// Sort icons by size descending, null sizes last
-							icons.sort((a, b) => (b.sizes || 0) - (a.sizes || 0))
 
 							// Use the largest icon available
-							const highQualityIcon = icons.length > 0 ? icons[0].href : null
-
-							setParsedIcon(highQualityIcon)
-							console.log(highQualityIcon)
+							setParsedIcons(Array.from(new Set(icons.map(icon => icon.href))))
 						})
 						.catch(function (err) {
 							console.log('Failed to fetch page: ', err)
@@ -73,7 +67,7 @@ const useParseUrl = (shareIntent: ShareIntent) => {
 	}
 		, [url])
 
-	return { parsedTitle, parsedIcon, getUrl }
+	return { parsedTitle, parsedIcons, getUrl }
 }
 
 export default useParseUrl

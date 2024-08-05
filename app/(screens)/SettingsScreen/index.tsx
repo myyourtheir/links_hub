@@ -37,7 +37,6 @@ const SettingsScreen = () => {
 	}
 	const { toggleColorScheme, isDarkColorScheme } = useColorScheme()
 	const { setParseIcons, parseIcons } = useParseIconsContext()
-	console.log(parseIcons)
 	return (
 
 		<View className='w-full px-4'>
