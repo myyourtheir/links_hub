@@ -195,7 +195,7 @@ const AddLinkScreen = () => {
 						}
 					/>
 					{
-						shareIntent.type == 'weburl' ?
+						shareIntent.type == 'weburl' && parsedIcons && parsedIcons.length > 0 ?
 							parsedIcons ?
 								<FormField
 									name='image'
@@ -214,6 +214,7 @@ const AddLinkScreen = () => {
 							null
 					}
 				</View>
+				<View className='h-10' />
 
 
 			</Form>

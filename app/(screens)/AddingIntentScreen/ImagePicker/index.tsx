@@ -5,6 +5,7 @@ import { t } from 'i18next'
 import Animated from 'react-native-reanimated'
 import { List, ListItem, ListItemTitle, ListItemValue } from '~/components/ui/list'
 import { Switch } from '~/components/ui/switch'
+import { SvgUri } from 'react-native-svg'
 
 
 
@@ -66,11 +67,21 @@ const ImagePicker = ({ icons, onChange }: ImagePickerProps) => {
 						onMomentumScrollEnd={handleOnScroll}
 					>
 						{icons && icons.map(icon => (
-							<Image
-								key={icon}
-								style={{ width: 160, height: 160, marginHorizontal: 16 }}
-								source={{ uri: icon }}
-							/>
+							icon.endsWith('.svg') ?
+								<View key={icon} style={{ width: 160, height: 160, marginHorizontal: 16 }}>
+									<SvgUri
+										width="100%"
+										height='100%'
+										uri={icon}
+									/>
+								</View>
+								:
+								<Image
+									resizeMode='contain'
+									key={icon}
+									style={{ width: 160, height: 160, marginHorizontal: 16 }}
+									source={{ uri: icon }}
+								/>
 						))}
 					</ScrollView>
 					<Text className='self-center'>
