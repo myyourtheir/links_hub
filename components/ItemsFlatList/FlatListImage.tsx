@@ -36,6 +36,7 @@ const FlatListImage: FC<FlatListImageProps> = ({ item, style, className }) => {
 					case /.docx?$/.test(item.url as string): return images.docFile
 					case /.xlsx?$/.test(item.url as string): return images.xlsFile
 					case /pdf$/.test(item.url as string): return images.pdfFile
+
 					default: return images.file
 				}
 			}

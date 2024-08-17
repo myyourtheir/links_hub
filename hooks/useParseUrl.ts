@@ -73,8 +73,13 @@ const useParseUrl = (shareIntent: ShareIntent) => {
 		if (shareIntent.type === 'file' && shareIntent.files && shareIntent.files[0].fileName) {
 			setParsedTitle(shareIntent.files[0].fileName)
 		}
-	}
-		, [url])
+		if (shareIntent.type === "media" && shareIntent.files && shareIntent.files[0].fileName) {
+			const fileName = shareIntent.files[0].fileName
+			if (/.(jpg|jpeg|png|bmp)$/.test(fileName)) {
+				setParsedIcons([shareIntent.files[0].path])
+			}
+		}
+	}, [url])
 
 	return { parsedTitle, parsedIcons, getUrl }
 }
