@@ -19,8 +19,10 @@ const FlatListGridItem = ({ item }: ItemComponentProps) => {
 
 		>
 			<View
-				className='flex flex-col mb-8 max-w-[160px]'
-
+				className='max-w-[160px]'
+				style={{
+					marginBottom: 32
+				}}
 			>
 				<FlatListImage
 					className='w-full h-full'
