@@ -1,6 +1,24 @@
 
-function parseOther(url: string) {
-	return (url)
+import puppeteer from 'puppeteer'
+async function parseOther(url: string) {
+	// Launch the browser and open a new blank page
+	const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
+	const page = await browser.newPage()
+	await page.goto(url)
+	console.log(url)
+	try {
+		const data = await page.evaluate(() => {
+			const title = document.title
+			const images = document.querySelectorAll('img')
+			const imgUrls = Array.from(images).map(img => img.src)
+			return { title, imgUrls }
+		})
+		await browser.close()
+		return data
+	} catch (error) {
+		console.error('Error:', error)
+		browser.close()
+	}
 }
 
 export default parseOther
