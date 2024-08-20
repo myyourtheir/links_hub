@@ -1,4 +1,3 @@
-cd nest/ 
-npm run start:dev &
-cd ../RN/ 
+docker-compose -f docker-compose.dev.yaml up -d
+cd RN/ 
 npx expo start -a

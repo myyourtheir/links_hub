@@ -1,0 +1,11 @@
+version: '3'
+services:
+  nest:
+    build:
+      context: ./nest
+      dockerfile: Dockerfile
+    volumes:
+      - ./nest:/app
+    ports:
+      - 3010:3010
+    command: npm run start:dev
