@@ -1,10 +1,7 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Module } from '@nestjs/common'
+import { ParseUrlModule } from './parse_url/parse_url.module'
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [ParseUrlModule],
 })
-export class AppModule {}
+export class AppModule { }
