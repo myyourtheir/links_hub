@@ -1,4 +1,4 @@
-FROM node:22-slim
+FROM node:20-slim
 RUN apt-get update \
 	&& apt-get install -y wget gnupg \
 	&& wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
@@ -10,4 +10,5 @@ RUN apt-get update \
 WORKDIR /app
 COPY package.json package.json
 RUN npm i
+COPY . .
 EXPOSE 3010
