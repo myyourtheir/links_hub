@@ -1,10 +1,7 @@
 import { HttpException, HttpStatus } from '@nestjs/common'
-import puppeteer from 'puppeteer-extra'
-const StealthPlugin = require("puppeteer-extra-plugin-stealth")
+import { Browser } from 'puppeteer'
 
-puppeteer.use(StealthPlugin())
-
-export const parseYaProduct = async (url: string) => {
+export const parseYaProduct = async (url: string, browser: Browser) => {
 
 	const imageSelector = `li[role="tab"] button img`
 	const titleSelector = `h1[data-additional-zone="title"]`
@@ -12,7 +9,7 @@ export const parseYaProduct = async (url: string) => {
 	const currencySelector = `span._2MxwE`
 
 	console.log('yaParser')
-	const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] })
+
 	try {
 		const page = await browser.newPage()
 		await page.goto(url)
@@ -38,19 +35,11 @@ export const parseYaProduct = async (url: string) => {
 			}
 		}, titleSelector, imageSelector, priceSelector, currencySelector)
 		await page.close()
-		// console.log(images)
-		console.log(data.icons.length)
-		for (const image of data.icons) {
-			const nPage = await browser.newPage()
-			await nPage.goto(image)
-		}
 		return data
+
 	} catch (error) {
-		browser.close()
 		console.error('Error:', error)
 		throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND)
-	} finally {
-		await browser.close()
 	}
 	// await browser.close()
 }
