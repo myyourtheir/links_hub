@@ -34,7 +34,7 @@ const RecentItem = ({ item }: ItemComponentProps) => {
 					style={{
 						width: 70
 					}}
-					className='font-normal text-ellipsis whitespace-nowrap overflow-hidden text-center text-xs mt-2'
+					className='font-normal text-ellipsis whitespace-nowrap overflow-hidden text-center text-sm mt-2'
 				>
 					{item.title}
 				</Text>
