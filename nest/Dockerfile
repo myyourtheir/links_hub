@@ -1,4 +1,5 @@
-FROM node:20-slim
+FROM node:20
+WORKDIR /app
 RUN apt-get update \
 	&& apt-get install -y wget gnupg \
 	&& wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
@@ -7,8 +8,7 @@ RUN apt-get update \
 	&& apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
-WORKDIR /app
-COPY package.json package.json
-RUN npm i
+COPY package*.json ./
+RUN npm install
 COPY . .
 EXPOSE 3010
