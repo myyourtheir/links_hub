@@ -20,6 +20,7 @@ import ImagePicker from './ImagePicker'
 import getUrl from '~/utils/getUrl'
 import scrap from '~/utils/scrap'
 import useScrap from '~/hooks/useScrap/useScrap'
+import detectMarketplace from '~/utils/detectMarketplace'
 const { useRealm } = RealmContext
 
 
@@ -29,8 +30,10 @@ const schema = z.object({
 	image: z.string().nullable(),
 	url: z.string().nullable(),
 	parentId: z.instanceof(BSON.ObjectId).nullable(),
-	price: z.number().optional(),
-	currency: z.string().optional()
+	price: z.preprocess(
+		(val) => Number(val),
+		z.number().nonnegative("Число должно быть больше или равно нулю")).optional(),
+	currency: z.string().max(1).optional()
 })
 
 export type FormAddLinkSchema = z.infer<typeof schema>
@@ -60,8 +63,16 @@ const AddLinkScreen = () => {
 	const form = useForm({ defaultValues })
 	const { currentPathText } = useGetCurrentPath({ currentParent: folderToSetIn })
 	useEffect(() => {
-		if ((shareIntent.type == 'weburl' || shareIntent.type == 'file') && !form.getFieldState('title').isDirty && !addingData) {
-			form.setValue('title', parsedData?.title)
+		if ((shareIntent.type == 'weburl' || shareIntent.type == 'file') && !addingData) {
+			if (!form.getFieldState('title').isDirty) {
+				form.setValue('title', parsedData?.title)
+			}
+			if (!form.getFieldState('price').isDirty) {
+				form.setValue('price', parsedData?.price)
+			}
+			if (!form.getFieldState('currency').isDirty) {
+				form.setValue('currency', parsedData?.currency)
+			}
 		}
 	}, [parsedData?.title])
 
@@ -75,6 +86,7 @@ const AddLinkScreen = () => {
 					realm.create('Item', {
 						// parentId: folderToSetIn,
 						...data,
+						price: data.price ? Number(data.price) : undefined,
 						type: shareIntent.type == 'weburl' ? 'link' : 'media',
 						parentId: folderToSetIn
 					})
@@ -126,6 +138,42 @@ const AddLinkScreen = () => {
 					/>
 				</TopContent>
 				<View className='px-4 items-start w-full justify-start flex-1 gap-y-8 h-full'>
+					{shareIntent.type == 'weburl' && shareIntent.webUrl && detectMarketplace(shareIntent.webUrl) &&
+						<View className='flex-row items-center justify-start gap-x-4 '>
+							<FormField
+								name='price'
+								render={({ field: { value, onChange } }) =>
+									<FormItem className='p-0 m-0 w-fit gap-y-4' >
+										<FormLabel nativeID='price'>
+											<Text>
+												{t('price')}
+											</Text>
+										</FormLabel>
+										<Input
+											nativeID='price'
+											className=' w-full text-center'
+											value={value}
+											onChangeText={onChange}
+										/>
+									</FormItem>
+								}
+							/>
+							<FormField
+								name='currency'
+								render={({ field: { value } }) =>
+									<FormItem className='p-0 m-0 w-full gap-y-4' >
+										<FormLabel nativeID='currency'></FormLabel>
+										<Text
+											className='border-0 text-xl'
+											nativeID='currency'
+										>
+											{value}
+										</Text>
+									</FormItem>
+								}
+							/>
+						</View>
+					}
 					<FormField
 						name='url'
 						render={({ field: { value, onChange } }) =>

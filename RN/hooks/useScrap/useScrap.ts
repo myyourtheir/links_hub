@@ -1,6 +1,7 @@
 import { ShareIntent } from 'expo-share-intent'
-import * as cheerio from 'cheerio'
+
 import { useCallback, useRef, useState } from 'react'
+import parseLocal from './parseLocal'
 
 export type ScrapData = {
 	icons: string[],
@@ -38,76 +39,30 @@ const useScrap = () => {
 					}
 				)
 					.then((response) => {
-						console.log('remoteParse')
-						return response.json()
-					})
-					.then(function (data) {
-						chachedUrlData.current[url] = data
-						setParsedData(data)
-					})
-					.catch((e) => {
-						console.log('localParse', e)
-						fetch(url,
-							{
-								method: 'GET',
-								headers: {
-									'Content-Type': 'text/html',
-								}
-							}
-						)
-							.then((response) => {
-								return response.text()
+						if (response.ok) {
+							response.json().then(data => {
+								chachedUrlData.current[url] = data
+								setParsedData(data)
 							})
-							.then(function (data) {
-								const $ = cheerio.load(data)
-
-								//parse title
-								if (shareIntent?.text !== shareIntent.webUrl) {
-									setParsedData(prev => {
-										return {
-											...prev,
-											title: shareIntent.text?.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '') as string
-										}
-									})
-								} else {
-									const parsedTitle = $('title').text()
-									if (parsedTitle) {
-										setParsedData(prev => {
-											return {
-												...prev,
-												title: parsedTitle
-											}
+								.catch(e => {
+									parseLocal(shareIntent)
+										.then(data => {
+											setParsedData(data)
 										})
-									}
-								}
-
-								//parse icons
-								const parsedIcons: {
-									href: string,
-									sizes: number | null,
-								}[] = []
-								$('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"], img').each((_, el) => {
-									const href = el.tagName === 'link' ? $(el).attr('href') : $(el).attr('src')
-									const sizes = $(el).attr('sizes')
-
-									if (href) {
-										parsedIcons.push({
-											href: href.startsWith('/') ? new URL(href, url).href : href,
-											sizes: sizes ? parseInt(sizes.split('x')[0], 10) : null,
+										.catch(e => {
+											console.log('localParseError', e)
 										})
-									}
 								})
-								setParsedData(prev => {
-									return {
-										...prev,
-										icons: Array.from(new Set(parsedIcons.map(icon => icon.href)))
-									}
+						}
+						else {
+							parseLocal(shareIntent)
+								.then(data => {
+									setParsedData(data)
 								})
-								console.log(Array.from(new Set(parsedIcons.map(icon => icon.href))))
-							})
-							.catch(function (err) {
-								console.log('Failed to fetch page: ', err)
-							})
+								.catch(e => {
+									console.log('localParseError', e)
+								})
+						}
 					})
 			}
 		}
