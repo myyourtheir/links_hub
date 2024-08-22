@@ -25,7 +25,7 @@ const ItemsFlatList: FC<ItemsFlatListProps> = ({ data, onItemClick, withOptionsM
 			onItemLongPress: () => { return }
 		}}>
 			<FlatList
-				className='mt-1'
+				className='mt-6'
 				contentContainerStyle={{
 					marginHorizontal: '5%',
 				}}

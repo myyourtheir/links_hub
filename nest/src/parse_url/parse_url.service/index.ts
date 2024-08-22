@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable, OnModuleDestroy, OnModuleInit, OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common'
 import { ParseUrlDto } from '../parse_url.dto/dto'
 import parseOther from './parseOther'
 import { parseWbProduct } from './wb.product'
@@ -11,15 +11,15 @@ const StealthPlugin = require("puppeteer-extra-plugin-stealth")
 
 
 @Injectable()
-export class ParseUrlService implements OnModuleInit, OnModuleDestroy {
+export class ParseUrlService implements OnApplicationBootstrap, OnApplicationShutdown {
 	private browser: Browser
 
-	async onModuleInit() {
+	async onApplicationBootstrap() {
 		puppeteer.use(StealthPlugin())
 		this.browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] })
 	}
 
-	async onModuleDestroy() {
+	async onApplicationShutdown() {
 		if (this.browser) {
 			await this.browser.close()
 		}

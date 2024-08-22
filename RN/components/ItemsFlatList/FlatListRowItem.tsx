@@ -20,23 +20,33 @@ const FlatListRowItem = ({ item }: ItemComponentProps) => {
 		>
 
 			<View
-				className={`${mode === 'select' && 'ml-10'}  flex-row gap-x-2 items-center mb-3`}
+				className={`${mode === 'select' && 'ml-10'}  flex-row gap-x-6 items-center mb-8 w-fit `}
 			>
 				<FlatListImage
 					item={item}
 					style={{
-						width: 40,
-						height: 40
+						width: 160,
+						height: 160
 					}}
 				/>
-				<Text
-					style={{
-						width: '80%',
-						maxWidth: 400
-					}}
-					numberOfLines={1}
-					className='font-normal text-ellipsis whitespace-nowrap overflow-hidden'
-				>{item.title}</Text>
+				<View className=' justify-between h-[100px]'>
+					<Text
+						style={{
+							// width: '50%',
+							maxWidth: 120,
+							textAlignVertical: 'top',
+
+						}}
+						numberOfLines={2}
+						className='font-normal text-ellipsis whitespace-nowrap overflow-hidden text-lg'
+					>{item.title}</Text>
+					<Text
+						numberOfLines={1}
+						className='font-normal text-ellipsis whitespace-nowrap overflow-hidden text-center mt-2 text-xl'
+					>
+						{item.price} {item.currency}
+					</Text>
+				</View>
 			</View>
 
 		</TouchableOpacity>

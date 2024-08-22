@@ -6,6 +6,9 @@ import whiteFile from "../assets/images/fileWhite.png"
 import docFile from "../assets/images/doc_file.png"
 import pdfFile from "../assets/images/pdf_file.png"
 import xlsFile from "../assets/images/xls_file.png"
+import wbLogo from "../assets/images/wbLogo.png"
+import yaMarketLogo from "../assets/images/yaMarketLogo.png"
+import ozonLogo from "../assets/images/ozonLogo.png"
 
 
 export default {
@@ -16,5 +19,8 @@ export default {
 	whiteFile,
 	docFile,
 	pdfFile,
-	xlsFile
+	xlsFile,
+	wbLogo,
+	yaMarketLogo,
+	ozonLogo
 }

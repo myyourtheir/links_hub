@@ -1,10 +1,11 @@
 import { ImageStyle, StyleProp, Image } from 'react-native'
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 import images from '~/constants/images'
 import { Item } from '~/lib/Realm/models/Item'
 import { useColorScheme } from '~/lib/useColorScheme'
 import { useParseIconsContext } from '~/hooks/useParseIconsContext'
 import ExtendedImage from '../ExtendedImage'
+import ImageMarketPlaceWrapper from './ImageMarketPlaceWrapper'
 
 type FlatListImageProps = {
 	item: Item,
@@ -15,7 +16,7 @@ type FlatListImageProps = {
 const FlatListImage: FC<FlatListImageProps> = ({ item, style, className }) => {
 	const { isDarkColorScheme } = useColorScheme()
 	const { parseIcons } = useParseIconsContext()
-	const getDefaultSource = () => {
+	const getDefaultSource = useCallback(() => {
 
 		if (isDarkColorScheme) {
 			if (item.type === 'folder') return images.folder
@@ -41,15 +42,17 @@ const FlatListImage: FC<FlatListImageProps> = ({ item, style, className }) => {
 				}
 			}
 		}
-	}
+	}, [])
 
 	return (
-		<>
+		<ImageMarketPlaceWrapper item={item}>
+
 			{item.image && parseIcons ?
 				<ExtendedImage icon={item.image} style={style} />
 				:
 				<Image className={`${className}`} source={getDefaultSource()} resizeMode='contain' style={style} />}
-		</>
+
+		</ImageMarketPlaceWrapper>
 
 	)
 }

@@ -34,9 +34,15 @@ const FlatListGridItem = ({ item }: ItemComponentProps) => {
 				/>
 				<Text
 					numberOfLines={1}
-					className='font-normal text-ellipsis whitespace-nowrap overflow-hidden text-center mt-2'
+					className='font-normal text-ellipsis whitespace-nowrap overflow-hidden text-center mt-2 text-lg'
 				>
 					{item.title}
+				</Text>
+				<Text
+					numberOfLines={1}
+					className='font-normal text-ellipsis whitespace-nowrap overflow-hidden text-center mt-2 text-xl'
+				>
+					{item.price} {item.currency}
 				</Text>
 			</View>
 		</TouchableOpacity>
