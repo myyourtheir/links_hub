@@ -7,8 +7,8 @@ import { Item } from '~/lib/Realm/models/Item'
 import { ItemsFlatListContext } from '../ItemsFlatList/ItemsFlatListContext'
 import RecentItem from './RecentItem'
 import { router } from 'expo-router'
-import useHandleItemClick from '~/utils/handleItemClick'
 import { useTranslation } from 'react-i18next'
+import useHandleItemClick from '~/hooks/usehandleItemClick'
 const { useQuery, useRealm } = RealmContext
 
 

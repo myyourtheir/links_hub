@@ -85,6 +85,7 @@ const useScrap = () => {
 				})
 			}
 		}
+		return parsedData
 	}, [])
 	return { scrap, parsedData }
 }

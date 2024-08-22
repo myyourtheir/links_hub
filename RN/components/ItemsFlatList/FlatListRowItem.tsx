@@ -20,7 +20,11 @@ const FlatListRowItem = ({ item }: ItemComponentProps) => {
 		>
 
 			<View
-				className={`${mode === 'select' && 'ml-10'}  flex-row gap-x-6 items-center mb-8 w-fit `}
+				className={`${mode === 'select' && 'ml-10'}  flex-row  items-center w-fit `}
+				style={{
+					columnGap: 24,
+					marginBottom: 32
+				}}
 			>
 				<FlatListImage
 					item={item}
@@ -29,7 +33,12 @@ const FlatListRowItem = ({ item }: ItemComponentProps) => {
 						height: 160
 					}}
 				/>
-				<View className=' justify-between h-[100px]'>
+				<View
+					style={{
+						justifyContent: 'space-between',
+						height: 100
+					}}
+				>
 					<Text
 						style={{
 							// width: '50%',

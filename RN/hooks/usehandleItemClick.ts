@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { Item } from '~/lib/Realm/models/Item'
 import FileViewer from "react-native-file-viewer"
 import { RealmContext } from '~/lib/Realm'
+import { t } from 'i18next'
 const { useRealm } = RealmContext
 
 
@@ -38,7 +39,11 @@ const useHandleItemClick = () => {
 			if (!item.url) {
 				throw new Error('No link in item')
 			}
-			FileViewer.open(item.url, { showOpenWithDialog: true })
+			try {
+				FileViewer.open(item.url, { showOpenWithDialog: true })
+			} catch (e) {
+				console.log('error while open media', e)
+			}
 		}
 	}
 	return { handleItemClick }

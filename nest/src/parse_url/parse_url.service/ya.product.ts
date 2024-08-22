@@ -5,7 +5,7 @@ export const parseYaProduct = async (url: string, browser: Browser) => {
 
 	const imageSelector = `li[role="tab"] button img`
 	const titleSelector = `h1[data-additional-zone="title"]`
-	const priceSelector = `h3.Jdxhz[data-auto="snippet-price-current"]`
+	const priceSelector = `h3[data-auto="snippet-price-current"]`
 	const currencySelector = `span._2MxwE`
 
 	console.log('yaParser')
@@ -35,6 +35,7 @@ export const parseYaProduct = async (url: string, browser: Browser) => {
 			}
 		}, titleSelector, imageSelector, priceSelector, currencySelector)
 		await page.close()
+
 		return data
 
 	} catch (error) {

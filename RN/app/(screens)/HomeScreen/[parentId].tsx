@@ -13,12 +13,12 @@ import useRedirectWhenShareIntent from '~/hooks/useRedirectWhenShareIntent'
 import RecentItems from '~/components/RecentItems'
 import useHandleBack from '~/hooks/useHanldeBack'
 import { z } from 'zod'
-import useHandleItemClick from '~/utils/handleItemClick'
 import { useTranslation } from 'react-i18next'
 import BottomRoundButtonWrapper from '~/components/BottomRoundButtonWrapper'
 import { PlusIcon } from 'lucide-react-native'
 import StyledIcon from '~/components/StyledIcon'
 import AddItemWrapper from '~/components/AddItemWrapper'
+import useHandleItemClick from '~/hooks/usehandleItemClick'
 
 
 

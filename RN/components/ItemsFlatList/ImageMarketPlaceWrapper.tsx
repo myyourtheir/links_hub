@@ -29,7 +29,12 @@ const ImageMarketPlaceWrapper = ({ children, item }: ImageMarketPlaceWrapperProp
 			{item.url && detectMarketplace(item.url as string)
 				? <View className='relative'>
 					{children}
-					<View className='absolute left-1 bottom-1'>
+					<View
+						style={{
+							position: 'absolute',
+							left: 4,
+							bottom: 4,
+						}}>
 						<Image
 							source={getDefaultSource()}
 							resizeMode='contain'

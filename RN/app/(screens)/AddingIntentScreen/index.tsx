@@ -18,16 +18,16 @@ import useFocus from '~/hooks/useFocus'
 import { ShareIntent } from 'expo-share-intent/build/ExpoShareIntentModule.types'
 import ImagePicker from './ImagePicker'
 import getUrl from '~/utils/getUrl'
-import scrap from '~/utils/scrap'
 import useScrap from '~/hooks/useScrap/useScrap'
 import detectMarketplace from '~/utils/detectMarketplace'
+import AddScreenSkeleton from './AddScreenSkeleton'
 const { useRealm } = RealmContext
 
 
 const schema = z.object({
 	title: z.string(),
 	description: z.string().nullable(),
-	image: z.string().nullable(),
+	image: z.string().nullable().optional(),
 	url: z.string().nullable(),
 	parentId: z.instanceof(BSON.ObjectId).nullable(),
 	price: z.preprocess(
@@ -39,6 +39,7 @@ const schema = z.object({
 export type FormAddLinkSchema = z.infer<typeof schema>
 
 const AddLinkScreen = () => {
+	const [isLoading, setIsLoading] = useState(true)
 	const titleInputRef = useRef<TextInput>(null)
 	const descriptionInputRef = useRef<TextInput>(null)
 	// useFocus({ ref: descriptionInputRef })
@@ -48,7 +49,10 @@ const AddLinkScreen = () => {
 	const { globalState: { folderToSetIn, addingData }, globalDispatch } = useGlobalContext()
 	const { scrap, parsedData } = useScrap()
 	useEffect(() => {
-		scrap(shareIntent)
+		setIsLoading(true)
+		scrap(shareIntent).finally(() => {
+			setIsLoading(false)
+		})
 	}, [shareIntent])
 
 	const defaultValues: FormAddLinkSchema = addingData ? addingData : {
@@ -74,7 +78,7 @@ const AddLinkScreen = () => {
 				form.setValue('currency', parsedData?.currency)
 			}
 		}
-	}, [parsedData?.title])
+	}, [parsedData.title, parsedData.price, parsedData.currency])
 
 
 
@@ -102,8 +106,12 @@ const AddLinkScreen = () => {
 			console.log('error while parsing data', e)
 		}
 	}
+	if (isLoading) {
+		return <AddScreenSkeleton />
+	}
 	return (
 		<ScrollView>
+
 			<Form {...form}>
 				<TopContent
 					className='mb-4'
@@ -139,7 +147,12 @@ const AddLinkScreen = () => {
 				</TopContent>
 				<View className='px-4 items-start w-full justify-start flex-1 gap-y-8 h-full'>
 					{shareIntent.type == 'weburl' && shareIntent.webUrl && detectMarketplace(shareIntent.webUrl) &&
-						<View className='flex-row items-center justify-start gap-x-4 '>
+						<View
+							className='flex-row items-center justify-start '
+							style={{
+								columnGap: 8
+							}}
+						>
 							<FormField
 								name='price'
 								render={({ field: { value, onChange } }) =>
