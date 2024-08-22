@@ -22,7 +22,7 @@ import useHandleItemClick from '~/hooks/usehandleItemClick'
 import { Animated } from 'react-native'
 
 
-const animationRange = 80
+const animationRange = 72
 
 const { useQuery, useRealm } = RealmContext
 
@@ -31,8 +31,9 @@ const HomeScreen = () => {
 	const scrollY = useAnimatedValue(0)
 	const diffClamp = Animated.diffClamp(scrollY, 0, animationRange)
 	const translateY = diffClamp.interpolate({
-		inputRange: [0, 20],
+		inputRange: [0, animationRange],
 		outputRange: [0, animationRange * 2],
+
 	})
 
 	const { parentId } = useLocalSearchParams()
@@ -81,8 +82,15 @@ const HomeScreen = () => {
 				}
 				<ItemsFlatList
 					onScroll={(e) => {
-						scrollY.setValue(e.nativeEvent.contentOffset.y)
+						const yOffset = e.nativeEvent.contentOffset.y
+
+						if (yOffset <= 0) {
+							scrollY.setValue(0)
+						} else {
+							scrollY.setValue(yOffset)
+						}
 					}}
+
 					data={items}
 					ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}
 					onItemClick={handleItemClick}
