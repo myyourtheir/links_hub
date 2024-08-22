@@ -1,4 +1,4 @@
-import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common'
 import { ParseUrlDto } from '../parse_url.dto/dto'
 import parseOther from './parseOther'
 import { parseWbProduct } from './wb.product'
@@ -26,16 +26,16 @@ export class ParseUrlService implements OnModuleInit, OnModuleDestroy {
 	}
 	parseUrl(body: ParseUrlDto) {
 		switch (true) {
-			case body.url.includes('www.wildberries.ru/catalog'):
+			case body.url.includes('wildberries.ru/catalog'):
 				return parseWbProduct(body.url, this.browser)
-			case body.url.includes('market.yandex.ru/product'):
+			case body.url.includes('market.yandex.ru/product') || body.url.includes('market.yandex.ru/cc'):
 				return parseYaProduct(body.url, this.browser)
-			case body.url.includes('www.ozon.ru/product'):
+			case body.url.includes('ozon.ru/product'):
 				return parseOzonProduct(body.url, this.browser)
-			case body.url.includes('www.youtube.com/watch'):
+			case body.url.includes('youtube.com/watch'):
 				return parseYoutubeVideo(body.url, this.browser)
 			default:
-				return parseOther(body.url)
+				throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND)
 		}
 	}
 }

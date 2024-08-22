@@ -7,6 +7,7 @@ export class ParseUrlController {
 	constructor(private readonly service: ParseUrlService) { }
 	@Post('parse_url')
 	parseUrl(@Body() body: ParseUrlDto) {
+		console.log(body)
 		return this.service.parseUrl(body)
 	}
 }

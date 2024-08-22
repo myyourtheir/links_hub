@@ -8,15 +8,6 @@ const useParseUrl = (shareIntent: ShareIntent) => {
 	const [parsedIcons, setParsedIcons] = useState<string[] | null>(null)
 	const url = shareIntent.webUrl
 
-	const getUrl = useCallback(() => {
-		if (shareIntent.type == 'weburl') {
-			return shareIntent.webUrl
-		}
-		if ((shareIntent.type == 'media' || shareIntent.type == 'file') && shareIntent.files) {
-			return shareIntent.files[0].path
-		}
-		return 'null'
-	}, [])
 	console.log(parsedIcons)
 	useEffect(() => {
 		if (shareIntent.type === 'weburl') {
@@ -62,7 +53,6 @@ const useParseUrl = (shareIntent: ShareIntent) => {
 							}
 						})
 						setParsedIcons(Array.from(new Set(icons.map(icon => icon.href))))
-						console.log(Array.from(new Set(icons.map(icon => icon.href))))
 					})
 					.catch(function (err) {
 						console.log('Failed to fetch page: ', err)
@@ -81,7 +71,7 @@ const useParseUrl = (shareIntent: ShareIntent) => {
 		}
 	}, [url])
 
-	return { parsedTitle, parsedIcons, getUrl }
+	return { parsedTitle, parsedIcons }
 }
 
 export default useParseUrl

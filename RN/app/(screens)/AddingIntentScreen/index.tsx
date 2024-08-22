@@ -1,5 +1,5 @@
 import { ScrollView, Share, TextInput, View } from 'react-native'
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Text } from '~/components/ui/text'
 import { router } from 'expo-router'
 import TopContent from '~/components/TopContent'
@@ -15,9 +15,11 @@ import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
 import { BSON } from 'realm'
 import useGetCurrentPath from '~/hooks/useGetCurrentPath'
 import useFocus from '~/hooks/useFocus'
-import useParseUrl from '~/hooks/useParseUrl'
 import { ShareIntent } from 'expo-share-intent/build/ExpoShareIntentModule.types'
 import ImagePicker from './ImagePicker'
+import getUrl from '~/utils/getUrl'
+import scrap from '~/utils/scrap'
+import useScrap from '~/hooks/useScrap/useScrap'
 const { useRealm } = RealmContext
 
 
@@ -26,7 +28,9 @@ const schema = z.object({
 	description: z.string().nullable(),
 	image: z.string().nullable(),
 	url: z.string().nullable(),
-	parentId: z.instanceof(BSON.ObjectId).nullable()
+	parentId: z.instanceof(BSON.ObjectId).nullable(),
+	price: z.number().optional(),
+	currency: z.string().optional()
 })
 
 export type FormAddLinkSchema = z.infer<typeof schema>
@@ -39,23 +43,27 @@ const AddLinkScreen = () => {
 	const { t } = useTranslation()
 	const realm = useRealm()
 	const { globalState: { folderToSetIn, addingData }, globalDispatch } = useGlobalContext()
-	const { parsedTitle, getUrl, parsedIcons } = useParseUrl(shareIntent)
+	const { scrap, parsedData } = useScrap()
+	useEffect(() => {
+		scrap(shareIntent)
+	}, [shareIntent])
 
 	const defaultValues: FormAddLinkSchema = addingData ? addingData : {
 		title: '',
 		description: '',
-		image: parsedIcons ? parsedIcons[0] : null,
-		url: getUrl(),
-		parentId: null
+		image: parsedData?.icons ? parsedData?.icons[0] : null,
+		url: getUrl(shareIntent),
+		parentId: null,
+		price: undefined,
+		currency: undefined,
 	}
 	const form = useForm({ defaultValues })
-	console.log(shareIntent)
 	const { currentPathText } = useGetCurrentPath({ currentParent: folderToSetIn })
 	useEffect(() => {
 		if ((shareIntent.type == 'weburl' || shareIntent.type == 'file') && !form.getFieldState('title').isDirty && !addingData) {
-			form.setValue('title', parsedTitle)
+			form.setValue('title', parsedData?.title)
 		}
-	}, [parsedTitle])
+	}, [parsedData?.title])
 
 
 
@@ -195,8 +203,8 @@ const AddLinkScreen = () => {
 						}
 					/>
 					{
-						shareIntent.type == 'weburl' && parsedIcons && parsedIcons.length > 0 ?
-							parsedIcons ?
+						shareIntent.type == 'weburl' && parsedData.icons && parsedData.icons.length > 0 ?
+							parsedData.icons ?
 								<FormField
 									name='image'
 									render={({ field: { value, onChange } }) =>
@@ -206,7 +214,7 @@ const AddLinkScreen = () => {
 													{t('icon')}
 												</Text>
 											</FormLabel>
-											<ImagePicker icons={parsedIcons} value={value} onChange={onChange} />
+											<ImagePicker icons={parsedData.icons} value={value} onChange={onChange} />
 										</FormItem>
 									}
 								/> :
