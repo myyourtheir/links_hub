@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { useAnimatedValue, View } from 'react-native'
 import React, { useEffect } from 'react'
 import TopLayoutComponent from './(components)/TopLayoutComponent'
 import ItemsFlatList from '~/components/ItemsFlatList/ItemsFlatList'
@@ -19,14 +19,22 @@ import { PlusIcon } from 'lucide-react-native'
 import StyledIcon from '~/components/StyledIcon'
 import AddItemWrapper from '~/components/AddItemWrapper'
 import useHandleItemClick from '~/hooks/usehandleItemClick'
+import { Animated } from 'react-native'
 
 
-
+const animationRange = 80
 
 const { useQuery, useRealm } = RealmContext
 
 const HomeScreen = () => {
 	useRedirectWhenShareIntent()
+	const scrollY = useAnimatedValue(0)
+	const diffClamp = Animated.diffClamp(scrollY, 0, animationRange)
+	const translateY = diffClamp.interpolate({
+		inputRange: [0, 20],
+		outputRange: [0, animationRange * 2],
+	})
+
 	const { parentId } = useLocalSearchParams()
 	const { globalDispatch, globalState: { mode } } = useGlobalContext()
 	const realm = useRealm()
@@ -61,7 +69,7 @@ const HomeScreen = () => {
 	const { handleItemClick } = useHandleItemClick()
 
 	return (
-		<AddItemWrapper parentId={parentId as string}>
+		<AddItemWrapper parentId={parentId as string} translateY={translateY}>
 			<BottomFlatListOptionsBarWrapper>
 				<TopLayoutComponent
 					parentId={parentId as string}
@@ -72,6 +80,9 @@ const HomeScreen = () => {
 					<RecentItems />
 				}
 				<ItemsFlatList
+					onScroll={(e) => {
+						scrollY.setValue(e.nativeEvent.contentOffset.y)
+					}}
 					data={items}
 					ListEmptyComponent={() => <ItemsFlatListEmptyComponent parentId={parentId} />}
 					onItemClick={handleItemClick}

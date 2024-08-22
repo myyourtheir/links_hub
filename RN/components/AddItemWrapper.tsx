@@ -10,8 +10,10 @@ import { Dialog, DialogContent, DialogTrigger } from './ui/dialog'
 import AddFolderForm from './AddFolderForm'
 import AddLinkForm from './AddLinkForm'
 import { useGlobalContext } from '~/lib/store/GlobalContextProvider'
+import { Animated } from 'react-native'
 
 type AddItemWrapperProps = {
+	translateY: Animated.AnimatedInterpolation<string | number>,
 	children: ReactNode,
 	parentId: string | string[]
 } & Partial<TouchableOpacityProps>
@@ -25,7 +27,7 @@ type AddItemWrapperContextProps = {
 const AddItemWrapperContext = React.createContext<AddItemWrapperContextProps | null>(null)
 
 
-const AddItemWrapper = ({ children, parentId, ...props }: AddItemWrapperProps) => {
+const AddItemWrapper = ({ children, parentId, translateY, ...props }: AddItemWrapperProps) => {
 	const [addItemType, setAddItemType] = React.useState<'folder' | 'link'>('folder')
 	const [open, setOpen] = React.useState(false)
 	const { globalState: { mode } } = useGlobalContext()
@@ -35,47 +37,54 @@ const AddItemWrapper = ({ children, parentId, ...props }: AddItemWrapperProps) =
 				{children}
 				{
 					mode === 'view' &&
-					<View className='absolute bottom-8 right-10'>
-						<Button
-							onLongPress={() => {
-								addItemType === 'folder' ? setAddItemType('link') : setAddItemType('folder')
-							}}
-							onPress={() => {
-								setOpen(prev => !prev)
-							}}
-							size={'icon'}
-							className='rounded-full h-20 w-20 bg-foreground flex flex-row items-center justify-center shadow-sm shadow-foreground'
-							{...props}
-						>
-							{
-								addItemType === 'folder'
-									?
-									<Dialog open={open} onOpenChange={setOpen}>
-										<DialogTrigger className='w-full h-full' asChild>
-											<StyledIcon reversed>
-												<FolderPlus size={32} strokeWidth={1.5} />
-											</StyledIcon>
+					<Animated.View
+						style={{
+							transform: [{ translateY: translateY }]
+						}}
+					>
 
-										</DialogTrigger>
-										<DialogContent className='w-[350px] '>
-											<AddFolderForm parentId={parentId} setOpen={setOpen} />
-										</DialogContent>
-									</Dialog>
-									:
-									<Dialog open={open} onOpenChange={setOpen}>
-										<DialogTrigger className='w-full h-full' asChild>
-											<StyledIcon reversed>
-												<FilePlus size={32} strokeWidth={1.5} />
-											</StyledIcon>
+						<View className='absolute bottom-8 right-10'>
+							<Button
+								onLongPress={() => {
+									addItemType === 'folder' ? setAddItemType('link') : setAddItemType('folder')
+								}}
+								onPress={() => {
+									setOpen(prev => !prev)
+								}}
+								size={'icon'}
+								className='rounded-full h-20 w-20 bg-foreground flex flex-row items-center justify-center shadow-sm shadow-foreground'
+								{...props}
+							>
+								{
+									addItemType === 'folder'
+										?
+										<Dialog open={open} onOpenChange={setOpen}>
+											<DialogTrigger className='w-full h-full' asChild>
+												<StyledIcon reversed>
+													<FolderPlus size={32} strokeWidth={1.5} />
+												</StyledIcon>
 
-										</DialogTrigger>
-										<DialogContent className='w-[350px] '>
-											<AddLinkForm parentId={parentId} setOpen={setOpen} />
-										</DialogContent>
-									</Dialog>
-							}
-						</Button>
-					</View>
+											</DialogTrigger>
+											<DialogContent className='w-[350px] '>
+												<AddFolderForm parentId={parentId} setOpen={setOpen} />
+											</DialogContent>
+										</Dialog>
+										:
+										<Dialog open={open} onOpenChange={setOpen}>
+											<DialogTrigger className='w-full h-full' asChild>
+												<StyledIcon reversed>
+													<FilePlus size={32} strokeWidth={1.5} />
+												</StyledIcon>
+
+											</DialogTrigger>
+											<DialogContent className='w-[350px] '>
+												<AddLinkForm parentId={parentId} setOpen={setOpen} />
+											</DialogContent>
+										</Dialog>
+								}
+							</Button>
+						</View>
+					</Animated.View>
 				}
 			</View>
 		</AddItemWrapperContext.Provider>
