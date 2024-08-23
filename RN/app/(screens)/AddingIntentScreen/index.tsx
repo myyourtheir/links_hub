@@ -77,6 +77,9 @@ const AddLinkScreen = () => {
 			if (!form.getFieldState('currency').isDirty) {
 				form.setValue('currency', parsedData?.currency)
 			}
+			if (!form.getFieldState('image').isDirty) {
+				form.setValue('image', parsedData?.icons ? parsedData?.icons[0] : null)
+			}
 		}
 	}, [parsedData.title, parsedData.price, parsedData.currency])
 
