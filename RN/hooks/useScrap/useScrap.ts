@@ -9,7 +9,8 @@ export type ScrapData = {
 	price?: number,
 	currency?: string
 }
-const apiUrl = 'https://linkshub.idropfiles.com'
+const apiUrl = 'http://172.28.100.196:3010'
+// const apiUrl = 'https://linkshub.idropfiles.com'
 
 const useScrap = () => {
 	const [parsedData, setParsedData] = useState<ScrapData>({

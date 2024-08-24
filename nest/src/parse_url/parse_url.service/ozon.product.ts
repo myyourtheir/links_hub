@@ -8,13 +8,13 @@ const titleSelector = '.m8o_27.tsHeadline550Medium'
 export const parseOzonProduct = async (url: string, browser: Browser) => {
 	console.log('ozonParser')
 
+	const page = await browser.newPage()
 	try {
-		const page = await browser.newPage()
-		await page.goto(url)
+		await page.goto(url, { waitUntil: 'load', timeout: 3000 })
 
-		await page.waitForSelector(imageSelector)
-		await page.waitForSelector(priceSelector)
-		await page.waitForSelector(titleSelector)
+		await page.waitForSelector(imageSelector, { timeout: 3000 })
+		await page.waitForSelector(priceSelector, { timeout: 3000 })
+		await page.waitForSelector(titleSelector, { timeout: 3000 })
 
 		await page.waitForSelector(imageSelector)
 		const data = await page.evaluate((imageSelector, priceSelector, titleSelector) => {
@@ -39,6 +39,7 @@ export const parseOzonProduct = async (url: string, browser: Browser) => {
 
 		return data
 	} catch (error) {
+		await page.close()
 		console.error('Error:', error)
 
 		throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND)

@@ -10,10 +10,10 @@ export const parseYaProduct = async (url: string, browser: Browser) => {
 
 	console.log('yaParser')
 
+	const page = await browser.newPage()
 	try {
-		const page = await browser.newPage()
-		await page.goto(url)
-		await page.waitForSelector(`li[role="tab"] button img`)
+		await page.goto(url, { waitUntil: 'load', timeout: 3000 })
+		await page.waitForSelector(`li[role="tab"] button img`, { timeout: 3000 })
 
 		const data = await page.evaluate((titleSelector, imageSelector, priceSelector, currencySelector) => {
 			const titleElement = document.querySelector(titleSelector) as HTMLHeadingElement
@@ -39,6 +39,7 @@ export const parseYaProduct = async (url: string, browser: Browser) => {
 		return data
 
 	} catch (error) {
+		await page.close()
 		console.error('Error:', error)
 		throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND)
 	}

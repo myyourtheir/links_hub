@@ -32,8 +32,8 @@ const schema = z.object({
 	parentId: z.instanceof(BSON.ObjectId).nullable(),
 	price: z.preprocess(
 		(val) => Number(val),
-		z.number().nonnegative("Число должно быть больше или равно нулю")).optional(),
-	currency: z.string().max(1).optional()
+		z.number().nonnegative("Число должно быть больше или равно нулю")).optional().nullable(),
+	currency: z.string().max(1).optional().nullable()
 })
 
 export type FormAddLinkSchema = z.infer<typeof schema>

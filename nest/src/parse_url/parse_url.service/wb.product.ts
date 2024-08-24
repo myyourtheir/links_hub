@@ -6,10 +6,10 @@ export const parseWbProduct = async (url: string, browser: Browser) => {
 	const imageSelector = `img[data-link="{on 'load' ~onImgLoad}"]`
 	const priceSelector = `ins.price-block__final-price.wallet`
 
+	const page = await browser.newPage()
 	try {
-		const page = await browser.newPage()
-		await page.goto(url)
-		await page.waitForSelector(imageSelector)
+		await page.goto(url, { waitUntil: 'load', timeout: 3000 })
+		await page.waitForSelector(imageSelector, { timeout: 3000 })
 		const data = await page.evaluate((titleSelector, imageSelector, priceSelector) => {
 			const titleElement = document.querySelector(titleSelector) as HTMLElement
 			const title = titleElement.innerText
@@ -27,8 +27,10 @@ export const parseWbProduct = async (url: string, browser: Browser) => {
 				currency
 			}
 		}, titleSelector, imageSelector, priceSelector)
+		await page.close()
 		return data
 	} catch (error) {
+		await page.close()
 		console.error('Error:', error)
 		throw new HttpException('NOT_FOUND', HttpStatus.NOT_FOUND)
 	}
