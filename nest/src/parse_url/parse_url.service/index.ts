@@ -32,7 +32,7 @@ export class ParseUrlService implements OnApplicationBootstrap, OnApplicationShu
 				return parseWbProduct(body.url, this.browser)
 			case body.url.includes('market.yandex.ru/product') || body.url.includes('market.yandex.ru/cc'):
 				return parseYaProduct(body.url, this.browser)
-			case body.url.includes('ozon.ru/product'):
+			case body.url.includes('ozon.ru/product') || body.url.includes('ozon.ru/t'):
 				return parseOzonProduct(body.url, this.browser)
 			case body.url.includes('youtube.com/watch'):
 				return parseYoutubeVideo(body.url, this.browser)
