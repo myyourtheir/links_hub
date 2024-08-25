@@ -19,7 +19,7 @@ const ImageMarketPlaceWrapper = ({ children, item }: ImageMarketPlaceWrapperProp
 					return images.wbLogo
 				case item.url.includes('market.yandex.ru/product') || item.url.includes('market.yandex.ru/cc'):
 					return images.yaMarketLogo
-				case item.url.includes('ozon.ru/product'):
+				case item.url.includes('ozon.ru/product') || item.url.includes('ozon.ru/t'):
 					return images.ozonLogo
 			}
 		else return null

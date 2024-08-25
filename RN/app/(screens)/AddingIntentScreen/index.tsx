@@ -45,7 +45,6 @@ const AddLinkScreen = () => {
 	}
 	return (
 		<AddIntentForm defaultValues={defaultValues} icons={parsedIcons} />
-		// <AddScreenSkeleton />
 	)
 }
 export default AddLinkScreen
