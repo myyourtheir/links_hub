@@ -9,16 +9,9 @@ export type ScrapData = {
 	price?: number,
 	currency?: string
 }
-const apiUrl = 'http://172.28.100.196:3010'
-// const apiUrl = 'https://linkshub.idropfiles.com'
+const apiUrl = 'https://linkshub.idropfiles.com'
 
 const useScrap = () => {
-	const [parsedData, setParsedData] = useState<ScrapData>({
-		icons: [],
-		title: '',
-		price: undefined,
-		currency: undefined
-	})
 	const chachedUrlData = useRef<Record<string, ScrapData>>({})
 	const scrap = useCallback(async (shareIntent: ShareIntent) => {
 
@@ -26,9 +19,10 @@ const useScrap = () => {
 			const url = shareIntent.webUrl
 			if (url) {
 				if (chachedUrlData.current[url]) {
-					setParsedData(chachedUrlData.current[url])
+					//setParsedData(chachedUrlData.current[url])
+					return chachedUrlData.current[url]
 				}
-				fetch(`${apiUrl}/parse_url`,
+				const response = await fetch(`${apiUrl}/parse_url`,
 					{
 						method: 'POST',
 						headers: {
@@ -39,56 +33,58 @@ const useScrap = () => {
 						}),
 					}
 				)
-					.then((response) => {
-						if (response.ok) {
-							response.json().then(data => {
-								chachedUrlData.current[url] = data
-								setParsedData(data)
-							})
-								.catch(e => {
-									parseLocal(shareIntent)
-										.then(data => {
-											setParsedData(data)
-										})
-										.catch(e => {
-											console.log('localParseError', e)
-										})
-								})
-						}
-						else {
+				if (response.ok) {
+					try {
+						const data = await response.json()
+						chachedUrlData.current[url] = data
+						console.log(data)
+						//setParsedData(data)
+						return data
+					} catch (e) {
+						try {
+							const data = await parseLocal(shareIntent)
 							parseLocal(shareIntent)
-								.then(data => {
-									setParsedData(data)
-								})
-								.catch(e => {
-									console.log('localParseError', e)
-								})
+							//setParsedData(data)
+							return data
+
+						} catch (e) {
+							console.log('localParseError', e)
 						}
-					})
+					}
+				}
+				else {
+					try {
+						const data = await parseLocal(shareIntent)
+						return data
+					} catch (e) {
+						console.log('localParseError', e)
+					}
+				}
 			}
 		}
 		if (shareIntent.type === 'file' && shareIntent.files && shareIntent.files[0].fileName) {
-			setParsedData(prev => {
-				return {
-					...prev,
-					title: shareIntent.files![0].fileName
-				}
-			})
+			return {
+				icons: [],
+				title: shareIntent.files![0].fileName,
+				price: undefined,
+				currency: undefined
+			}
 		}
 		if (shareIntent.type === "media" && shareIntent.files && shareIntent.files[0].fileName) {
 			const fileName = shareIntent.files[0].fileName
 			if (/.(jpg|jpeg|png|bmp)$/.test(fileName)) {
-				setParsedData(prev => {
-					return {
-						...prev,
-						icons: [shareIntent.files![0].path]
-					}
-				})
+
+				return {
+					icons: [shareIntent.files![0].path],
+					title: '',
+					price: undefined,
+					currency: undefined
+				}
 			}
 		}
-		return parsedData
+		throw new Error('Не удалось определить тип файла')
 	}, [])
-	return { scrap, parsedData }
+	return { scrap }
 }
 
 export default useScrap
