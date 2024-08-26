@@ -15,9 +15,9 @@ const AddLinkScreen = () => {
 	const { shareIntent } = useShareIntentContext()
 	const { scrap } = useScrap()
 	useEffect(() => {
+
 		scrap(shareIntent)
 			.then((data) => {
-				console.log('data', data)
 				setParsedIcons(data?.icons || [])
 				setDefaultValues({
 					title: data?.title,
@@ -30,11 +30,14 @@ const AddLinkScreen = () => {
 				})
 			})
 			.catch(e => {
-				router.replace({
-					pathname: '/HomeScreen/[parentId]',
-					params: {
-						parentId: 'null'
-					}
+				setDefaultValues({
+					title: '',
+					description: 'Parse error',
+					image: null,
+					url: getUrl(shareIntent),
+					parentId: null,
+					price: 0,
+					currency: ''
 				})
 				console.log('error', e)
 			})

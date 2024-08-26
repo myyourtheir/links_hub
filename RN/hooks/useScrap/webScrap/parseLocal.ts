@@ -1,6 +1,6 @@
 import { ShareIntent } from 'expo-share-intent'
 import * as cheerio from 'cheerio'
-import { ScrapData } from './useScrap'
+import { ScrapData } from '../../useScrap'
 
 const parseLocal = async (shareIntent: ShareIntent) => {
 	console.log('localParse')

@@ -27,7 +27,7 @@ const schema = z.object({
 	price: z.preprocess(
 		(val) => Number(val),
 		z.number().nonnegative("Число должно быть больше или равно нулю")).optional().nullable(),
-	currency: z.string().max(1).optional().nullable()
+	currency: z.string().optional().nullable()
 })
 
 export type FormAddLinkSchema = z.infer<typeof schema>
@@ -45,7 +45,7 @@ const AddIntentForm = ({ defaultValues, icons }: AddIntentFormProps) => {
 	const titleInputRef = useRef<TextInput>(null)
 	const descriptionInputRef = useRef<TextInput>(null)
 	const realm = useRealm()
-	const form = useForm({ defaultValues: addingData || defaultValues })
+	const form = useForm({ defaultValues: addingData || { ...defaultValues, price: defaultValues.price?.toString(), currency: defaultValues.currency } })
 
 	const onSubmit: SubmitHandler<FormAddLinkSchema> = (data) => {
 		try {

@@ -17,7 +17,7 @@ export class ParseUrlService implements OnApplicationBootstrap, OnApplicationShu
 
 	async onApplicationBootstrap() {
 		puppeteer.use(StealthPlugin())
-		this.browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] })
+		this.browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] })
 	}
 
 
@@ -32,8 +32,8 @@ export class ParseUrlService implements OnApplicationBootstrap, OnApplicationShu
 				return parseWbProduct(body.url, this.browser)
 			case body.url.includes('market.yandex.ru/product') || body.url.includes('market.yandex.ru/cc'):
 				return parseYaProduct(body.url, this.browser)
-			case body.url.includes('ozon.ru/product') || body.url.includes('ozon.ru/t'):
-				return parseOzonProduct(body.url, this.browser)
+			// case body.url.includes('ozon.ru/product') || body.url.includes('ozon.ru/t'):
+			// 	return parseOzonProduct(body.url, this.browser)
 			case body.url.includes('youtube.com/watch'):
 				return parseYoutubeVideo(body.url, this.browser)
 			default:
