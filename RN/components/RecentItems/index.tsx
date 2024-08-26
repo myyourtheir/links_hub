@@ -25,7 +25,7 @@ const RecentItems = () => {
 	}, [realm]).slice(0, 10)
 	const { handleItemClick } = useHandleItemClick()
 	return (
-		<View className=' h-fit px-4 py-2 gap-y-2'>
+		<View className=' h-fit px-4 pt-2 gap-y-2'>
 			<View className=''>
 				<Text
 					className='text-2xl mb-2'

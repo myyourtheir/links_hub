@@ -20,7 +20,7 @@ const RecentItem = ({ item }: ItemComponentProps) => {
 			onPress={() => onItemClick(item)}
 			onLongPress={() => onItemLongPress(item)}
 		>
-			<View className='flex flex-col mb-3'>
+			<View className='flex flex-col '>
 				<FlatListImage
 					className='w-full h-full'
 					item={item}
