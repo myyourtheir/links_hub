@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus } from '@nestjs/common'
-import * as cheerio from 'cheerio'
 import { Browser } from 'puppeteer'
 const imageSelector = 'img.mk3_27.b916-a'
 const priceSelector = '.o1m_27.mo2_27.o5m_27'
