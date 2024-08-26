@@ -21,8 +21,10 @@ const ImageMarketPlaceWrapper = ({ children, item }: ImageMarketPlaceWrapperProp
 					return images.yaMarketLogo
 				case item.url.includes('ozon.ru/product') || item.url.includes('ozon.ru/t'):
 					return images.ozonLogo
+				case /.*avito.*_\d{10}/.test(item.url):
+					return images.avitoLogo
 			}
-		else return null
+		else return ''
 	}, [])
 	return (
 		<>

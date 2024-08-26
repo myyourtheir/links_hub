@@ -11,16 +11,6 @@ const webScrap = async (shareIntent: ShareIntent): Promise<ScrapData> => {
 		if (cachedUrlData[url]) {
 			return cachedUrlData[url]
 		}
-		try {
-			const specificLocalData = await localParseSpecific(url)
-			if (specificLocalData) {
-				cachedUrlData[url] = specificLocalData
-				console.log('localParseSuccess', specificLocalData)
-				return specificLocalData
-			}
-		} catch (e) {
-			console.log('localParseError', e)
-		}
 		const response = await fetch(`${apiUrl}/parse_url`,
 			{
 				method: 'POST',
@@ -41,10 +31,7 @@ const webScrap = async (shareIntent: ShareIntent): Promise<ScrapData> => {
 			} catch (e) {
 				try {
 					const data = await parseLocal(shareIntent)
-					parseLocal(shareIntent)
-					//setParsedData(data)
 					return data
-
 				} catch (e) {
 					console.log('localParseError', e)
 				}
@@ -59,7 +46,7 @@ const webScrap = async (shareIntent: ShareIntent): Promise<ScrapData> => {
 			}
 		}
 	}
-	throw new Error('Не сработал паррсер веб-страницы')
+	throw new Error('Не сработал парсер веб-страницы')
 }
 
 export default webScrap

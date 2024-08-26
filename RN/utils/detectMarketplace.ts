@@ -3,7 +3,9 @@ const detectMarketplace = (url: string): boolean => {
 		|| url.includes('market.yandex.ru/cc')
 		|| url.includes('wildberries.ru/catalog')
 		|| url.includes('ozon.ru/product')
-		|| url.includes('ozon.ru/t')) {
+		|| url.includes('ozon.ru/t')
+		|| /.*avito.*_\d{10}/.test(url)
+	) {
 		return true
 	}
 	return false

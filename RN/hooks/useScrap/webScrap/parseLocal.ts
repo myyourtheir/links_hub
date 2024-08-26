@@ -1,17 +1,34 @@
 import { ShareIntent } from 'expo-share-intent'
 import * as cheerio from 'cheerio'
-import { ScrapData } from '../../useScrap'
+import { ScrapData } from '../useScrap'
+import localParseSpecific from './localSpecificParsers'
+
 
 const parseLocal = async (shareIntent: ShareIntent) => {
 	console.log('localParse')
+
+	const url = shareIntent.webUrl
+	const specificLocalData = await localParseSpecific(url!)
+	if (specificLocalData) {
+		console.log('localParseSuccess', specificLocalData)
+		return specificLocalData
+	} else {
+		return simpleParse(shareIntent)
+	}
+
+}
+
+
+export default parseLocal
+
+const simpleParse = async (shareIntent: ShareIntent) => {
 	let parsedData: ScrapData = {
 		icons: [],
 		title: '',
 		price: undefined,
 		currency: undefined
 	}
-	const url = shareIntent.webUrl
-	const response = await fetch(url!,
+	const response = await fetch(shareIntent.webUrl!,
 		{
 			method: 'GET',
 			headers: {
@@ -50,7 +67,7 @@ const parseLocal = async (shareIntent: ShareIntent) => {
 
 		if (href) {
 			parsedIcons.push({
-				href: href.startsWith('/') ? new URL(href, url!).href : href,
+				href: href.startsWith('/') ? new URL(href, shareIntent.webUrl!).href : href,
 				sizes: sizes ? parseInt(sizes.split('x')[0], 10) : null,
 			})
 		}
@@ -61,6 +78,3 @@ const parseLocal = async (shareIntent: ShareIntent) => {
 	}
 	return parsedData
 }
-
-
-export default parseLocal

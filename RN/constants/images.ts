@@ -9,6 +9,7 @@ import xlsFile from "../assets/images/xls_file.png"
 import wbLogo from "../assets/images/wbLogo.png"
 import yaMarketLogo from "../assets/images/yaMarketLogo.png"
 import ozonLogo from "../assets/images/ozonLogo.png"
+import avitoLogo from "../assets/images/avitoLogo.png"
 
 
 export default {
@@ -22,5 +23,6 @@ export default {
 	xlsFile,
 	wbLogo,
 	yaMarketLogo,
-	ozonLogo
+	ozonLogo,
+	avitoLogo
 }

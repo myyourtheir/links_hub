@@ -26,7 +26,7 @@ const ozonParser = async (url: string): Promise<ScrapData> => {
 		}
 	} catch (error) {
 		console.error('Error:', error)
-		throw new Error('Не удалось определить тип файла')
+		throw new Error('Не удалось распарсить страницу ozon')
 	}
 }
 export default ozonParser

@@ -1,6 +1,6 @@
 import { ShareIntent } from 'expo-share-intent'
 import { useCallback, useRef, useState } from 'react'
-import webScrap from './webScrap/webScrap'
+import webScrap from './webScrap'
 
 export type ScrapData = {
 	icons: string[],
@@ -13,7 +13,6 @@ export type ScrapData = {
 
 const useScrap = () => {
 	const scrap = useCallback(async (shareIntent: ShareIntent): Promise<ScrapData> => {
-
 		if (shareIntent.type === 'weburl') {
 			return webScrap(shareIntent)
 		}
