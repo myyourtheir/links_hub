@@ -28,3 +28,25 @@ export const getAppData = async (key: keyof AppDataKeys) => {
 		console.log(e)
 	}
 }
+export const getShowTutorial = async () => {
+	try {
+		const value = await AsyncStorage.getItem('showTutorial')
+		if (value !== null) {
+			return Boolean(value)
+		}
+	} catch (e) {
+		console.log(`while trying to getAppData(${'showTutorial'}) following error occured`)
+		console.log(e)
+	}
+}
+
+
+export const setShowTutorial = async (value: boolean) => {
+	try {
+		const valueToSet = value ? '1' : ''
+		await AsyncStorage.setItem('showTutorial', valueToSet)
+	} catch (e) {
+		console.log(`while trying to setAppData(${['showTutorial', 'showTutorial']}) following error occured`)
+		console.log(e)
+	}
+}

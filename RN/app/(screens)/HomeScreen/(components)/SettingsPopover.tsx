@@ -67,6 +67,14 @@ export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
 					</Link>
 				</DropdownMenuItem>
 
+				<DropdownMenuItem>
+					<Link className='w-full' href={{ pathname: 'TutorialScreen' }}>
+						<Text>
+							{t('howToUse')}
+						</Text>
+					</Link>
+				</DropdownMenuItem>
+
 
 			</DropdownMenuContent>
 		</DropdownMenu>
