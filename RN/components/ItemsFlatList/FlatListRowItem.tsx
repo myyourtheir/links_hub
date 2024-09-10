@@ -23,7 +23,8 @@ const FlatListRowItem = ({ item }: ItemComponentProps) => {
 				className={`${mode === 'select' && 'ml-10'}  flex-row  items-center w-fit `}
 				style={{
 					columnGap: 24,
-					marginBottom: 32
+					marginBottom: 32,
+					flex: 1
 				}}
 			>
 				<FlatListImage
@@ -42,7 +43,7 @@ const FlatListRowItem = ({ item }: ItemComponentProps) => {
 					<Text
 						style={{
 							// width: '50%',
-							maxWidth: 120,
+							// maxWidth: 120,
 							textAlignVertical: 'top',
 
 						}}

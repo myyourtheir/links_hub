@@ -1,7 +1,8 @@
 import { Item } from '~/lib/Realm/models/Item'
-import { FlatListProps, ListRenderItemInfo } from 'react-native'
+import { Dimensions, FlatListProps, ListRenderItemInfo } from 'react-native'
 
-
+const width = Dimensions.get('window').width
+export const gridColumnsCount = Math.floor((0.9 * width) / 160)
 export const extractOrientationDependingProps = ({ orientationMode }: { orientationMode: 'grid' | 'row' | undefined }): Partial<FlatListProps<Item>> & { key: string } => {
 
 	switch (orientationMode) {
@@ -9,9 +10,9 @@ export const extractOrientationDependingProps = ({ orientationMode }: { orientat
 		case 'grid':
 			return {
 				key: 'gridFlatList',
-				numColumns: 2,
+				numColumns: gridColumnsCount,
 				columnWrapperStyle: {
-					justifyContent: 'space-between',
+					columnGap: ((0.9 * width) % 160) / (gridColumnsCount - 1)
 				},
 			}
 
@@ -25,9 +26,9 @@ export const extractOrientationDependingProps = ({ orientationMode }: { orientat
 		default:
 			return {
 				key: 'gridFlatList',
-				numColumns: 2,
+				numColumns: gridColumnsCount,
 				columnWrapperStyle: {
-					justifyContent: 'space-between',
+					columnGap: ((0.9 * width) % 160) / (gridColumnsCount - 1)
 				},
 			}
 	}

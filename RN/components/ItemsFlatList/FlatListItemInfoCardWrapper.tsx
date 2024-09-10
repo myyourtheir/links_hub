@@ -27,7 +27,7 @@ const { useRealm } = RealmContext
 
 const FlatListItemInfoCardWrapper = ({ children, item }: { children: ReactNode, item: Item }) => {
 	return (
-		<View className='relative max-w-[300px]'>
+		<View className='relative w-fit'>
 			{children}
 			<Dialog className='absolute top-1 right-2'>
 				<DialogTrigger className=''>

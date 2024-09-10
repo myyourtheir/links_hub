@@ -1,6 +1,6 @@
 
-import { Link } from 'expo-router'
-import { EllipsisVertical } from 'lucide-react-native'
+import { Link, router } from 'expo-router'
+import { CircleHelp, EllipsisVertical } from 'lucide-react-native'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import StyledIcon from '~/components/StyledIcon'
 import { Button } from '~/components/ui/button'
@@ -41,24 +41,6 @@ export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
 				className='w-48'
 				sideOffset={-40}
 			>
-				{/* <DropdownMenuSub>
-
-					<DropdownMenuSubTrigger>
-						<Text>
-							{t('add')}
-						</Text>
-					</DropdownMenuSubTrigger>
-
-					<Animated.View entering={FadeIn.duration(200)}>
-						<DropdownMenuSubContent>
-							<AddFolderDialog parentId={parentId} />
-							<AddLinkDialog parentId={parentId} />
-						</DropdownMenuSubContent>
-					</Animated.View>
-				</DropdownMenuSub>
-
-				<DropdownMenuSeparator /> */}
-
 				<DropdownMenuItem>
 					<Link className='w-full' href={{ pathname: 'SettingsScreen' }}>
 						<Text>
@@ -67,12 +49,14 @@ export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
 					</Link>
 				</DropdownMenuItem>
 
-				<DropdownMenuItem>
-					<Link className='w-full' href={{ pathname: 'TutorialScreen' }}>
-						<Text>
-							{t('howToUse')}
-						</Text>
-					</Link>
+				<DropdownMenuItem className='justify-between' onPress={() => router.push({ pathname: 'TutorialScreen' })}>
+					<Text>
+						{t('howToUse')}
+					</Text>
+					<StyledIcon >
+						<CircleHelp size={20} />
+					</StyledIcon>
+
 				</DropdownMenuItem>
 
 
