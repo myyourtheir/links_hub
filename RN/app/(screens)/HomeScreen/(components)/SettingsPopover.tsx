@@ -38,7 +38,7 @@ export default function SettingsPopover({ parentId }: SettingsPopoverProps) {
 				</Button >
 			</DropdownMenuTrigger>
 			<DropdownMenuContent
-				className='w-48'
+				className='w-52'
 				sideOffset={-40}
 			>
 				<DropdownMenuItem>

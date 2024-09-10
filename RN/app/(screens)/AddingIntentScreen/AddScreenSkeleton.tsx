@@ -20,7 +20,7 @@ const AddScreenSkeleton = () => {
 					<Skeleton className={'flex-1 h-10'} />
 				</View>
 				<LikeFormItemSkeleton />
-				<LikeFormItemSkeleton />
+				{/* <LikeFormItemSkeleton /> */}
 				<LikeFormItemSkeleton className={'h-20'} />
 				<LikeFormItemSkeleton />
 

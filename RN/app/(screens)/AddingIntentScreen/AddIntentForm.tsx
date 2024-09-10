@@ -149,7 +149,7 @@ const AddIntentForm = ({ defaultValues, icons }: AddIntentFormProps) => {
 							/>
 						</View>
 					}
-					<FormField
+					{/* <FormField
 						name='url'
 						render={({ field: { value, onChange } }) =>
 							<FormItem className='p-0 m-0 w-full gap-y-4' >
@@ -166,7 +166,7 @@ const AddIntentForm = ({ defaultValues, icons }: AddIntentFormProps) => {
 								/>
 							</FormItem>
 						}
-					/>
+					/> */}
 					<FormField
 						name='description'
 						render={({ field: { value, onChange } }) =>

@@ -30,5 +30,7 @@
 	"showIcon": "Show icon",
 	"areYouSure": "Are you sure?",
 	"price": "Price",
-	"howToUse": "How to use"
+	"howToUse": "How to use",
+	"tutorialText": "Add everything you can share using the share button",
+	"gotIt": "Got it"
 }
